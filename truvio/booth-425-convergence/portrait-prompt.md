@@ -84,3 +84,16 @@ Background stays the same soft matte gradient field for the whole shot: pure whi
 
 Style: high-end broadcast motion design, soft volumetric light, generous negative space, no people, no clutter, smooth motion, nothing snaps or cuts. No text, letters or numbers anywhere except the four logos on the plates.
 ```
+
+Shot A draft 3 approved: job `ad08da37-9a40-46b7-801b-f94e2b3f1edf` (start keyframe `33ff076b-c114-4133-8ddb-b0e0ae51c66e`).
+
+## Shot B plate (6 to 20 s, textless)
+
+| Input | Role | Higgsfield media ID |
+|---|---|---|
+| `keyframes/key-flare.png` | start_image (matches Shot A's last frame) | `c2d679a5-b720-41a2-812d-94633426a183` |
+| `keyframes/key-end.png` | end_image | `16db74b7-a430-4a9c-a4e4-8cffef5cad18` |
+
+Settings: Seedance 2.5, omni_reference, 9:16, 14 s, 480p draft, audio off, high bitrate, 42 credits. First draft: job `68357b25-fe21-4de3-82f5-23e1d2cd0ae5`.
+
+Local timing (add 6 s for the edit): rings 0 to 1.5 s, halo 1.5 to 4.5 s, halo widens and rule draws 4.5 to 9.5 s, rule fades and pill settles with light sweep from 9.5 s, halo fades 10.5 to 11.5 s, hold to 14 s. No text or logos. Spectrum only: deep violet, blue, green, gold.
