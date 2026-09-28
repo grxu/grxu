@@ -1,6 +1,6 @@
-# Booth 425 convergence, portrait prompt (v2 draft)
+# Booth 425 convergence, portrait prompt (v4 draft)
 
-Adapted from Higgsfield generation `44848270-2ebb-4b41-9434-a1ea2acc4ad7` (Seedance 2.5, 21:9, 18 s, 20 Aug 2026). Matches storyboard v2. Do not render until the storyboard is locked.
+Adapted from Higgsfield generation `44848270-2ebb-4b41-9434-a1ea2acc4ad7` (Seedance 2.5, 21:9, 18 s, 20 Aug 2026). Matches storyboard v4. Do not render until the storyboard is locked.
 
 ## Settings
 
@@ -33,7 +33,7 @@ Adapted from Higgsfield generation `44848270-2ebb-4b41-9434-a1ea2acc4ad7` (Seeda
 ## Prompt
 
 ```
-Premium enterprise motion-graphics sequence, portrait 9:16, 20 seconds, no camera shake, elegant and restrained. Follow the motion, pacing and lighting of <<<video_1>>>, restaged for a tall portrait frame.
+"Premium enterprise motion-graphics sequence, portrait 9:16, 20 seconds, no camera shake, elegant and restrained. Follow the motion, pacing and lighting of <<<video_1>>>, restaged for a tall portrait frame.
 
 Background: a soft matte gradient field. Pure white at the centre, easing through off-white to pale lavender #E6E8FC at the edges.
 
@@ -45,7 +45,7 @@ Background: a soft matte gradient field. Pure white at the centre, easing throug
 
 7.5-10.5s: The rings settle into one faint, soft spectrum halo behind the centre. Total stillness.
 
-10.5-15.5s: The halo drifts gently. A thin spectrum rule in deep violet, blue, green and gold draws from left to right in the lower middle of the frame.
+10.5-15.5s: The halo slowly widens until it frames the upper two thirds of the frame with a clear margin, then drifts gently. A thin spectrum rule in deep violet, blue, green and gold draws from left to right in the lower middle of the frame.
 
 15.5-20s: The rule fades. A rounded white pill outlined in a deep violet, blue, green and gold gradient settles into the lower middle, and a single bright sweep of light runs through its outline. The frame holds perfectly still to the end, the halo breathing almost imperceptibly.
 
