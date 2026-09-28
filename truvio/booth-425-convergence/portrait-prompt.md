@@ -103,6 +103,6 @@ Local timing (add 6 s for the edit): rings 0 to 1.5 s, halo 1.5 to 4.5 s, halo w
 | Shot | From draft | Final job | Cost |
 |---|---|---|---|
 | A | `ad08da37-9a40-46b7-801b-f94e2b3f1edf` | `a137378e-3f53-43b8-aaeb-7707eacd66c5` | 72 credits |
-| B | `68357b25-fe21-4de3-82f5-23e1d2cd0ae5` | not yet finalised | 168 credits |
+| B | `68357b25-fe21-4de3-82f5-23e1d2cd0ae5` | `ebabb901-3485-413a-ad94-dfe64d1d33e6` | 168 credits |
 
 Finalising needs the original prompt and media resent with `draft_job_id`; an empty prompt fails validation. The Shot A final keeps the old SKsoft close-up, so pin `plates/sksoft_plate.png` over it in After Effects.
