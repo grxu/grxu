@@ -1,0 +1,541 @@
+<title>Booth 425 Convergence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500&family=Roboto+Slab:wght@500;700;900&display=swap">
+<style>
+  :root {
+    --bg: #FAF9FC;
+    --surface: #FFFFFF;
+    --ink: #1A1224;
+    --muted: #5E5870;
+    --line: #E5E1EC;
+    --accent: #400685;
+    --accent-ink: #FFFFFF;
+    --chip: #F2EEF8;
+    --code-bg: #F5F3F9;
+    --warn: #8A5A00;
+    --warn-bg: #FFF4DB;
+    --slab: "Roboto Slab", Georgia, "Times New Roman", serif;
+    --sans: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg: #110B19;
+      --surface: #1A1324;
+      --ink: #EFEBF5;
+      --muted: #A8A1B6;
+      --line: #2D2440;
+      --accent: #9C9DEC;
+      --accent-ink: #110B19;
+      --chip: #241B33;
+      --code-bg: #1F172C;
+      --warn: #FFC95C;
+      --warn-bg: #2B2111;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #110B19;
+    --surface: #1A1324;
+    --ink: #EFEBF5;
+    --muted: #A8A1B6;
+    --line: #2D2440;
+    --accent: #9C9DEC;
+    --accent-ink: #110B19;
+    --chip: #241B33;
+    --code-bg: #1F172C;
+    --warn: #FFC95C;
+    --warn-bg: #2B2111;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  .wrap {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding-inline: clamp(16px, 4vw, 40px);
+    padding-block: 40px 96px;
+    display: grid;
+    gap: 56px;
+  }
+  h1, h2, h3 { font-family: var(--slab); text-wrap: balance; margin: 0; }
+  h1 { font-size: clamp(32px, 5vw, 48px); font-weight: 900; line-height: 1.05; color: var(--accent); }
+  h2 { font-size: 24px; font-weight: 700; line-height: 1.2; }
+  h3 { font-size: 17px; font-weight: 700; line-height: 1.25; }
+  p { margin: 0; }
+  .eyebrow {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .section { display: grid; gap: 20px; }
+  .section-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .section-head p { color: var(--muted); max-width: 62ch; }
+
+  /* Header */
+  .top { display: grid; gap: 16px; }
+  .lede { font-size: 18px; max-width: 62ch; }
+  .specs {
+    display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 0; padding: 0;
+  }
+  .specs div {
+    display: grid; gap: 2px; padding: 10px 14px; border-radius: 10px; background: var(--chip); min-width: 110px;
+  }
+  .specs dt { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .specs dd { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+  /* Needed list */
+  .needed {
+    border: 1px solid var(--line); border-left: 4px solid var(--warn);
+    background: var(--surface); border-radius: 12px; padding: 20px 24px; display: grid; gap: 12px;
+  }
+  .needed h2 { font-size: 20px; }
+  .needed ol { margin: 0; padding-left: 22px; display: grid; gap: 8px; }
+  .needed li { max-width: 80ch; }
+  .needed strong { font-weight: 700; }
+
+  /* Idea */
+  .idea { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .idea div { display: grid; gap: 6px; align-content: start; padding-top: 14px; border-top: 2px solid var(--line); }
+  .idea .k { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+
+  /* Timeline */
+  .tl-scroll { overflow-x: auto; }
+  .tl { min-width: 680px; display: grid; grid-template-columns: 92px 1fr; gap: 8px 12px; align-items: center; }
+  .tl .lab { font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+  .bar { display: flex; height: 40px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); }
+  .bar > span {
+    display: flex; align-items: center; padding: 0 10px; font-size: 12px; font-weight: 700; white-space: nowrap; overflow: hidden;
+    border-right: 1px solid var(--line);
+  }
+  .bar > span:last-child { border-right: 0; }
+  .bar.panels > span { background: var(--surface); }
+  .bar.panels > span:nth-child(even) { background: var(--chip); }
+  .bar .white { background: #FFFFFF; color: #400685; }
+  .bar .violet { background: #400685; color: #FFFFFF; }
+  .bar.shots > span { background: var(--code-bg); color: var(--ink); }
+  .ticks { position: relative; height: 34px; }
+  .ticks span {
+    position: absolute; top: 0; transform: translateX(-1px); font-size: 11px; font-weight: 700; color: var(--accent);
+    border-left: 2px solid var(--accent); padding-left: 4px; height: 100%; display: flex; align-items: flex-end; font-variant-numeric: tabular-nums;
+  }
+  .axis { position: relative; height: 18px; }
+  .axis span { position: absolute; transform: translateX(-50%); font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .axis span:first-child { transform: none; }
+  .axis span:last-child { transform: translateX(-100%); }
+
+  /* Frames */
+  .toggle { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; color: var(--muted); cursor: pointer; }
+  .toggle input { accent-color: var(--accent); width: 16px; height: 16px; }
+  .frames { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px 20px; }
+  .frame { display: grid; gap: 10px; align-content: start; }
+  .frame figure { margin: 0; }
+  .frame svg {
+    display: block; width: 100%; height: auto; aspect-ratio: 780 / 1520; max-width: 100%;
+    border-radius: 6px; box-shadow: 0 0 0 1px var(--line);
+  }
+  .no-guides .guide { display: none; }
+  .fmeta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 12px; font-variant-numeric: tabular-nums; }
+  .fno { font-weight: 800; background: var(--accent); color: var(--accent-ink); border-radius: 5px; padding: 1px 7px; }
+  .tc { font-weight: 700; }
+  .pn { color: var(--muted); }
+  .frame dl { margin: 0; display: grid; gap: 6px; font-size: 13.5px; }
+  .frame dt { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .frame dd { margin: 0 0 4px; }
+
+  /* Spec */
+  .spec-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 32px; align-items: start; }
+  .table-scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td { text-align: left; padding: 10px 12px 10px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  td:first-child { font-weight: 700; }
+  .swatches { display: grid; gap: 18px; }
+  .swatch-group { display: grid; gap: 8px; }
+  .swatch-group h3 { font-size: 15px; }
+  .swatch { display: grid; grid-template-columns: 36px 1fr auto; gap: 12px; align-items: center; font-size: 14px; }
+  .swatch i { width: 36px; height: 36px; border-radius: 8px; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.12); }
+  .swatch code { font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+  .swatch .tbc { color: var(--warn); font-weight: 700; font-family: var(--sans); font-size: 12px; }
+  .note { font-size: 13px; color: var(--muted); }
+
+  /* Render plan */
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 20px; counter-reset: step; }
+  .step {
+    counter-increment: step; display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 4px 16px;
+    padding: 20px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface);
+  }
+  .step::before {
+    content: counter(step); grid-row: span 3; width: 32px; height: 32px; border-radius: 50%;
+    background: var(--chip); color: var(--accent); font-weight: 800; display: grid; place-items: center; font-variant-numeric: tabular-nums;
+  }
+  .step > * { grid-column: 2; }
+  .step p { color: var(--muted); max-width: 72ch; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .chips span { font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: var(--chip); }
+  .prompt { margin-top: 12px; display: grid; gap: 6px; }
+  .prompt-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .prompt-head span { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .copy {
+    font: inherit; font-size: 12px; font-weight: 700; color: var(--accent); background: transparent;
+    border: 1px solid var(--line); border-radius: 8px; padding: 4px 10px; cursor: pointer;
+  }
+  .copy:hover { border-color: var(--accent); }
+  .copy:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  pre {
+    margin: 0; padding: 14px 16px; background: var(--code-bg); border-radius: 8px; font-family: var(--mono);
+    font-size: 12.5px; line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere;
+  }
+  .step ul { margin: 8px 0 0; padding-left: 20px; display: grid; gap: 4px; max-width: 72ch; }
+
+  footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); padding-top: 16px; }
+
+  @media (max-width: 900px) {
+    .frames { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .spec-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .idea { grid-template-columns: 1fr; }
+    .step { grid-template-columns: 1fr; padding: 16px; }
+    .step::before { grid-row: auto; }
+    .step > * { grid-column: 1; }
+  }
+</style>
+
+<main class="wrap" id="top">
+
+  <header class="top">
+    <p class="eyebrow">Truvio · Community Summit North America · Booth 425</p>
+    <h1>Legacy brands convergence</h1>
+    <p class="lede">Storyboard v1 for the booth screen. Four legacy brands arrive as four coloured streams on a white page. The streams braid into one line, Deep Violet floods the screen, and Truvio opens inside its own gradient bands.</p>
+    <dl class="specs">
+      <div><dt>Canvas</dt><dd>780 × 1520 px</dd></div>
+      <div><dt>Length</dt><dd>18 s</dd></div>
+      <div><dt>Playback</dt><dd>Silent loop</dd></div>
+      <div><dt>Frames</dt><dd>8</dd></div>
+      <div><dt>Safe margin</dt><dd>47 px</dd></div>
+      <div><dt>Style</dt><dd>Classic motion</dd></div>
+    </dl>
+  </header>
+
+  <section class="needed" aria-labelledby="needed-h">
+    <h2 id="needed-h">Needed before the render</h2>
+    <ol>
+      <li><strong>SignUp brand colour.</strong> I have no official hex for it. The frames show its ribbon as a dashed grey line for now.</li>
+      <li><strong>Logo files, SVG preferred.</strong> Truvio, SignUp, Axtension, SKsoft and DynamicWeb. I place them into these frames at exact size. They stay out of every AI render.</li>
+      <li><strong>A reversed Truvio logo for Deep Violet.</strong> The guidelines keep the wordmark in Deep Violet, and a Deep Violet logo disappears on a Deep Violet field. Is there an approved white version? The fallback is the standard logo on a white card.</li>
+      <li><strong>Screen spec and file deadline from the AV vendor.</strong> Frame rate, codec and the date they need the file. The Summit opens 11 October, 13 days from today.</li>
+      <li><strong>Two quick confirms.</strong> The brief spells SkSoft, and my notes say SKsoft. The frames use SKsoft. The button uses Yellow Gold with Deep Violet text.</li>
+    </ol>
+  </section>
+
+  <section class="section" aria-labelledby="idea-h">
+    <div class="section-head">
+      <h2 id="idea-h">The idea</h2>
+    </div>
+    <div class="idea">
+      <div>
+        <span class="k">Colour</span>
+        <p>Each legacy brand keeps its own colour for Panel 1. The four colours braid into one line, and the line opens into the Truvio gradient bands.</p>
+      </div>
+      <div>
+        <span class="k">Background</span>
+        <p>White before the merge. Deep Violet floods out from the braid at 7.2 s and holds to the end. A white wipe at 17.4 s hands back to the start of the loop.</p>
+      </div>
+      <div>
+        <span class="k">Layout</span>
+        <p>Panel 1 sits left-aligned: four names on four separate rows. From Panel 3 on, everything is centred. Four things become one.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="tl-h">
+    <div class="section-head">
+      <h2 id="tl-h">Timeline</h2>
+      <p>Seedance 2.0 caps a clip at 15 seconds, so the render splits into two shots at the 8 second mark.</p>
+    </div>
+    <div class="tl-scroll">
+      <div class="tl">
+        <span class="lab">Frames</span>
+        <div class="ticks">
+          <span style="left:0%">F1</span>
+          <span style="left:8.333%">F2</span>
+          <span style="left:33.333%">F3</span>
+          <span style="left:40%">F4</span>
+          <span style="left:44.444%">F5</span>
+          <span style="left:55.556%">F6</span>
+          <span style="left:72.222%">F7</span>
+          <span style="left:86.111%">F8</span>
+        </div>
+
+        <span class="lab">Panels</span>
+        <div class="bar panels">
+          <span style="width:33.333%">1 · Your Trusted Brands</span>
+          <span style="width:11.111%">2 · Are now</span>
+          <span style="width:27.778%">3 · Logo + pillars</span>
+          <span style="width:27.778%">4 · Booth 425</span>
+        </div>
+
+        <span class="lab">Background</span>
+        <div class="bar">
+          <span class="white" style="width:40%">White</span>
+          <span class="violet" style="width:56.667%">Deep Violet #400685</span>
+          <span class="white" style="width:3.333%" title="White wipe, 17.4 to 18 s"></span>
+        </div>
+
+        <span class="lab">Render</span>
+        <div class="bar shots">
+          <span style="width:44.444%">Shot A · 8 s</span>
+          <span style="width:55.556%">Shot B · 10 s</span>
+        </div>
+
+        <span></span>
+        <div class="axis">
+          <span style="left:0%">0 s</span>
+          <span style="left:22.222%">4</span>
+          <span style="left:44.444%">8</span>
+          <span style="left:66.667%">12</span>
+          <span style="left:88.889%">16</span>
+          <span style="left:100%">18 s</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="frames-h">
+    <div class="section-head">
+      <h2 id="frames-h">Frames</h2>
+      <label class="toggle" for="guides"><input type="checkbox" id="guides" checked> Show 47 px safe margin</label>
+    </div>
+    <div class="frames" id="frames">
+      <article class="frame">
+        <figure><svg viewBox="0 0 780 1520" role="img" aria-label="Frame 1: four ribbons enter from the edges on white, headline fading in" xmlns="http://www.w3.org/2000/svg"><rect width="780" height="1520" fill="#FFFFFF"/><path d="M -20 720 C 130 686, 300 754, 470 720" fill="none" stroke="#6D757A" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="26 16"/><path d="M 800 900 C 650 934, 480 866, 330 900" fill="none" stroke="#E03170" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="M -20 1080 C 130 1046, 300 1114, 470 1080" fill="none" stroke="#F12425" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="M 800 1260 C 650 1294, 480 1226, 330 1260" fill="none" stroke="#003CFF" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><text x="47" y="400" font-family="'Roboto Slab', Georgia, serif" font-size="84" font-weight="700" fill="#400685" text-anchor="start" opacity="0.35">Your Trusted</text><text x="47" y="490" font-family="'Roboto Slab', Georgia, serif" font-size="84" font-weight="700" fill="#400685" text-anchor="start" opacity="0.35">Brands</text><rect class="guide" x="47" y="47" width="686" height="1426" fill="none" stroke="rgba(64,6,133,0.28)" stroke-width="3" stroke-dasharray="14 10"/></svg></figure>
+        <div class="fmeta"><span class="fno">F1</span><span class="tc">0.0–1.5 s</span><span class="pn">· Panel 1</span></div>
+        <h3>Ribbons enter</h3>
+        <dl>
+          <dt>Super</dt><dd>Your Trusted Brands fades up from 0.4 s and lands at 1.2 s.</dd>
+          <dt>Motion</dt><dd>Four ribbons glide in from the edges. SignUp and SKsoft come from the left, Axtension and DynamicWeb from the right. Ease out over 1.2 s.</dd>
+        </dl>
+      </article>
+      <article class="frame">
+        <figure><svg viewBox="0 0 780 1520" role="img" aria-label="Frame 2: Your Trusted Brands with four legacy logos on their ribbons" xmlns="http://www.w3.org/2000/svg"><rect width="780" height="1520" fill="#FFFFFF"/><path d="M -20 720 C 180 684, 460 756, 800 720" fill="none" stroke="#6D757A" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="26 16"/><path d="M -20 900 C 180 864, 460 936, 800 900" fill="none" stroke="#E03170" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="M -20 1080 C 180 1044, 460 1116, 800 1080" fill="none" stroke="#F12425" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="M -20 1260 C 180 1224, 460 1296, 800 1260" fill="none" stroke="#003CFF" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><rect x="47" y="670.0" width="380" height="100" rx="14" fill="#FFFFFF" stroke="#CFD2D4" stroke-width="3" stroke-dasharray="10 8"/><text x="75" y="734" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="40" font-weight="800" fill="#6D757A" text-anchor="start">SignUp</text><rect x="47" y="850.0" width="380" height="100" rx="14" fill="#FFFFFF" stroke="#CFD2D4" stroke-width="3" stroke-dasharray="10 8"/><text x="75" y="914" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="40" font-weight="800" fill="#E03170" text-anchor="start">Axtension</text><rect x="47" y="1030.0" width="380" height="100" rx="14" fill="#FFFFFF" stroke="#CFD2D4" stroke-width="3" stroke-dasharray="10 8"/><text x="75" y="1094" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="40" font-weight="800" fill="#F12425" text-anchor="start">SKsoft</text><rect x="47" y="1210.0" width="380" height="100" rx="14" fill="#FFFFFF" stroke="#CFD2D4" stroke-width="3" stroke-dasharray="10 8"/><text x="75" y="1274" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="40" font-weight="800" fill="#003CFF" text-anchor="start">DynamicWeb</text><text x="47" y="400" font-family="'Roboto Slab', Georgia, serif" font-size="84" font-weight="700" fill="#400685" text-anchor="start">Your Trusted</text><text x="47" y="490" font-family="'Roboto Slab', Georgia, serif" font-size="84" font-weight="700" fill="#400685" text-anchor="start">Brands</text><rect class="guide" x="47" y="47" width="686" height="1426" fill="none" stroke="rgba(64,6,133,0.28)" stroke-width="3" stroke-dasharray="14 10"/></svg></figure>
+        <div class="fmeta"><span class="fno">F2</span><span class="tc">1.5–6.0 s</span><span class="pn">· Panel 1</span></div>
+        <h3>Roll call</h3>
+        <dl>
+          <dt>Super</dt><dd>Your Trusted Brands. Logos in order: SignUp, Axtension, SKsoft, DynamicWeb.</dd>
+          <dt>Motion</dt><dd>Logos land on their ribbons one by one, 0.2 s apart. The ribbons keep a slow drift. Hold 3.5 s for reading.</dd>
+        </dl>
+      </article>
+      <article class="frame">
+        <figure><svg viewBox="0 0 780 1520" role="img" aria-label="Frame 3: the four ribbons pinch into one braid on a 25.4 degree diagonal, Are now in Deep Violet" xmlns="http://www.w3.org/2000/svg"><rect width="780" height="1520" fill="#FFFFFF"/><path d="M -20 720 C 80 720, 137.1 1060.1, 200.3 1030.1 L 211.1 1032.4 L 221.7 1034.3 L 231.9 1035.4 L 241.6 1035.4 L 250.6 1034 L 258.9 1031 L 266.4 1026.5 L 273.2 1020.4 L 279.3 1012.9 L 284.9 1004.3 L 290.1 994.9 L 295.1 985 L 300.2 975.2 L 305.4 965.8 L 311 957.2 L 317.1 949.7 L 323.9 943.6 L 331.4 939 L 339.7 936.1 L 348.7 934.7 L 358.4 934.7 L 368.6 935.8 L 379.2 937.7 L 390 940 L 400.8 942.3 L 411.4 944.2 L 421.6 945.3 L 431.3 945.3 L 440.3 943.9 L 448.6 941 L 456.1 936.4 L 462.9 930.3 L 469 922.8 L 474.6 914.2 L 479.8 904.8 L 484.9 895 L 489.9 885.1 L 495.1 875.7 L 500.7 867.1 L 506.8 859.6 L 513.6 853.5 L 521.1 849 L 529.4 846 L 538.4 844.6 L 548.1 844.6 L 558.3 845.7 L 568.9 847.6 L 579.7 849.9 C 642.9 819.9, 700 720, 800 720" fill="none" stroke="#6D757A" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="26 16"/><path d="M -20 900 C 80 900, 148.2 1083.6, 211.5 1053.6 L 219 1049 L 225.8 1042.9 L 231.9 1035.4 L 237.5 1026.8 L 242.7 1017.4 L 247.7 1007.6 L 252.7 997.7 L 258 988.3 L 263.6 979.7 L 269.7 972.2 L 276.5 966.1 L 284 961.6 L 292.3 958.6 L 301.3 957.2 L 311 957.2 L 321.2 958.3 L 331.8 960.2 L 342.6 962.5 L 353.4 964.8 L 364 966.8 L 374.2 967.9 L 383.8 967.8 L 392.9 966.4 L 401.2 963.5 L 408.7 958.9 L 415.5 952.8 L 421.6 945.3 L 427.2 936.7 L 432.4 927.3 L 437.4 917.5 L 442.4 907.6 L 447.7 898.2 L 453.3 889.6 L 459.4 882.1 L 466.2 876 L 473.7 871.5 L 482 868.5 L 491 867.1 L 500.7 867.1 L 510.9 868.2 L 521.5 870.1 L 532.3 872.4 L 543.1 874.8 L 553.7 876.7 L 563.9 877.8 L 573.6 877.8 L 582.6 876.4 L 590.9 873.4 C 654.1 843.4, 700 900, 800 900" fill="none" stroke="#E03170" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/><path d="M -20 1080 C 80 1080, 137.1 1060.1, 200.3 1030.1 L 205.3 1020.2 L 210.5 1010.8 L 216.1 1002.2 L 222.3 994.7 L 229 988.6 L 236.6 984.1 L 244.9 981.1 L 253.9 979.7 L 263.6 979.7 L 273.8 980.8 L 284.4 982.7 L 295.1 985 L 305.9 987.4 L 316.5 989.3 L 326.7 990.4 L 336.4 990.4 L 345.4 989 L 353.7 986 L 361.3 981.5 L 368 975.4 L 374.2 967.9 L 379.8 959.2 L 385 949.8 L 390 940 L 395 930.2 L 400.2 920.8 L 405.8 912.1 L 412 904.6 L 418.7 898.5 L 426.3 894 L 434.6 891 L 443.6 889.6 L 453.3 889.6 L 463.5 890.7 L 474.1 892.6 L 484.9 895 L 495.6 897.3 L 506.2 899.2 L 516.4 900.3 L 526.1 900.3 L 535.1 898.9 L 543.4 895.9 L 551 891.4 L 557.7 885.3 L 563.9 877.8 L 569.5 869.2 L 574.7 859.8 L 579.7 849.9 C 642.9 819.9, 700 1080, 800 1080" fill="none" stroke="#F12425" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/><path d="M -20 1260 C 80 1260, 125.9 1036.6, 189.1 1006.6 L 197.4 1003.6 L 206.4 1002.2 L 216.1 1002.2 L 226.3 1003.3 L 236.9 1005.2 L 247.7 1007.6 L 258.5 1009.9 L 269.1 1011.8 L 279.3 1012.9 L 289 1012.9 L 298 1011.5 L 306.3 1008.5 L 313.8 1004 L 320.6 997.9 L 326.7 990.4 L 332.3 981.8 L 337.6 972.4 L 342.6 962.5 L 347.6 952.7 L 352.8 943.3 L 358.4 934.7 L 364.5 927.2 L 371.3 921.1 L 378.8 916.5 L 387.1 913.6 L 396.2 912.2 L 405.8 912.1 L 416 913.2 L 426.6 915.2 L 437.4 917.5 L 448.2 919.8 L 458.8 921.7 L 469 922.8 L 478.7 922.8 L 487.7 921.4 L 496 918.4 L 503.5 913.9 L 510.3 907.8 L 516.4 900.3 L 522 891.7 L 527.3 882.3 L 532.3 872.4 L 537.3 862.6 L 542.5 853.2 L 548.1 844.6 L 554.2 837.1 L 561 831 L 568.5 826.4 C 631.8 796.4, 700 1260, 800 1260" fill="none" stroke="#003CFF" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/><text x="390" y="600" font-family="'Roboto Slab', Georgia, serif" font-size="150" font-weight="900" fill="#400685" text-anchor="middle">Are now</text><rect class="guide" x="47" y="47" width="686" height="1426" fill="none" stroke="rgba(64,6,133,0.28)" stroke-width="3" stroke-dasharray="14 10"/></svg></figure>
+        <div class="fmeta"><span class="fno">F3</span><span class="tc">6.0–7.2 s</span><span class="pn">· Panel 2</span></div>
+        <h3>Pull in</h3>
+        <dl>
+          <dt>Super</dt><dd>Are now, in Deep Violet, lands at 6.3 s.</dd>
+          <dt>Motion</dt><dd>Headline and logos lift and fade by 6.2 s. The four ribbons pinch in at the centre and braid along the 25.4° diagonal.</dd>
+        </dl>
+      </article>
+      <article class="frame">
+        <figure><svg viewBox="0 0 780 1520" role="img" aria-label="Frame 4: the braid collapses to one line and Deep Violet floods outward" xmlns="http://www.w3.org/2000/svg"><rect width="780" height="1520" fill="#FFFFFF"/><polygon points="-1132,998.5 1397.3,-202.5 1912,881.5 -617.3,2082.5" fill="#400685"/><line x1="-423" y1="1326" x2="1203" y2="554" stroke="#FFFFFF" stroke-opacity="0.25" stroke-width="30" stroke-linecap="round"/><line x1="-423" y1="1326" x2="1203" y2="554" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round"/><text x="390" y="600" font-family="'Roboto Slab', Georgia, serif" font-size="150" font-weight="900" fill="#FFFFFF" text-anchor="middle">Are now</text><rect class="guide" x="47" y="47" width="686" height="1426" fill="none" stroke="rgba(64,6,133,0.28)" stroke-width="3" stroke-dasharray="14 10"/></svg></figure>
+        <div class="fmeta"><span class="fno">F4</span><span class="tc">7.2–8.0 s</span><span class="pn">· Panel 2</span></div>
+        <h3>Violet flood</h3>
+        <dl>
+          <dt>Super</dt><dd>Are now turns white under the violet, then exits at 7.9 s.</dd>
+          <dt>Motion</dt><dd>The braid tightens into one bright line. Deep Violet floods out from the line and fills the frame by 8.0 s. Shot A ends here.</dd>
+        </dl>
+      </article>
+      <article class="frame">
+        <figure><svg viewBox="0 0 780 1520" role="img" aria-label="Frame 5: Deep Violet, three gradient bands sweep across, Truvio logo resolves" xmlns="http://www.w3.org/2000/svg"><rect width="780" height="1520" fill="#400685"/><line x1="-450.5" y1="1458.2" x2="1175.5" y2="686.1" stroke="#008FC4" stroke-width="52" stroke-linecap="round"/><line x1="-423" y1="1516" x2="1203" y2="744" stroke="#2DB34A" stroke-width="52" stroke-linecap="round"/><line x1="-395.5" y1="1573.9" x2="1230.5" y2="801.8" stroke="#FFB310" stroke-width="52" stroke-linecap="round"/><rect x="130" y="565" width="520" height="150" rx="10" fill="rgba(255,255,255,0.06)" stroke="#FFFFFF" stroke-width="3" stroke-dasharray="12 9"/><text x="390" y="646" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="44" font-weight="800" fill="#FFFFFF" text-anchor="middle" letter-spacing="6">TRUVIO LOGO</text><text x="390" y="680" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="19" font-weight="500" fill="rgba(255,255,255,0.72)" text-anchor="middle">reversed white · supplied file</text><rect class="guide" x="47" y="47" width="686" height="1426" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="3" stroke-dasharray="14 10"/></svg></figure>
+        <div class="fmeta"><span class="fno">F5</span><span class="tc">8.0–10.0 s</span><span class="pn">· Panel 3</span></div>
+        <h3>Bands open</h3>
+        <dl>
+          <dt>Super</dt><dd>Reversed Truvio logo resolves at centre from 8.6 s.</dd>
+          <dt>Motion</dt><dd>The line splits into three bands and sweeps across at 25.4°. Shot B starts here.</dd>
+        </dl>
+      </article>
+      <article class="frame">
+        <figure><svg viewBox="0 0 780 1520" role="img" aria-label="Frame 6: Truvio logo with Finance, Operations, Commerce, Intelligence" xmlns="http://www.w3.org/2000/svg"><rect width="780" height="1520" fill="#400685"/><line x1="-497.2" y1="1585.2" x2="207.4" y2="1250.7" stroke="#008FC4" stroke-width="52" stroke-linecap="round"/><line x1="-469.7" y1="1643" x2="298.1" y2="1278.5" stroke="#2DB34A" stroke-width="52" stroke-linecap="round"/><line x1="-442.3" y1="1700.9" x2="388.8" y2="1306.2" stroke="#FFB310" stroke-width="52" stroke-linecap="round"/><rect x="130" y="485" width="520" height="150" rx="10" fill="rgba(255,255,255,0.06)" stroke="#FFFFFF" stroke-width="3" stroke-dasharray="12 9"/><text x="390" y="566" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="44" font-weight="800" fill="#FFFFFF" text-anchor="middle" letter-spacing="6">TRUVIO LOGO</text><text x="390" y="600" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="19" font-weight="500" fill="rgba(255,255,255,0.72)" text-anchor="middle">reversed white · supplied file</text><text x="390" y="800" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="44" font-weight="700" fill="#FFFFFF" text-anchor="middle">Finance</text><text x="390" y="880" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="44" font-weight="700" fill="#FFFFFF" text-anchor="middle">Operations</text><text x="390" y="960" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="44" font-weight="700" fill="#FFFFFF" text-anchor="middle">Commerce</text><text x="390" y="1040" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="44" font-weight="700" fill="#FFFFFF" text-anchor="middle">Intelligence</text><rect class="guide" x="47" y="47" width="686" height="1426" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="3" stroke-dasharray="14 10"/></svg></figure>
+        <div class="fmeta"><span class="fno">F6</span><span class="tc">10.0–13.0 s</span><span class="pn">· Panel 3</span></div>
+        <h3>Four pillars</h3>
+        <dl>
+          <dt>Super</dt><dd>Finance, Operations, Commerce, Intelligence. 0.25 s stagger from 10.2 s.</dd>
+          <dt>Motion</dt><dd>Logo eases up 80 px. The bands settle into the lower left corner and drift slowly.</dd>
+        </dl>
+      </article>
+      <article class="frame">
+        <figure><svg viewBox="0 0 780 1520" role="img" aria-label="Frame 7: See if Truvio is right for you, Booth 425 button" xmlns="http://www.w3.org/2000/svg"><rect width="780" height="1520" fill="#400685"/><line x1="-497.2" y1="1585.2" x2="207.4" y2="1250.7" stroke="#008FC4" stroke-width="52" stroke-linecap="round"/><line x1="-469.7" y1="1643" x2="298.1" y2="1278.5" stroke="#2DB34A" stroke-width="52" stroke-linecap="round"/><line x1="-442.3" y1="1700.9" x2="388.8" y2="1306.2" stroke="#FFB310" stroke-width="52" stroke-linecap="round"/><rect x="190" y="422.5" width="400" height="115" rx="10" fill="rgba(255,255,255,0.06)" stroke="#FFFFFF" stroke-width="3" stroke-dasharray="12 9"/><text x="390" y="486" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="36" font-weight="800" fill="#FFFFFF" text-anchor="middle" letter-spacing="6">TRUVIO LOGO</text><text x="390" y="520" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="19" font-weight="500" fill="rgba(255,255,255,0.72)" text-anchor="middle">reversed white · supplied file</text><text x="390" y="760" font-family="'Roboto Slab', Georgia, serif" font-size="58" font-weight="500" fill="#FFFFFF" text-anchor="middle">See if Truvio is</text><text x="390" y="832" font-family="'Roboto Slab', Georgia, serif" font-size="58" font-weight="500" fill="#FFFFFF" text-anchor="middle">right for you.</text><rect x="180" y="930" width="420" height="112" rx="56" fill="#FFB310"/><text x="390" y="1001" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="44" font-weight="800" fill="#400685" text-anchor="middle">Booth 425</text><rect class="guide" x="47" y="47" width="686" height="1426" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="3" stroke-dasharray="14 10"/></svg></figure>
+        <div class="fmeta"><span class="fno">F7</span><span class="tc">13.0–15.5 s</span><span class="pn">· Panel 4</span></div>
+        <h3>Call to action</h3>
+        <dl>
+          <dt>Super</dt><dd>See if Truvio is right for you. Button: Booth 425.</dd>
+          <dt>Motion</dt><dd>Pillars fade by 13.3 s. Logo scales to 400 px and moves up. The line fades up at 13.5 s. The button scales in at 14.0 s with a soft overshoot.</dd>
+        </dl>
+      </article>
+      <article class="frame">
+        <figure><svg viewBox="0 0 780 1520" role="img" aria-label="Frame 8: hold on the call to action, white wipe enters from the top right" xmlns="http://www.w3.org/2000/svg"><rect width="780" height="1520" fill="#400685"/><line x1="-497.2" y1="1585.2" x2="207.4" y2="1250.7" stroke="#008FC4" stroke-width="52" stroke-linecap="round"/><line x1="-469.7" y1="1643" x2="298.1" y2="1278.5" stroke="#2DB34A" stroke-width="52" stroke-linecap="round"/><line x1="-442.3" y1="1700.9" x2="388.8" y2="1306.2" stroke="#FFB310" stroke-width="52" stroke-linecap="round"/><rect x="190" y="422.5" width="400" height="115" rx="10" fill="rgba(255,255,255,0.06)" stroke="#FFFFFF" stroke-width="3" stroke-dasharray="12 9"/><text x="390" y="486" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="36" font-weight="800" fill="#FFFFFF" text-anchor="middle" letter-spacing="6">TRUVIO LOGO</text><text x="390" y="520" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="19" font-weight="500" fill="rgba(255,255,255,0.72)" text-anchor="middle">reversed white · supplied file</text><text x="390" y="760" font-family="'Roboto Slab', Georgia, serif" font-size="58" font-weight="500" fill="#FFFFFF" text-anchor="middle">See if Truvio is</text><text x="390" y="832" font-family="'Roboto Slab', Georgia, serif" font-size="58" font-weight="500" fill="#FFFFFF" text-anchor="middle">right for you.</text><rect x="160" y="910" width="460" height="152" rx="76" fill="#FFB310" opacity="0.22"/><rect x="180" y="930" width="420" height="112" rx="56" fill="#FFB310"/><text x="390" y="1001" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="44" font-weight="800" fill="#400685" text-anchor="middle">Booth 425</text><polygon points="0,0 780,0 780,40 0,410" fill="#FFFFFF"/><rect class="guide" x="47" y="47" width="686" height="1426" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="3" stroke-dasharray="14 10"/></svg></figure>
+        <div class="fmeta"><span class="fno">F8</span><span class="tc">15.5–18.0 s</span><span class="pn">· Panel 4</span></div>
+        <h3>Hold and loop</h3>
+        <dl>
+          <dt>Super</dt><dd>Same as F7.</dd>
+          <dt>Motion</dt><dd>Hold for reading. One soft glow pulse on the button at 16.0 s. A white wipe at 25.4° crosses from the top right at 17.4 s and hands back to F1.</dd>
+        </dl>
+      </article>
+    </div>
+    <p class="note">Headlines in these frames use Roboto Slab as a stand-in for Museo Slab. Dashed boxes mark where the supplied logo files go.</p>
+  </section>
+
+  <section class="section" aria-labelledby="spec-h">
+    <div class="section-head">
+      <h2 id="spec-h">Type and colour</h2>
+      <p>Starting sizes for the 780 px wide canvas. Adjust once the frames sit on the real screen.</p>
+    </div>
+    <div class="spec-grid">
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Element</th><th>Face</th><th>Size</th><th>Colour</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Your Trusted Brands</td><td>Museo Slab 700</td><td>84 px, two lines, left-aligned</td><td>Deep Violet</td></tr>
+            <tr><td>Legacy logos</td><td>Supplied files</td><td>340 px max width, 180 px row pitch</td><td>Original colours</td></tr>
+            <tr><td>Are now</td><td>Museo Slab 900</td><td>150 px, centred</td><td>Deep Violet, then White</td></tr>
+            <tr><td>Truvio logo</td><td>Supplied reversed file</td><td>520 px wide in Panel 3, 400 px in Panel 4</td><td>White</td></tr>
+            <tr><td>Pillars</td><td>Be Vietnam Pro Bold</td><td>44 px, centred, 80 px line pitch</td><td>White</td></tr>
+            <tr><td>See if Truvio is right for you.</td><td>Museo Slab 500</td><td>58 px, two lines, centred</td><td>White</td></tr>
+            <tr><td>Booth 425 button</td><td>Be Vietnam Pro ExtraBold</td><td>44 px on a 420 × 112 px pill</td><td>Deep Violet on Yellow Gold</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="swatches">
+        <div class="swatch-group">
+          <h3>Before the merge</h3>
+          <div class="swatch"><i style="background:#FFFFFF"></i><span>White</span><code>#FFFFFF</code></div>
+          <div class="swatch"><i style="background:repeating-linear-gradient(135deg,#CFD2D4 0 6px,#FFFFFF 6px 12px)"></i><span>SignUp</span><span class="tbc">Needed</span></div>
+          <div class="swatch"><i style="background:#E03170"></i><span>Axtension</span><code>#E03170</code></div>
+          <div class="swatch"><i style="background:#F12425"></i><span>SKsoft</span><code>#F12425</code></div>
+          <div class="swatch"><i style="background:#003CFF"></i><span>DynamicWeb</span><code>#003CFF</code></div>
+        </div>
+        <div class="swatch-group">
+          <h3>After the merge</h3>
+          <div class="swatch"><i style="background:#400685"></i><span>Deep Violet</span><code>#400685</code></div>
+          <div class="swatch"><i style="background:#008FC4"></i><span>Celestial Blue Light</span><span class="tbc">From PDF</span></div>
+          <div class="swatch"><i style="background:#2DB34A"></i><span>Electric Green</span><code>#2DB34A</code></div>
+          <div class="swatch"><i style="background:#FFB310"></i><span>Yellow Gold</span><code>#FFB310</code></div>
+        </div>
+        <p class="note">The bands follow the secondary gradient for dark backgrounds at 25.4°. My notes have no hex for Celestial Blue Light, so the mockup uses Celestial Blue #008FC4. Take the real value from the guidelines PDF.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="render-h">
+    <div class="section-head">
+      <h2 id="render-h">Higgsfield render plan</h2>
+      <p>Higgsfield renders motion only. Every word, logo and the button get set by hand in After Effects.</p>
+    </div>
+    <ol class="steps">
+      <li class="step">
+        <h3>Storyboard sheet</h3>
+        <p>One GPT Image 2 image with all 8 panels, for a quick direction check with Jess before any video credits go out.</p>
+        <div class="chips"><span>GPT Image 2</span><span>1 image</span><span>4 × 2 grid</span><span>No text or logos in panels</span></div>
+        <div class="prompt">
+          <div class="prompt-head"><span>Prompt</span><button class="copy" type="button" data-copy="p-sheet">Copy</button></div>
+          <pre id="p-sheet">Storyboard sheet with 8 sequential portrait panels (ratio 1:1.95) in a 4 by 2 grid, thin light grey borders, each panel labelled Frame 1 to Frame 8 underneath. Premium B2B motion design, flat vector shapes, locked-off camera, no people.
+Panel 1: pure white background, four thin glossy ribbons enter from the left and right edges, in grey, magenta, red and electric blue.
+Panel 2: white background, the four ribbons run across the frame in four stacked rows, each passing behind an empty white rounded card on the left. Open space at the top.
+Panel 3: white background, the ribbons bend toward the centre and braid into one twisted rope on a 25 degree diagonal.
+Panel 4: the rope tightens into one bright diagonal line. Deep violet floods outward from the line and covers the middle of the frame.
+Panel 5: solid deep violet background, three parallel diagonal bands in light blue, green and gold sweep across the lower half at 25 degrees. Empty centre.
+Panel 6: deep violet, the three bands rest in the lower left corner as rounded bars. Empty centre.
+Panel 7: deep violet, bands at rest, an empty gold pill-shaped button in the middle.
+Panel 8: same as panel 7, with a white diagonal wipe entering from the top right corner.
+No words, letters or logos inside any panel. Palette: white #FFFFFF, deep violet #400685, magenta #E03170, red #F12425, blue #003CFF, light blue #008FC4, green #2DB34A, gold #FFB310.</pre>
+        </div>
+      </li>
+
+      <li class="step">
+        <h3>Key plates</h3>
+        <p>Three clean stills to lock the start and end of each shot.</p>
+        <div class="chips"><span>GPT Image 2</span><span>9:16</span><span>3 images</span></div>
+        <div class="prompt">
+          <div class="prompt-head"><span>Prompts</span><button class="copy" type="button" data-copy="p-plates">Copy</button></div>
+          <pre id="p-plates">Plate A1 (Shot A start): Portrait 9:16 still. Pure white background. Four thin glossy ribbons in grey, magenta, red and electric blue enter from the left and right edges at mid height. Flat vector, premium, generous empty space. No text, no logos.
+
+Plate A2 (Shot A end): Portrait 9:16 still. Solid deep violet #400685 background with one thin bright white line crossing the centre on a 25 degree diagonal. Flat vector. No text, no logos.
+
+Plate B2 (Shot B end): Portrait 9:16 still. Solid deep violet #400685 background. Three parallel rounded bars in light blue, green and gold on a 25 degree diagonal, resting in the lower left corner. Empty centre. Flat vector. No text, no logos.</pre>
+        </div>
+      </li>
+
+      <li class="step">
+        <h3>Shot A · 0 to 8 s</h3>
+        <p>White open, the ribbons, the braid and the violet flood.</p>
+        <div class="chips"><span>Seedance 2.0</span><span>8 s</span><span>9:16</span><span>1080p</span><span>std mode</span><span>Audio off</span><span>Start: Plate A1</span><span>End: Plate A2</span></div>
+        <div class="prompt">
+          <div class="prompt-head"><span>Prompt</span><button class="copy" type="button" data-copy="p-a">Copy</button></div>
+          <pre id="p-a">Premium flat motion design, portrait, locked-off camera, smooth ease in and out, silent. Pure white background. Four thin glossy ribbons in grey, magenta, red and electric blue glide in from the left and right edges, settle into four gentle horizontal rows and drift slowly. At 6 seconds the ribbons bend toward the centre and braid into one twisting rope on a 25 degree diagonal. At 7 seconds the rope tightens into one bright line, and deep violet floods outward from the line until the whole frame is deep violet. Keep the top third and the left half of each row clear. No text, no letters, no logos, no people.</pre>
+        </div>
+      </li>
+
+      <li class="step">
+        <h3>Shot B · 8 to 18 s</h3>
+        <p>The bands open, settle and hold under the logo, pillars and button.</p>
+        <div class="chips"><span>Seedance 2.0</span><span>10 s</span><span>9:16</span><span>1080p</span><span>std mode</span><span>Audio off</span><span>Start: last frame of Shot A</span><span>End: Plate B2</span></div>
+        <div class="prompt">
+          <div class="prompt-head"><span>Prompt</span><button class="copy" type="button" data-copy="p-b">Copy</button></div>
+          <pre id="p-b">Premium flat motion design, portrait, locked-off camera, smooth easing, silent. Solid deep violet background. A bright diagonal line at 25 degrees splits into three parallel bands in light blue, green and gold. The bands sweep across the lower half, then ease into the lower left corner as rounded bars and drift very slowly for the rest of the shot. The centre and upper half stay empty and calm. No text, no letters, no logos, no people.</pre>
+        </div>
+      </li>
+
+      <li class="step">
+        <h3>After Effects finish</h3>
+        <p>The plates set the feel. The final gets rebuilt to spec.</p>
+        <ul>
+          <li>Grade to the exact hex values and rebuild the bands from the gradient spec at 25.4°.</li>
+          <li>Set every super, both logo lockups and the button by hand.</li>
+          <li>Build the white loop wipe from 17.4 s to 18 s.</li>
+          <li>Scale the 1080 × 1920 render to 79.17% and crop 37.5 px from each side to reach 780 × 1520. Keep key action inside the centre.</li>
+          <li>Export to the AV vendor's frame rate and codec.</li>
+        </ul>
+      </li>
+    </ol>
+  </section>
+
+  <footer>Storyboard v1 · 28 September 2026 · Next: drop in the logos, then render the sheet.</footer>
+</main>
+
+<script>
+  (function () {
+    var box = document.getElementById('guides');
+    function apply() { document.body.classList.toggle('no-guides', !box.checked); }
+    box.addEventListener('change', apply);
+    apply();
+
+    document.querySelectorAll('.copy').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var el = document.getElementById(btn.getAttribute('data-copy'));
+        var text = el.textContent;
+        function done(label) {
+          btn.textContent = label;
+          setTimeout(function () { btn.textContent = 'Copy'; }, 1600);
+        }
+        function selectIt() {
+          var r = document.createRange();
+          r.selectNodeContents(el);
+          var s = window.getSelection();
+          s.removeAllRanges();
+          s.addRange(r);
+          done('Selected');
+        }
+        try {
+          navigator.clipboard.writeText(text).then(function () { done('Copied'); }, selectIt);
+        } catch (e) { selectIt(); }
+      });
+    });
+  })();
+</script>
