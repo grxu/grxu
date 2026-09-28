@@ -66,3 +66,21 @@ Replaces the single 20 s shot above, which drifted with the sample as a video re
 | `keyframes/plate-dynamicweb.png` | image reference | `9b5d9bf1-776e-4f95-9154-5bada9da003b` |
 
 Settings: Seedance 2.5, omni_reference, 9:16, 6 s, audio off, high bitrate. 480p draft cost 18 credits. First draft: job `7b2cd519-c064-4745-8518-308a097611f7`.
+
+### Shot A draft 3 prompt (fixes SignUp popping toward camera and mirrored logos)
+
+Start keyframe updated: front plates at 80%, back plates at 70% (was 100% and 60%).
+
+```
+Premium enterprise motion-graphics shot, portrait 9:16, 6 seconds, locked-off camera, no camera shake, elegant and restrained. The first frame is the start image and the last frame is the end image.
+
+Background stays the same soft matte gradient field for the whole shot: pure white at the centre easing to pale lavender #E6E8FC at the edges. The scene stays bright and light the entire time. Never dark.
+
+0-4.8s: The four dark glass plates from the start image travel together, at an even, slow speed, clockwise around the empty centre on one tall tilted elliptical ring, completing about half a turn. Every plate stays on that ring at a constant distance from the centre. No plate ever leaves the ring, moves toward the camera or passes in front of the others. Depth stays subtle: a plate at the front of the ring is at most slightly larger than one at the back, and no plate ever grows wider than about a third of the frame. The plates stay level, upright and facing the viewer the whole time. They never tilt, turn or flip, so every logo always reads the right way round. Each plate keeps its exact logo from the reference images, crisp and unchanged: <<<image_1>>> SignUp, <<<image_2>>> Axtension, <<<image_3>>> SKsoft, <<<image_4>>> DynamicWeb. Each plate keeps its soft coloured glow beneath it: orange, magenta, red and blue. The centre of the frame stays empty.
+
+4.8-5.4s: The ring speeds up and tightens inward. The plates stay facing the viewer as they spiral toward the centre with directional motion-blur smears in their glow colours. Logos never mirror or flip. The vortex stays compact, no wider than about half the frame width, centred.
+
+5.4-6s: The smears meet in a single white-hot point of light that blooms outward with a soft lavender glow and a thin horizontal streak, matching the end image.
+
+Style: high-end broadcast motion design, soft volumetric light, generous negative space, no people, no clutter, smooth motion, nothing snaps or cuts. No text, letters or numbers anywhere except the four logos on the plates.
+```
