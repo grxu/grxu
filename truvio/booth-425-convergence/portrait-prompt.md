@@ -1,6 +1,6 @@
-# Booth 425 convergence, portrait prompt (v4 draft)
+# Booth 425 convergence, portrait prompt (v5 draft)
 
-Adapted from Higgsfield generation `44848270-2ebb-4b41-9434-a1ea2acc4ad7` (Seedance 2.5, 21:9, 18 s, 20 Aug 2026). Matches storyboard v4. Do not render until the storyboard is locked.
+Adapted from Higgsfield generation `44848270-2ebb-4b41-9434-a1ea2acc4ad7` (Seedance 2.5, 21:9, 18 s, 20 Aug 2026). Matches storyboard v5. Do not render until the storyboard is locked.
 
 ## Settings
 
@@ -28,7 +28,7 @@ Adapted from Higgsfield generation `44848270-2ebb-4b41-9434-a1ea2acc4ad7` (Seeda
 | 6.0–7.5 s | 180–225 | 2 | Spectrum rings expand | Are now |
 | 7.5–10.5 s | 225–315 | 3 | Rings settle into a halo | Truvio logo |
 | 10.5–15.5 s | 315–465 | 3 | Spectrum rule draws in | Finance, Operations, Commerce, Intelligence |
-| 15.5–19.5 s | 465–585 | 4 | Gradient pill, light sweep, hold, dissolve from 19.0 s | See if Truvio is right for you. Booth 425 |
+| 15.5–19.5 s | 465–585 | 4 | Gradient pill, light sweep, halo fades out by 17.5 s, hold, dissolve from 19.0 s | See if Truvio is right for you. Booth 425 |
 
 ## Prompt
 
@@ -47,7 +47,7 @@ Background: a soft matte gradient field. Pure white at the centre, easing throug
 
 10.5-15.5s: The halo slowly widens until it frames the upper two thirds of the frame with a clear margin, then drifts gently. A thin spectrum rule in deep violet, blue, green and gold draws from left to right in the lower middle of the frame.
 
-15.5-20s: The rule fades. A rounded white pill outlined in a deep violet, blue, green and gold gradient settles into the lower middle, and a single bright sweep of light runs through its outline. The frame holds perfectly still to the end, the halo breathing almost imperceptibly.
+15.5-20s: The rule fades. A rounded white pill outlined in a deep violet, blue, green and gold gradient settles into the lower middle, and a single bright sweep of light runs through its outline. At 16.5 seconds the halo begins to fade and is fully gone by 17.5 seconds, leaving only the clean gradient field and the pill. The frame holds perfectly still to the end.
 
 Style: high-end broadcast motion design, soft volumetric light, generous negative space, matte background, no people, no photography, no clutter, smooth cross-dissolves, nothing snaps or cuts. No text, letters or numbers anywhere in the frame. The four logos on the plates are the only graphics with lettering.
 ```
