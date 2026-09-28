@@ -51,3 +51,18 @@ Background: a soft matte gradient field. Pure white at the centre, easing throug
 
 Style: high-end broadcast motion design, soft volumetric light, generous negative space, matte background, no people, no photography, no clutter, smooth cross-dissolves, nothing snaps or cuts. No text, letters or numbers anywhere in the frame. The four logos on the plates are the only graphics with lettering.
 ```
+
+## Shot A render setup (keyframe method)
+
+Replaces the single 20 s shot above, which drifted with the sample as a video reference.
+
+| Input | Role | Higgsfield media ID |
+|---|---|---|
+| `keyframes/key-start.png` (plates level) | start_image | `a2eeb4a0-591f-49ba-a622-7d51b475b6bf` |
+| `keyframes/key-flare.png` | end_image | `c2d679a5-b720-41a2-812d-94633426a183` |
+| `keyframes/plate-signup.png` | image reference | `382abe91-2eee-4e92-b573-4c2cc39cec87` |
+| `keyframes/plate-axtension.png` | image reference | `04a6697e-1986-45b7-8464-9b8cccda7081` |
+| `keyframes/plate-sksoft.png` | image reference | `87a3eb52-7e13-4549-905a-e60cc0f8ebb6` |
+| `keyframes/plate-dynamicweb.png` | image reference | `9b5d9bf1-776e-4f95-9154-5bada9da003b` |
+
+Settings: Seedance 2.5, omni_reference, 9:16, 6 s, audio off, high bitrate. 480p draft cost 18 credits. First draft: job `7b2cd519-c064-4745-8518-308a097611f7`.
