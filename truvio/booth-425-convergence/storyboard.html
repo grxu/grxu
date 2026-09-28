@@ -206,51 +206,90 @@
     .step::before { grid-row: auto; }
     .step > * { grid-column: 1; }
   }
+  .defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+  .bar .field { background: linear-gradient(90deg, #FFFFFF, #E6E8FC); color: #400685; }
 </style>
 
 <main class="wrap" id="top">
-
+<svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="g-bg" cx="50%" cy="48%" r="72%">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset="0.55" stop-color="#F6F6FD"/><stop offset="1" stop-color="#E6E8FC"/>
+    </radialGradient>
+    <linearGradient id="g-plate" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2B1C3F"/><stop offset="1" stop-color="#0E0816"/>
+    </linearGradient>
+    <linearGradient id="g-spec" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#400685"/><stop offset="0.36" stop-color="#008FC4"/>
+      <stop offset="0.68" stop-color="#2DB34A"/><stop offset="1" stop-color="#FFB310"/>
+    </linearGradient>
+    <radialGradient id="g-flare">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset="0.18" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="0.45" stop-color="#9C9DEC" stop-opacity="0.55"/><stop offset="0.75" stop-color="#400685" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#400685" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="f-glow" x="-60%" y="-250%" width="220%" height="600%"><feGaussianBlur stdDeviation="16"/></filter>
+    <filter id="f-soft" x="-20%" y="-40%" width="140%" height="180%"><feGaussianBlur stdDeviation="2.5"/></filter>
+    <filter id="f-b8" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="8"/></filter>
+    <filter id="f-b24" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="24"/></filter>
+    <filter id="f-smear" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="26 3"/></filter>
+    <filter id="f-streak" x="-10%" y="-600%" width="120%" height="1300%"><feGaussianBlur stdDeviation="3"/></filter>
+    <symbol id="lg-signup" viewBox="0 0 480 163">
+      <image href="data:image/png;base64,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" width="480" height="163"/>
+    </symbol>
+  </defs>
+</svg>
   <header class="top">
     <p class="eyebrow">Truvio · Community Summit North America · Booth 425</p>
     <h1>Legacy brands convergence</h1>
-    <p class="lede">Storyboard v1 for the booth screen. Four legacy brands arrive as four coloured streams on a white page. The streams braid into one line, Deep Violet floods the screen, and Truvio opens inside its own gradient bands.</p>
+    <p class="lede">Storyboard v2. Your white sample (Higgsfield generation 44848270), restaged for the 780 × 1520 booth screen with the real supers and logos. We lock this page first, then render.</p>
     <dl class="specs">
       <div><dt>Canvas</dt><dd>780 × 1520 px</dd></div>
-      <div><dt>Length</dt><dd>18 s</dd></div>
-      <div><dt>Playback</dt><dd>Silent loop</dd></div>
-      <div><dt>Frames</dt><dd>8</dd></div>
+      <div><dt>Length</dt><dd>19.5 s</dd></div>
+      <div><dt>Frame rate</dt><dd>30 fps</dd></div>
+      <div><dt>Total frames</dt><dd>585</dd></div>
       <div><dt>Safe margin</dt><dd>47 px</dd></div>
-      <div><dt>Style</dt><dd>Classic motion</dd></div>
+      <div><dt>Model</dt><dd>Seedance 2.5</dd></div>
     </dl>
   </header>
 
-  <section class="needed" aria-labelledby="needed-h">
-    <h2 id="needed-h">Needed before the render</h2>
+  <section class="needed" aria-labelledby="lock-h">
+    <h2 id="lock-h">To lock this storyboard</h2>
     <ol>
-      <li><strong>SignUp brand colour.</strong> I have no official hex for it. The frames show its ribbon as a dashed grey line for now.</li>
-      <li><strong>Logo files, SVG preferred.</strong> Truvio, SignUp, Axtension, SKsoft and DynamicWeb. I place them into these frames at exact size. They stay out of every AI render.</li>
-      <li><strong>A reversed Truvio logo for Deep Violet.</strong> The guidelines keep the wordmark in Deep Violet, and a Deep Violet logo disappears on a Deep Violet field. Is there an approved white version? The fallback is the standard logo on a white card.</li>
-      <li><strong>Screen spec and file deadline from the AV vendor.</strong> Frame rate, codec and the date they need the file. The Summit opens 11 October, 13 days from today.</li>
-      <li><strong>Two quick confirms.</strong> The brief spells SkSoft, and my notes say SKsoft. The frames use SKsoft. The button uses Yellow Gold with Deep Violet text.</li>
+      <li><strong>Logo files.</strong> The Axtension, DynamicWeb and SKsoft logos you sent show in the chat, but they did not save as files I can convert. Resend them in a new message, or push them to the <code>logos</code> folder on the branch. The SKsoft one looks small, so a larger PNG or an SVG will stay sharp at 1080p. The Truvio logo is still needed. Until then the frames show dashed placeholders.</li>
+      <li><strong>Pillar colours.</strong> Yellow Gold and Electric Green words have low contrast on the light field, and they will be hard to read across a booth. Keep them as in your sample, or set all four words in Deep Violet with a short colour bar under each?</li>
+      <li><strong>Frames and timing.</strong> Comment on any frame below, or tell me it's locked.</li>
     </ol>
   </section>
 
-  <section class="section" aria-labelledby="idea-h">
+  <section class="section" aria-labelledby="changes-h">
     <div class="section-head">
-      <h2 id="idea-h">The idea</h2>
+      <h2 id="changes-h">What changes from your sample</h2>
     </div>
     <div class="idea">
       <div>
-        <span class="k">Colour</span>
-        <p>Each legacy brand keeps its own colour for Panel 1. The four colours braid into one line, and the line opens into the Truvio gradient bands.</p>
+        <span class="k">Format</span>
+        <p>Portrait. The orbit becomes a tall tilted oval, the headline stacks on three lines, and the pillars stack in four rows.</p>
+      </div>
+      <div>
+        <span class="k">New beat</span>
+        <p>"Are now" gets 1.5 s of its own inside the rings, right after the flare. Everything after shifts 1.5 s later.</p>
       </div>
       <div>
         <span class="k">Background</span>
-        <p>White before the merge. Deep Violet floods out from the braid at 7.2 s and holds to the end. A white wipe at 17.4 s hands back to the start of the loop.</p>
+        <p>A soft gradient field. White at the centre, easing through off-white to lavender #E6E8FC at the edges.</p>
       </div>
       <div>
-        <span class="k">Layout</span>
-        <p>Panel 1 sits left-aligned: four names on four separate rows. From Panel 3 on, everything is centred. Four things become one.</p>
+        <span class="k">Spectrum</span>
+        <p>Flare, rings, halo, rule and pill outline stay in Deep Violet, blue, green and gold. Your render drifted toward orange and pink.</p>
+      </div>
+      <div>
+        <span class="k">Plates</span>
+        <p>Real legacy logos in white on dark glass. Each plate glows in its own brand colour, with SignUp in ExFlow orange.</p>
+      </div>
+      <div>
+        <span class="k">Removed</span>
+        <p>The small caps line under the logo. It is not in your supers.</p>
       </div>
     </div>
   </section>
@@ -258,51 +297,49 @@
   <section class="section" aria-labelledby="tl-h">
     <div class="section-head">
       <h2 id="tl-h">Timeline</h2>
-      <p>Seedance 2.0 caps a clip at 15 seconds, so the render splits into two shots at the 8 second mark.</p>
+      <p>One continuous Seedance 2.5 shot. Seedance takes whole seconds, so it renders 20 s and the edit trims to 19.5 s.</p>
     </div>
     <div class="tl-scroll">
       <div class="tl">
         <span class="lab">Frames</span>
         <div class="ticks">
           <span style="left:0%">F1</span>
-          <span style="left:8.333%">F2</span>
-          <span style="left:33.333%">F3</span>
-          <span style="left:40%">F4</span>
-          <span style="left:44.444%">F5</span>
-          <span style="left:55.556%">F6</span>
-          <span style="left:72.222%">F7</span>
-          <span style="left:86.111%">F8</span>
+          <span style="left:5.128%">F2</span>
+          <span style="left:25.641%">F3</span>
+          <span style="left:28.2%">F4</span>
+          <span style="left:30.769%">F5</span>
+          <span style="left:38.462%">F6</span>
+          <span style="left:53.846%">F7</span>
+          <span style="left:79.487%">F8</span>
         </div>
 
         <span class="lab">Panels</span>
         <div class="bar panels">
-          <span style="width:33.333%">1 · Your Trusted Brands</span>
-          <span style="width:11.111%">2 · Are now</span>
-          <span style="width:27.778%">3 · Logo + pillars</span>
-          <span style="width:27.778%">4 · Booth 425</span>
+          <span style="width:27.692%">1 · Your Trusted Brands</span>
+          <span style="width:3.077%" title="Flare, 5.4 to 6.0 s"></span>
+          <span style="width:7.692%" title="Are now, 6.0 to 7.5 s">2 · Are now</span>
+          <span style="width:41.026%">3 · Logo + pillars</span>
+          <span style="width:20.513%">4 · Booth 425</span>
         </div>
 
         <span class="lab">Background</span>
         <div class="bar">
-          <span class="white" style="width:40%">White</span>
-          <span class="violet" style="width:56.667%">Deep Violet #400685</span>
-          <span class="white" style="width:3.333%" title="White wipe, 17.4 to 18 s"></span>
+          <span class="field" style="width:100%">Gradient field, white to #E6E8FC</span>
         </div>
 
         <span class="lab">Render</span>
         <div class="bar shots">
-          <span style="width:44.444%">Shot A · 8 s</span>
-          <span style="width:55.556%">Shot B · 10 s</span>
+          <span style="width:100%">Seedance 2.5 · one shot · 20 s render, trimmed to 19.5 s</span>
         </div>
 
         <span></span>
         <div class="axis">
           <span style="left:0%">0 s</span>
-          <span style="left:22.222%">4</span>
-          <span style="left:44.444%">8</span>
-          <span style="left:66.667%">12</span>
-          <span style="left:88.889%">16</span>
-          <span style="left:100%">18 s</span>
+          <span style="left:20.513%">4</span>
+          <span style="left:41.026%">8</span>
+          <span style="left:61.538%">12</span>
+          <span style="left:82.051%">16</span>
+          <span style="left:100%">19.5 s</span>
         </div>
       </div>
     </div>
@@ -315,85 +352,85 @@
     </div>
     <div class="frames" id="frames">
       <article class="frame">
-        <figure><svg viewBox="0 0 780 1520" role="img" aria-label="Frame 1: four ribbons enter from the edges on white, headline fading in" xmlns="http://www.w3.org/2000/svg"><rect width="780" height="1520" fill="#FFFFFF"/><path d="M -20 720 C 130 686, 300 754, 470 720" fill="none" stroke="#6D757A" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="26 16"/><path d="M 800 900 C 650 934, 480 866, 330 900" fill="none" stroke="#E03170" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="M -20 1080 C 130 1046, 300 1114, 470 1080" fill="none" stroke="#F12425" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="M 800 1260 C 650 1294, 480 1226, 330 1260" fill="none" stroke="#003CFF" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><text x="47" y="400" font-family="'Roboto Slab', Georgia, serif" font-size="84" font-weight="700" fill="#400685" text-anchor="start" opacity="0.35">Your Trusted</text><text x="47" y="490" font-family="'Roboto Slab', Georgia, serif" font-size="84" font-weight="700" fill="#400685" text-anchor="start" opacity="0.35">Brands</text><rect class="guide" x="47" y="47" width="686" height="1426" fill="none" stroke="rgba(64,6,133,0.28)" stroke-width="3" stroke-dasharray="14 10"/></svg></figure>
-        <div class="fmeta"><span class="fno">F1</span><span class="tc">0.0–1.5 s</span><span class="pn">· Panel 1</span></div>
-        <h3>Ribbons enter</h3>
+        <figure><svg viewBox="0 0 780 1520" role="img" aria-label="Frame 1: four dark glass plates drift in from the corners, headline fading in" xmlns="http://www.w3.org/2000/svg"><rect width="780" height="1520" fill="url(#g-bg)"/><g transform="translate(150 300) scale(0.55) skewY(6)" opacity="0.6" filter="url(#f-soft)"><ellipse cx="0" cy="56" rx="125" ry="20" fill="#E03170" opacity="0.8" filter="url(#f-glow)"/><rect x="-125" y="-42" width="250" height="84" rx="10" fill="url(#g-plate)"/><rect x="-121" y="36" width="242" height="4" rx="2" fill="#E03170" opacity="0.9"/><rect x="-125" y="-42" width="250" height="84" rx="10" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="2"/><rect x="-100" y="-27" width="200" height="54" rx="6" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-dasharray="6 5"/><text x="0" y="9" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="26" font-weight="700" fill="rgba(255,255,255,0.8)" text-anchor="middle">Axtension</text></g><g transform="translate(650 270) scale(0.5) skewY(-6)" opacity="0.6" filter="url(#f-soft)"><ellipse cx="0" cy="56" rx="125" ry="20" fill="#003CFF" opacity="0.8" filter="url(#f-glow)"/><rect x="-125" y="-42" width="250" height="84" rx="10" fill="url(#g-plate)"/><rect x="-121" y="36" width="242" height="4" rx="2" fill="#003CFF" opacity="0.9"/><rect x="-125" y="-42" width="250" height="84" rx="10" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="2"/><rect x="-100" y="-27" width="200" height="54" rx="6" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-dasharray="6 5"/><text x="0" y="9" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="26" font-weight="700" fill="rgba(255,255,255,0.8)" text-anchor="middle">DynamicWeb</text></g><g opacity="0.45"><text x="390" y="690" font-family="'Roboto Slab', Georgia, serif" font-size="96" font-weight="700" fill="#400685" text-anchor="middle">Your</text><text x="390" y="790" font-family="'Roboto Slab', Georgia, serif" font-size="96" font-weight="700" fill="#400685" text-anchor="middle">Trusted</text><text x="390" y="890" font-family="'Roboto Slab', Georgia, serif" font-size="96" font-weight="700" fill="#400685" text-anchor="middle">Brands</text></g><g transform="translate(150 1250) scale(0.75) skewY(-7)" opacity="0.8"><ellipse cx="0" cy="56" rx="125" ry="20" fill="#EB8A23" opacity="0.8" filter="url(#f-glow)"/><rect x="-125" y="-42" width="250" height="84" rx="10" fill="url(#g-plate)"/><rect x="-121" y="36" width="242" height="4" rx="2" fill="#EB8A23" opacity="0.9"/><rect x="-125" y="-42" width="250" height="84" rx="10" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="2"/><use href="#lg-signup" x="-88" y="-30" width="176" height="60"/></g><g transform="translate(650 1210) scale(0.7) skewY(9)" opacity="0.8"><ellipse cx="0" cy="56" rx="125" ry="20" fill="#F12425" opacity="0.8" filter="url(#f-glow)"/><rect x="-125" y="-42" width="250" height="84" rx="10" fill="url(#g-plate)"/><rect x="-121" y="36" width="242" height="4" rx="2" fill="#F12425" opacity="0.9"/><rect x="-125" y="-42" width="250" height="84" rx="10" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="2"/><rect x="-100" y="-27" width="200" height="54" rx="6" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-dasharray="6 5"/><text x="0" y="9" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="26" font-weight="700" fill="rgba(255,255,255,0.8)" text-anchor="middle">SKsoft</text></g><rect class="guide" x="47" y="47" width="686" height="1426" fill="none" stroke="rgba(64,6,133,0.28)" stroke-width="3" stroke-dasharray="14 10"/></svg></figure>
+        <div class="fmeta"><span class="fno">F1</span><span class="tc">0.0–1.0 s</span><span class="pn">· fr 0–30 · Panel 1</span></div>
+        <h3>Plates enter</h3>
         <dl>
-          <dt>Super</dt><dd>Your Trusted Brands fades up from 0.4 s and lands at 1.2 s.</dd>
-          <dt>Motion</dt><dd>Four ribbons glide in from the edges. SignUp and SKsoft come from the left, Axtension and DynamicWeb from the right. Ease out over 1.2 s.</dd>
+          <dt>Super</dt><dd>Your Trusted Brands fades up and lands at 0.8 s.</dd>
+          <dt>Motion</dt><dd>Four dark glass plates drift in from the corners and pick up their orbit.</dd>
         </dl>
       </article>
       <article class="frame">
-        <figure><svg viewBox="0 0 780 1520" role="img" aria-label="Frame 2: Your Trusted Brands with four legacy logos on their ribbons" xmlns="http://www.w3.org/2000/svg"><rect width="780" height="1520" fill="#FFFFFF"/><path d="M -20 720 C 180 684, 460 756, 800 720" fill="none" stroke="#6D757A" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="26 16"/><path d="M -20 900 C 180 864, 460 936, 800 900" fill="none" stroke="#E03170" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="M -20 1080 C 180 1044, 460 1116, 800 1080" fill="none" stroke="#F12425" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="M -20 1260 C 180 1224, 460 1296, 800 1260" fill="none" stroke="#003CFF" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><rect x="47" y="670.0" width="380" height="100" rx="14" fill="#FFFFFF" stroke="#CFD2D4" stroke-width="3" stroke-dasharray="10 8"/><text x="75" y="734" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="40" font-weight="800" fill="#6D757A" text-anchor="start">SignUp</text><rect x="47" y="850.0" width="380" height="100" rx="14" fill="#FFFFFF" stroke="#CFD2D4" stroke-width="3" stroke-dasharray="10 8"/><text x="75" y="914" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="40" font-weight="800" fill="#E03170" text-anchor="start">Axtension</text><rect x="47" y="1030.0" width="380" height="100" rx="14" fill="#FFFFFF" stroke="#CFD2D4" stroke-width="3" stroke-dasharray="10 8"/><text x="75" y="1094" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="40" font-weight="800" fill="#F12425" text-anchor="start">SKsoft</text><rect x="47" y="1210.0" width="380" height="100" rx="14" fill="#FFFFFF" stroke="#CFD2D4" stroke-width="3" stroke-dasharray="10 8"/><text x="75" y="1274" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="40" font-weight="800" fill="#003CFF" text-anchor="start">DynamicWeb</text><text x="47" y="400" font-family="'Roboto Slab', Georgia, serif" font-size="84" font-weight="700" fill="#400685" text-anchor="start">Your Trusted</text><text x="47" y="490" font-family="'Roboto Slab', Georgia, serif" font-size="84" font-weight="700" fill="#400685" text-anchor="start">Brands</text><rect class="guide" x="47" y="47" width="686" height="1426" fill="none" stroke="rgba(64,6,133,0.28)" stroke-width="3" stroke-dasharray="14 10"/></svg></figure>
-        <div class="fmeta"><span class="fno">F2</span><span class="tc">1.5–6.0 s</span><span class="pn">· Panel 1</span></div>
-        <h3>Roll call</h3>
+        <figure><svg viewBox="0 0 780 1520" role="img" aria-label="Frame 2: the plates orbit a tall tilted oval around Your Trusted Brands" xmlns="http://www.w3.org/2000/svg"><rect width="780" height="1520" fill="url(#g-bg)"/><ellipse cx="390" cy="760" rx="270" ry="330" fill="none" stroke="rgba(64,6,133,0.16)" stroke-width="3" stroke-dasharray="10 12"/><path d="M 648 690 l 12 26 l 14 -24" fill="none" stroke="rgba(64,6,133,0.3)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(216.4 507.2) scale(0.64) skewY(6)" opacity="0.8" filter="url(#f-soft)"><ellipse cx="0" cy="56" rx="125" ry="20" fill="#E03170" opacity="0.8" filter="url(#f-glow)"/><rect x="-125" y="-42" width="250" height="84" rx="10" fill="url(#g-plate)"/><rect x="-121" y="36" width="242" height="4" rx="2" fill="#E03170" opacity="0.9"/><rect x="-125" y="-42" width="250" height="84" rx="10" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="2"/><rect x="-100" y="-27" width="200" height="54" rx="6" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-dasharray="6 5"/><text x="0" y="9" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="26" font-weight="700" fill="rgba(255,255,255,0.8)" text-anchor="middle">Axtension</text></g><g transform="translate(580.9 526.7) scale(0.6) skewY(-6)" opacity="0.8" filter="url(#f-soft)"><ellipse cx="0" cy="56" rx="125" ry="20" fill="#003CFF" opacity="0.8" filter="url(#f-glow)"/><rect x="-125" y="-42" width="250" height="84" rx="10" fill="url(#g-plate)"/><rect x="-121" y="36" width="242" height="4" rx="2" fill="#003CFF" opacity="0.9"/><rect x="-125" y="-42" width="250" height="84" rx="10" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="2"/><rect x="-100" y="-27" width="200" height="54" rx="6" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-dasharray="6 5"/><text x="0" y="9" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="26" font-weight="700" fill="rgba(255,255,255,0.8)" text-anchor="middle">DynamicWeb</text></g><g><text x="390" y="690" font-family="'Roboto Slab', Georgia, serif" font-size="96" font-weight="700" fill="#400685" text-anchor="middle">Your</text><text x="390" y="790" font-family="'Roboto Slab', Georgia, serif" font-size="96" font-weight="700" fill="#400685" text-anchor="middle">Trusted</text><text x="390" y="890" font-family="'Roboto Slab', Georgia, serif" font-size="96" font-weight="700" fill="#400685" text-anchor="middle">Brands</text></g><g transform="translate(275.9 1059.1) scale(1.0) skewY(-7)" opacity="1.0"><ellipse cx="0" cy="56" rx="125" ry="20" fill="#EB8A23" opacity="0.8" filter="url(#f-glow)"/><rect x="-125" y="-42" width="250" height="84" rx="10" fill="url(#g-plate)"/><rect x="-121" y="36" width="242" height="4" rx="2" fill="#EB8A23" opacity="0.9"/><rect x="-125" y="-42" width="250" height="84" rx="10" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="2"/><use href="#lg-signup" x="-88" y="-30" width="176" height="60"/></g><g transform="translate(611.2 949.3) scale(0.88) skewY(9)" opacity="1.0"><ellipse cx="0" cy="56" rx="125" ry="20" fill="#F12425" opacity="0.8" filter="url(#f-glow)"/><rect x="-125" y="-42" width="250" height="84" rx="10" fill="url(#g-plate)"/><rect x="-121" y="36" width="242" height="4" rx="2" fill="#F12425" opacity="0.9"/><rect x="-125" y="-42" width="250" height="84" rx="10" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="2"/><rect x="-100" y="-27" width="200" height="54" rx="6" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-dasharray="6 5"/><text x="0" y="9" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="26" font-weight="700" fill="rgba(255,255,255,0.8)" text-anchor="middle">SKsoft</text></g><rect class="guide" x="47" y="47" width="686" height="1426" fill="none" stroke="rgba(64,6,133,0.28)" stroke-width="3" stroke-dasharray="14 10"/></svg></figure>
+        <div class="fmeta"><span class="fno">F2</span><span class="tc">1.0–5.0 s</span><span class="pn">· fr 30–150 · Panel 1</span></div>
+        <h3>Orbit</h3>
         <dl>
-          <dt>Super</dt><dd>Your Trusted Brands. Logos in order: SignUp, Axtension, SKsoft, DynamicWeb.</dd>
-          <dt>Motion</dt><dd>Logos land on their ribbons one by one, 0.2 s apart. The ribbons keep a slow drift. Hold 3.5 s for reading.</dd>
+          <dt>Super</dt><dd>Your Trusted Brands. Logos: SignUp, Axtension, SKsoft, DynamicWeb.</dd>
+          <dt>Motion</dt><dd>The plates orbit a tall tilted oval. They grow larger and sharper at the front, smaller and softer at the back. Each glows in its brand colour.</dd>
         </dl>
       </article>
       <article class="frame">
-        <figure><svg viewBox="0 0 780 1520" role="img" aria-label="Frame 3: the four ribbons pinch into one braid on a 25.4 degree diagonal, Are now in Deep Violet" xmlns="http://www.w3.org/2000/svg"><rect width="780" height="1520" fill="#FFFFFF"/><path d="M -20 720 C 80 720, 137.1 1060.1, 200.3 1030.1 L 211.1 1032.4 L 221.7 1034.3 L 231.9 1035.4 L 241.6 1035.4 L 250.6 1034 L 258.9 1031 L 266.4 1026.5 L 273.2 1020.4 L 279.3 1012.9 L 284.9 1004.3 L 290.1 994.9 L 295.1 985 L 300.2 975.2 L 305.4 965.8 L 311 957.2 L 317.1 949.7 L 323.9 943.6 L 331.4 939 L 339.7 936.1 L 348.7 934.7 L 358.4 934.7 L 368.6 935.8 L 379.2 937.7 L 390 940 L 400.8 942.3 L 411.4 944.2 L 421.6 945.3 L 431.3 945.3 L 440.3 943.9 L 448.6 941 L 456.1 936.4 L 462.9 930.3 L 469 922.8 L 474.6 914.2 L 479.8 904.8 L 484.9 895 L 489.9 885.1 L 495.1 875.7 L 500.7 867.1 L 506.8 859.6 L 513.6 853.5 L 521.1 849 L 529.4 846 L 538.4 844.6 L 548.1 844.6 L 558.3 845.7 L 568.9 847.6 L 579.7 849.9 C 642.9 819.9, 700 720, 800 720" fill="none" stroke="#6D757A" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="26 16"/><path d="M -20 900 C 80 900, 148.2 1083.6, 211.5 1053.6 L 219 1049 L 225.8 1042.9 L 231.9 1035.4 L 237.5 1026.8 L 242.7 1017.4 L 247.7 1007.6 L 252.7 997.7 L 258 988.3 L 263.6 979.7 L 269.7 972.2 L 276.5 966.1 L 284 961.6 L 292.3 958.6 L 301.3 957.2 L 311 957.2 L 321.2 958.3 L 331.8 960.2 L 342.6 962.5 L 353.4 964.8 L 364 966.8 L 374.2 967.9 L 383.8 967.8 L 392.9 966.4 L 401.2 963.5 L 408.7 958.9 L 415.5 952.8 L 421.6 945.3 L 427.2 936.7 L 432.4 927.3 L 437.4 917.5 L 442.4 907.6 L 447.7 898.2 L 453.3 889.6 L 459.4 882.1 L 466.2 876 L 473.7 871.5 L 482 868.5 L 491 867.1 L 500.7 867.1 L 510.9 868.2 L 521.5 870.1 L 532.3 872.4 L 543.1 874.8 L 553.7 876.7 L 563.9 877.8 L 573.6 877.8 L 582.6 876.4 L 590.9 873.4 C 654.1 843.4, 700 900, 800 900" fill="none" stroke="#E03170" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/><path d="M -20 1080 C 80 1080, 137.1 1060.1, 200.3 1030.1 L 205.3 1020.2 L 210.5 1010.8 L 216.1 1002.2 L 222.3 994.7 L 229 988.6 L 236.6 984.1 L 244.9 981.1 L 253.9 979.7 L 263.6 979.7 L 273.8 980.8 L 284.4 982.7 L 295.1 985 L 305.9 987.4 L 316.5 989.3 L 326.7 990.4 L 336.4 990.4 L 345.4 989 L 353.7 986 L 361.3 981.5 L 368 975.4 L 374.2 967.9 L 379.8 959.2 L 385 949.8 L 390 940 L 395 930.2 L 400.2 920.8 L 405.8 912.1 L 412 904.6 L 418.7 898.5 L 426.3 894 L 434.6 891 L 443.6 889.6 L 453.3 889.6 L 463.5 890.7 L 474.1 892.6 L 484.9 895 L 495.6 897.3 L 506.2 899.2 L 516.4 900.3 L 526.1 900.3 L 535.1 898.9 L 543.4 895.9 L 551 891.4 L 557.7 885.3 L 563.9 877.8 L 569.5 869.2 L 574.7 859.8 L 579.7 849.9 C 642.9 819.9, 700 1080, 800 1080" fill="none" stroke="#F12425" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/><path d="M -20 1260 C 80 1260, 125.9 1036.6, 189.1 1006.6 L 197.4 1003.6 L 206.4 1002.2 L 216.1 1002.2 L 226.3 1003.3 L 236.9 1005.2 L 247.7 1007.6 L 258.5 1009.9 L 269.1 1011.8 L 279.3 1012.9 L 289 1012.9 L 298 1011.5 L 306.3 1008.5 L 313.8 1004 L 320.6 997.9 L 326.7 990.4 L 332.3 981.8 L 337.6 972.4 L 342.6 962.5 L 347.6 952.7 L 352.8 943.3 L 358.4 934.7 L 364.5 927.2 L 371.3 921.1 L 378.8 916.5 L 387.1 913.6 L 396.2 912.2 L 405.8 912.1 L 416 913.2 L 426.6 915.2 L 437.4 917.5 L 448.2 919.8 L 458.8 921.7 L 469 922.8 L 478.7 922.8 L 487.7 921.4 L 496 918.4 L 503.5 913.9 L 510.3 907.8 L 516.4 900.3 L 522 891.7 L 527.3 882.3 L 532.3 872.4 L 537.3 862.6 L 542.5 853.2 L 548.1 844.6 L 554.2 837.1 L 561 831 L 568.5 826.4 C 631.8 796.4, 700 1260, 800 1260" fill="none" stroke="#003CFF" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/><text x="390" y="600" font-family="'Roboto Slab', Georgia, serif" font-size="150" font-weight="900" fill="#400685" text-anchor="middle">Are now</text><rect class="guide" x="47" y="47" width="686" height="1426" fill="none" stroke="rgba(64,6,133,0.28)" stroke-width="3" stroke-dasharray="14 10"/></svg></figure>
-        <div class="fmeta"><span class="fno">F3</span><span class="tc">6.0–7.2 s</span><span class="pn">· Panel 2</span></div>
-        <h3>Pull in</h3>
+        <figure><svg viewBox="0 0 780 1520" role="img" aria-label="Frame 3: the orbit collapses into a vortex of brand-colour smears" xmlns="http://www.w3.org/2000/svg"><rect width="780" height="1520" fill="url(#g-bg)"/><g opacity="0.3" filter="url(#f-b8)"><text x="390" y="690" font-family="'Roboto Slab', Georgia, serif" font-size="96" font-weight="700" fill="#400685" text-anchor="middle">Your</text><text x="390" y="790" font-family="'Roboto Slab', Georgia, serif" font-size="96" font-weight="700" fill="#400685" text-anchor="middle">Trusted</text><text x="390" y="890" font-family="'Roboto Slab', Georgia, serif" font-size="96" font-weight="700" fill="#400685" text-anchor="middle">Brands</text></g><path d="M 662.5 879 L 649.2 898 L 635 915.4 L 620.1 931.1 L 604.6 945.1 L 588.6 957.4 L 572.2 968 L 555.5 976.8 L 538.7 983.8 L 522 989.2 L 505.3 992.9 L 488.8 994.9 L 472.7 995.4 L 457 994.3 L 441.8 991.8 L 427.2 988 L 413.3 982.8 L 400.1 976.5 L 387.8 969.1 L 376.4 960.8 L 365.9 951.6 L 356.5 941.6 L 348 931 L 340.6 919.9 L 334.2 908.4 L 328.9 896.7 L 324.6 884.8 L 321.4 872.9 L 319.3 861.1" fill="none" stroke="#EB8A23" stroke-width="26" stroke-linecap="round" opacity="0.5" filter="url(#f-b8)"/><path d="M 491.4 1021 L 477.1 1021.5 L 463 1020.8 L 449.3 1019.1 L 436 1016.4 L 423.1 1012.8 L 410.7 1008.2 L 398.8 1002.8 L 387.5 996.6 L 376.9 989.6 L 366.8 982 L 357.4 973.7 L 348.8 965 L 340.8 955.7 L 333.6 946.1 L 327.1 936.1 L 321.3 925.8 L 316.3 915.3 L 312.1 904.7 L 308.6 894.1 L 305.9 883.4 L 303.9 872.8 L 302.6 862.3 L 302 852.1 L 302 842.1 L 302.7 832.4 L 304.1 823 L 306 814.1 L 308.4 805.6" fill="none" stroke="#EB8A23" stroke-width="26" stroke-linecap="round" opacity="0.5" filter="url(#f-b8)"/><path d="M 290.8 1087 L 275 1071 L 260.5 1054 L 247.4 1036.1 L 235.7 1017.5 L 225.5 998.3 L 216.7 978.6 L 209.4 958.6 L 203.5 938.5 L 199 918.4 L 195.9 898.3 L 194.2 878.6 L 193.9 859.2 L 194.7 840.4 L 196.8 822.1 L 200 804.6 L 204.3 787.9 L 209.6 772.2 L 215.7 757.4 L 222.7 743.7 L 230.4 731.1 L 238.7 719.7 L 247.5 709.6 L 256.7 700.7 L 266.3 693 L 276.1 686.7 L 286 681.6 L 295.9 677.7 L 305.7 675.2" fill="none" stroke="#F12425" stroke-width="26" stroke-linecap="round" opacity="0.5" filter="url(#f-b8)"/><path d="M 172.5 881.7 L 172.1 864.5 L 172.7 847.6 L 174.1 831.2 L 176.3 815.2 L 179.4 799.7 L 183.2 784.8 L 187.7 770.6 L 192.9 757.1 L 198.7 744.2 L 205 732.2 L 211.9 720.9 L 219.2 710.5 L 226.9 701 L 235 692.3 L 243.3 684.5 L 251.8 677.6 L 260.6 671.6 L 269.4 666.5 L 278.3 662.3 L 287.2 659.1 L 296 656.6 L 304.7 655.1 L 313.3 654.3 L 321.6 654.4 L 329.7 655.3 L 337.5 656.9 L 344.9 659.2 L 352 662.1" fill="none" stroke="#F12425" stroke-width="26" stroke-linecap="round" opacity="0.5" filter="url(#f-b8)"/><path d="M 117.5 641 L 130.8 622 L 145 604.6 L 159.9 588.9 L 175.4 574.9 L 191.4 562.6 L 207.8 552 L 224.5 543.2 L 241.3 536.2 L 258 530.8 L 274.7 527.1 L 291.2 525.1 L 307.3 524.6 L 323 525.7 L 338.2 528.2 L 352.8 532 L 366.7 537.2 L 379.9 543.5 L 392.2 550.9 L 403.6 559.2 L 414.1 568.4 L 423.5 578.4 L 432 589 L 439.4 600.1 L 445.8 611.6 L 451.1 623.3 L 455.4 635.2 L 458.6 647.1 L 460.7 658.9" fill="none" stroke="#003CFF" stroke-width="26" stroke-linecap="round" opacity="0.5" filter="url(#f-b8)"/><path d="M 288.6 499 L 302.9 498.5 L 317 499.2 L 330.7 500.9 L 344 503.6 L 356.9 507.2 L 369.3 511.8 L 381.2 517.2 L 392.5 523.4 L 403.1 530.4 L 413.2 538 L 422.6 546.3 L 431.2 555 L 439.2 564.3 L 446.4 573.9 L 452.9 583.9 L 458.7 594.2 L 463.7 604.7 L 467.9 615.3 L 471.4 625.9 L 474.1 636.6 L 476.1 647.2 L 477.4 657.7 L 478 667.9 L 478 677.9 L 477.3 687.6 L 475.9 697 L 474 705.9 L 471.6 714.4" fill="none" stroke="#003CFF" stroke-width="26" stroke-linecap="round" opacity="0.5" filter="url(#f-b8)"/><path d="M 489.2 433 L 505 449 L 519.5 466 L 532.6 483.9 L 544.3 502.5 L 554.5 521.7 L 563.3 541.4 L 570.6 561.4 L 576.5 581.5 L 581 601.6 L 584.1 621.7 L 585.8 641.4 L 586.1 660.8 L 585.3 679.6 L 583.2 697.9 L 580 715.4 L 575.7 732.1 L 570.4 747.8 L 564.3 762.6 L 557.3 776.3 L 549.6 788.9 L 541.3 800.3 L 532.5 810.4 L 523.3 819.3 L 513.7 827 L 503.9 833.3 L 494 838.4 L 484.1 842.3 L 474.3 844.8" fill="none" stroke="#E03170" stroke-width="26" stroke-linecap="round" opacity="0.5" filter="url(#f-b8)"/><path d="M 607.5 638.3 L 607.9 655.5 L 607.3 672.4 L 605.9 688.8 L 603.7 704.8 L 600.6 720.3 L 596.8 735.2 L 592.3 749.4 L 587.1 762.9 L 581.3 775.8 L 575 787.8 L 568.1 799.1 L 560.8 809.5 L 553.1 819 L 545 827.7 L 536.7 835.5 L 528.2 842.4 L 519.4 848.4 L 510.6 853.5 L 501.7 857.7 L 492.8 860.9 L 484 863.4 L 475.3 864.9 L 466.7 865.7 L 458.4 865.6 L 450.3 864.7 L 442.5 863.1 L 435.1 860.8 L 428 857.9" fill="none" stroke="#E03170" stroke-width="26" stroke-linecap="round" opacity="0.5" filter="url(#f-b8)"/><g transform="translate(216.8 880) rotate(-115.7) scale(0.62) skewY(0)" opacity="0.9" filter="url(#f-smear)"><ellipse cx="0" cy="56" rx="125" ry="20" fill="#EB8A23" opacity="0.8" filter="url(#f-glow)"/><rect x="-125" y="-42" width="250" height="84" rx="10" fill="url(#g-plate)"/><rect x="-121" y="36" width="242" height="4" rx="2" fill="#EB8A23" opacity="0.9"/><rect x="-125" y="-42" width="250" height="84" rx="10" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="2"/><use href="#lg-signup" x="-88" y="-30" width="176" height="60"/></g><g transform="translate(490 967.8) rotate(145.3) scale(0.62) skewY(0)" opacity="0.9" filter="url(#f-smear)"><ellipse cx="0" cy="56" rx="125" ry="20" fill="#F12425" opacity="0.8" filter="url(#f-glow)"/><rect x="-125" y="-42" width="250" height="84" rx="10" fill="url(#g-plate)"/><rect x="-121" y="36" width="242" height="4" rx="2" fill="#F12425" opacity="0.9"/><rect x="-125" y="-42" width="250" height="84" rx="10" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="2"/><rect x="-100" y="-27" width="200" height="54" rx="6" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-dasharray="6 5"/><text x="0" y="9" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="26" font-weight="700" fill="rgba(255,255,255,0.8)" text-anchor="middle">SKsoft</text></g><g transform="translate(563.2 640) rotate(64.3) scale(0.62) skewY(0)" opacity="0.9" filter="url(#f-smear)"><ellipse cx="0" cy="56" rx="125" ry="20" fill="#003CFF" opacity="0.8" filter="url(#f-glow)"/><rect x="-125" y="-42" width="250" height="84" rx="10" fill="url(#g-plate)"/><rect x="-121" y="36" width="242" height="4" rx="2" fill="#003CFF" opacity="0.9"/><rect x="-125" y="-42" width="250" height="84" rx="10" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="2"/><rect x="-100" y="-27" width="200" height="54" rx="6" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-dasharray="6 5"/><text x="0" y="9" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="26" font-weight="700" fill="rgba(255,255,255,0.8)" text-anchor="middle">DynamicWeb</text></g><g transform="translate(290 552.2) rotate(-34.7) scale(0.62) skewY(0)" opacity="0.9" filter="url(#f-smear)"><ellipse cx="0" cy="56" rx="125" ry="20" fill="#E03170" opacity="0.8" filter="url(#f-glow)"/><rect x="-125" y="-42" width="250" height="84" rx="10" fill="url(#g-plate)"/><rect x="-121" y="36" width="242" height="4" rx="2" fill="#E03170" opacity="0.9"/><rect x="-125" y="-42" width="250" height="84" rx="10" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="2"/><rect x="-100" y="-27" width="200" height="54" rx="6" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-dasharray="6 5"/><text x="0" y="9" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="26" font-weight="700" fill="rgba(255,255,255,0.8)" text-anchor="middle">Axtension</text></g><circle cx="390" cy="760" r="34" fill="#FFFFFF" opacity="0.9" filter="url(#f-b8)"/><rect class="guide" x="47" y="47" width="686" height="1426" fill="none" stroke="rgba(64,6,133,0.28)" stroke-width="3" stroke-dasharray="14 10"/></svg></figure>
+        <div class="fmeta"><span class="fno">F3</span><span class="tc">5.0–5.4 s</span><span class="pn">· fr 150–162 · Panel 1</span></div>
+        <h3>Collapse</h3>
         <dl>
-          <dt>Super</dt><dd>Are now, in Deep Violet, lands at 6.3 s.</dd>
-          <dt>Motion</dt><dd>Headline and logos lift and fade by 6.2 s. The four ribbons pinch in at the centre and braid along the 25.4° diagonal.</dd>
+          <dt>Super</dt><dd>The headline blurs out inside the vortex.</dd>
+          <dt>Motion</dt><dd>The orbit speeds up and collapses inward. Smears in the four brand colours braid toward the centre.</dd>
         </dl>
       </article>
       <article class="frame">
-        <figure><svg viewBox="0 0 780 1520" role="img" aria-label="Frame 4: the braid collapses to one line and Deep Violet floods outward" xmlns="http://www.w3.org/2000/svg"><rect width="780" height="1520" fill="#FFFFFF"/><polygon points="-1132,998.5 1397.3,-202.5 1912,881.5 -617.3,2082.5" fill="#400685"/><line x1="-423" y1="1326" x2="1203" y2="554" stroke="#FFFFFF" stroke-opacity="0.25" stroke-width="30" stroke-linecap="round"/><line x1="-423" y1="1326" x2="1203" y2="554" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round"/><text x="390" y="600" font-family="'Roboto Slab', Georgia, serif" font-size="150" font-weight="900" fill="#FFFFFF" text-anchor="middle">Are now</text><rect class="guide" x="47" y="47" width="686" height="1426" fill="none" stroke="rgba(64,6,133,0.28)" stroke-width="3" stroke-dasharray="14 10"/></svg></figure>
-        <div class="fmeta"><span class="fno">F4</span><span class="tc">7.2–8.0 s</span><span class="pn">· Panel 2</span></div>
-        <h3>Violet flood</h3>
+        <figure><svg viewBox="0 0 780 1520" role="img" aria-label="Frame 4: a white-hot flare blooms at the centre with a horizontal streak" xmlns="http://www.w3.org/2000/svg"><rect width="780" height="1520" fill="url(#g-bg)"/><circle cx="390" cy="760" r="330" fill="url(#g-flare)"/><ellipse cx="390" cy="760" rx="390" ry="14" fill="#FFFFFF" opacity="0.35" filter="url(#f-streak)"/><ellipse cx="390" cy="760" rx="390" ry="4" fill="#FFFFFF" opacity="0.95" filter="url(#f-streak)"/><ellipse cx="390" cy="760" rx="3" ry="130" fill="#FFFFFF" opacity="0.85"/><ellipse cx="390" cy="760" rx="2" ry="70" fill="#FFFFFF" opacity="0.7" transform="rotate(45 390 760)"/><ellipse cx="390" cy="760" rx="2" ry="70" fill="#FFFFFF" opacity="0.7" transform="rotate(-45 390 760)"/><circle cx="390" cy="760" r="26" fill="#FFFFFF"/><rect class="guide" x="47" y="47" width="686" height="1426" fill="none" stroke="rgba(64,6,133,0.28)" stroke-width="3" stroke-dasharray="14 10"/></svg></figure>
+        <div class="fmeta"><span class="fno">F4</span><span class="tc">5.4–6.0 s</span><span class="pn">· fr 162–180 · Flare</span></div>
+        <h3>Flare</h3>
         <dl>
-          <dt>Super</dt><dd>Are now turns white under the violet, then exits at 7.9 s.</dd>
-          <dt>Motion</dt><dd>The braid tightens into one bright line. Deep Violet floods out from the line and fills the frame by 8.0 s. Shot A ends here.</dd>
+          <dt>Super</dt><dd>None.</dd>
+          <dt>Motion</dt><dd>The smears meet in a white-hot point. The light blooms outward with a thin horizontal streak.</dd>
         </dl>
       </article>
       <article class="frame">
-        <figure><svg viewBox="0 0 780 1520" role="img" aria-label="Frame 5: Deep Violet, three gradient bands sweep across, Truvio logo resolves" xmlns="http://www.w3.org/2000/svg"><rect width="780" height="1520" fill="#400685"/><line x1="-450.5" y1="1458.2" x2="1175.5" y2="686.1" stroke="#008FC4" stroke-width="52" stroke-linecap="round"/><line x1="-423" y1="1516" x2="1203" y2="744" stroke="#2DB34A" stroke-width="52" stroke-linecap="round"/><line x1="-395.5" y1="1573.9" x2="1230.5" y2="801.8" stroke="#FFB310" stroke-width="52" stroke-linecap="round"/><rect x="130" y="565" width="520" height="150" rx="10" fill="rgba(255,255,255,0.06)" stroke="#FFFFFF" stroke-width="3" stroke-dasharray="12 9"/><text x="390" y="646" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="44" font-weight="800" fill="#FFFFFF" text-anchor="middle" letter-spacing="6">TRUVIO LOGO</text><text x="390" y="680" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="19" font-weight="500" fill="rgba(255,255,255,0.72)" text-anchor="middle">reversed white · supplied file</text><rect class="guide" x="47" y="47" width="686" height="1426" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="3" stroke-dasharray="14 10"/></svg></figure>
-        <div class="fmeta"><span class="fno">F5</span><span class="tc">8.0–10.0 s</span><span class="pn">· Panel 3</span></div>
-        <h3>Bands open</h3>
+        <figure><svg viewBox="0 0 780 1520" role="img" aria-label="Frame 5: Are now at the centre of expanding spectrum rings" xmlns="http://www.w3.org/2000/svg"><rect width="780" height="1520" fill="url(#g-bg)"/><circle cx="390" cy="760" r="290" fill="none" stroke="#008FC4" stroke-width="18" opacity="0.55" filter="url(#f-b8)"/><circle cx="390" cy="760" r="380" fill="none" stroke="url(#g-spec)" stroke-width="34" opacity="0.55" filter="url(#f-b8)"/><circle cx="390" cy="760" r="470" fill="none" stroke="url(#g-spec)" stroke-width="26" opacity="0.4" filter="url(#f-b8)"/><circle cx="390" cy="760" r="560" fill="none" stroke="url(#g-spec)" stroke-width="20" opacity="0.28" filter="url(#f-b8)"/><circle cx="390" cy="760" r="200" fill="#FFFFFF" opacity="0.6" filter="url(#f-b24)"/><text x="390" y="800" font-family="'Roboto Slab', Georgia, serif" font-size="120" font-weight="900" fill="#400685" text-anchor="middle">Are now</text><rect class="guide" x="47" y="47" width="686" height="1426" fill="none" stroke="rgba(64,6,133,0.28)" stroke-width="3" stroke-dasharray="14 10"/></svg></figure>
+        <div class="fmeta"><span class="fno">F5</span><span class="tc">6.0–7.5 s</span><span class="pn">· fr 180–225 · Panel 2</span></div>
+        <h3>Are now</h3>
         <dl>
-          <dt>Super</dt><dd>Reversed Truvio logo resolves at centre from 8.6 s.</dd>
-          <dt>Motion</dt><dd>The line splits into three bands and sweeps across at 25.4°. Shot B starts here.</dd>
+          <dt>Super</dt><dd>Are now, centred, lands at 6.2 s.</dd>
+          <dt>Motion</dt><dd>Rings in the Truvio spectrum expand out of the flare and soften.</dd>
         </dl>
       </article>
       <article class="frame">
-        <figure><svg viewBox="0 0 780 1520" role="img" aria-label="Frame 6: Truvio logo with Finance, Operations, Commerce, Intelligence" xmlns="http://www.w3.org/2000/svg"><rect width="780" height="1520" fill="#400685"/><line x1="-497.2" y1="1585.2" x2="207.4" y2="1250.7" stroke="#008FC4" stroke-width="52" stroke-linecap="round"/><line x1="-469.7" y1="1643" x2="298.1" y2="1278.5" stroke="#2DB34A" stroke-width="52" stroke-linecap="round"/><line x1="-442.3" y1="1700.9" x2="388.8" y2="1306.2" stroke="#FFB310" stroke-width="52" stroke-linecap="round"/><rect x="130" y="485" width="520" height="150" rx="10" fill="rgba(255,255,255,0.06)" stroke="#FFFFFF" stroke-width="3" stroke-dasharray="12 9"/><text x="390" y="566" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="44" font-weight="800" fill="#FFFFFF" text-anchor="middle" letter-spacing="6">TRUVIO LOGO</text><text x="390" y="600" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="19" font-weight="500" fill="rgba(255,255,255,0.72)" text-anchor="middle">reversed white · supplied file</text><text x="390" y="800" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="44" font-weight="700" fill="#FFFFFF" text-anchor="middle">Finance</text><text x="390" y="880" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="44" font-weight="700" fill="#FFFFFF" text-anchor="middle">Operations</text><text x="390" y="960" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="44" font-weight="700" fill="#FFFFFF" text-anchor="middle">Commerce</text><text x="390" y="1040" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="44" font-weight="700" fill="#FFFFFF" text-anchor="middle">Intelligence</text><rect class="guide" x="47" y="47" width="686" height="1426" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="3" stroke-dasharray="14 10"/></svg></figure>
-        <div class="fmeta"><span class="fno">F6</span><span class="tc">10.0–13.0 s</span><span class="pn">· Panel 3</span></div>
-        <h3>Four pillars</h3>
+        <figure><svg viewBox="0 0 780 1520" role="img" aria-label="Frame 6: the Truvio logo settles at the centre inside a soft spectrum halo" xmlns="http://www.w3.org/2000/svg"><rect width="780" height="1520" fill="url(#g-bg)"/><circle cx="390" cy="760" r="440" fill="none" stroke="url(#g-spec)" stroke-width="30" opacity="0.16" filter="url(#f-b24)"/><circle cx="390" cy="760" r="340" fill="none" stroke="url(#g-spec)" stroke-width="70" opacity="0.42" filter="url(#f-b24)"/><rect x="130" y="685" width="520" height="150" rx="10" fill="rgba(255,255,255,0.35)" stroke="#400685" stroke-width="3" stroke-dasharray="12 9"/><text x="390" y="766" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="44" font-weight="800" fill="#400685" text-anchor="middle" letter-spacing="6">TRUVIO LOGO</text><text x="390" y="800" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="19" font-weight="500" fill="rgba(64,6,133,0.7)" text-anchor="middle">standard Deep Violet · supplied file</text><rect class="guide" x="47" y="47" width="686" height="1426" fill="none" stroke="rgba(64,6,133,0.28)" stroke-width="3" stroke-dasharray="14 10"/></svg></figure>
+        <div class="fmeta"><span class="fno">F6</span><span class="tc">7.5–10.5 s</span><span class="pn">· fr 225–315 · Panel 3</span></div>
+        <h3>Truvio</h3>
         <dl>
-          <dt>Super</dt><dd>Finance, Operations, Commerce, Intelligence. 0.25 s stagger from 10.2 s.</dd>
-          <dt>Motion</dt><dd>Logo eases up 80 px. The bands settle into the lower left corner and drift slowly.</dd>
+          <dt>Super</dt><dd>Are now fades by 7.7 s. The Truvio logo scales up with a gentle overshoot and settles by 8.3 s.</dd>
+          <dt>Motion</dt><dd>The rings settle into one faint spectrum halo. Total stillness.</dd>
         </dl>
       </article>
       <article class="frame">
-        <figure><svg viewBox="0 0 780 1520" role="img" aria-label="Frame 7: See if Truvio is right for you, Booth 425 button" xmlns="http://www.w3.org/2000/svg"><rect width="780" height="1520" fill="#400685"/><line x1="-497.2" y1="1585.2" x2="207.4" y2="1250.7" stroke="#008FC4" stroke-width="52" stroke-linecap="round"/><line x1="-469.7" y1="1643" x2="298.1" y2="1278.5" stroke="#2DB34A" stroke-width="52" stroke-linecap="round"/><line x1="-442.3" y1="1700.9" x2="388.8" y2="1306.2" stroke="#FFB310" stroke-width="52" stroke-linecap="round"/><rect x="190" y="422.5" width="400" height="115" rx="10" fill="rgba(255,255,255,0.06)" stroke="#FFFFFF" stroke-width="3" stroke-dasharray="12 9"/><text x="390" y="486" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="36" font-weight="800" fill="#FFFFFF" text-anchor="middle" letter-spacing="6">TRUVIO LOGO</text><text x="390" y="520" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="19" font-weight="500" fill="rgba(255,255,255,0.72)" text-anchor="middle">reversed white · supplied file</text><text x="390" y="760" font-family="'Roboto Slab', Georgia, serif" font-size="58" font-weight="500" fill="#FFFFFF" text-anchor="middle">See if Truvio is</text><text x="390" y="832" font-family="'Roboto Slab', Georgia, serif" font-size="58" font-weight="500" fill="#FFFFFF" text-anchor="middle">right for you.</text><rect x="180" y="930" width="420" height="112" rx="56" fill="#FFB310"/><text x="390" y="1001" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="44" font-weight="800" fill="#400685" text-anchor="middle">Booth 425</text><rect class="guide" x="47" y="47" width="686" height="1426" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="3" stroke-dasharray="14 10"/></svg></figure>
-        <div class="fmeta"><span class="fno">F7</span><span class="tc">13.0–15.5 s</span><span class="pn">· Panel 4</span></div>
+        <figure><svg viewBox="0 0 780 1520" role="img" aria-label="Frame 7: Truvio logo above the four pillars in spectrum colours and a spectrum rule" xmlns="http://www.w3.org/2000/svg"><rect width="780" height="1520" fill="url(#g-bg)"/><circle cx="390" cy="760" r="440" fill="none" stroke="url(#g-spec)" stroke-width="30" opacity="0.16" filter="url(#f-b24)"/><circle cx="390" cy="760" r="340" fill="none" stroke="url(#g-spec)" stroke-width="70" opacity="0.42" filter="url(#f-b24)"/><rect x="180" y="410" width="420" height="120" rx="10" fill="rgba(255,255,255,0.35)" stroke="#400685" stroke-width="3" stroke-dasharray="12 9"/><text x="390" y="476" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="38" font-weight="800" fill="#400685" text-anchor="middle" letter-spacing="6">TRUVIO LOGO</text><text x="390" y="510" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="19" font-weight="500" fill="rgba(64,6,133,0.7)" text-anchor="middle">standard Deep Violet · supplied file</text><text x="390" y="720" font-family="'Roboto Slab', Georgia, serif" font-size="72" font-weight="700" fill="#400685" text-anchor="middle">Finance</text><text x="390" y="810" font-family="'Roboto Slab', Georgia, serif" font-size="72" font-weight="700" fill="#008FC4" text-anchor="middle">Operations</text><text x="390" y="900" font-family="'Roboto Slab', Georgia, serif" font-size="72" font-weight="700" fill="#2DB34A" text-anchor="middle">Commerce</text><text x="390" y="990" font-family="'Roboto Slab', Georgia, serif" font-size="72" font-weight="700" fill="#FFB310" text-anchor="middle">Intelligence</text><rect x="170" y="1040" width="440" height="5" rx="2.5" fill="url(#g-spec)"/><rect class="guide" x="47" y="47" width="686" height="1426" fill="none" stroke="rgba(64,6,133,0.28)" stroke-width="3" stroke-dasharray="14 10"/></svg></figure>
+        <div class="fmeta"><span class="fno">F7</span><span class="tc">10.5–15.5 s</span><span class="pn">· fr 315–465 · Panel 3</span></div>
+        <h3>Pillars</h3>
+        <dl>
+          <dt>Super</dt><dd>Finance, Operations, Commerce, Intelligence. One word every 0.4 s from 11.0 s.</dd>
+          <dt>Motion</dt><dd>The logo eases up. Each word rises into place in its spectrum colour. A spectrum rule draws left to right beneath them.</dd>
+        </dl>
+      </article>
+      <article class="frame">
+        <figure><svg viewBox="0 0 780 1520" role="img" aria-label="Frame 8: See if Truvio is right for you, with a Booth 425 pill button" xmlns="http://www.w3.org/2000/svg"><rect width="780" height="1520" fill="url(#g-bg)"/><circle cx="390" cy="760" r="440" fill="none" stroke="url(#g-spec)" stroke-width="30" opacity="0.16" filter="url(#f-b24)"/><circle cx="390" cy="760" r="340" fill="none" stroke="url(#g-spec)" stroke-width="70" opacity="0.42" filter="url(#f-b24)"/><rect x="180" y="410" width="420" height="120" rx="10" fill="rgba(255,255,255,0.35)" stroke="#400685" stroke-width="3" stroke-dasharray="12 9"/><text x="390" y="476" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="38" font-weight="800" fill="#400685" text-anchor="middle" letter-spacing="6">TRUVIO LOGO</text><text x="390" y="510" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="19" font-weight="500" fill="rgba(64,6,133,0.7)" text-anchor="middle">standard Deep Violet · supplied file</text><text x="390" y="740" font-family="'Roboto Slab', Georgia, serif" font-size="64" font-weight="700" fill="#400685" text-anchor="middle">See if Truvio is</text><text x="390" y="820" font-family="'Roboto Slab', Georgia, serif" font-size="64" font-weight="700" fill="#400685" text-anchor="middle">right for you.</text><rect x="180" y="918" width="420" height="112" rx="56" fill="rgba(255,255,255,0.75)" stroke="url(#g-spec)" stroke-width="6"/><text x="390" y="990" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="44" font-weight="800" fill="#400685" text-anchor="middle">Booth 425</text><ellipse cx="520" cy="921" rx="46" ry="6" fill="#FFFFFF" opacity="0.95" filter="url(#f-soft)"/><ellipse cx="520" cy="921" rx="16" ry="3" fill="#FFFFFF"/><rect class="guide" x="47" y="47" width="686" height="1426" fill="none" stroke="rgba(64,6,133,0.28)" stroke-width="3" stroke-dasharray="14 10"/></svg></figure>
+        <div class="fmeta"><span class="fno">F8</span><span class="tc">15.5–19.5 s</span><span class="pn">· fr 465–585 · Panel 4</span></div>
         <h3>Call to action</h3>
         <dl>
           <dt>Super</dt><dd>See if Truvio is right for you. Button: Booth 425.</dd>
-          <dt>Motion</dt><dd>Pillars fade by 13.3 s. Logo scales to 400 px and moves up. The line fades up at 13.5 s. The button scales in at 14.0 s with a soft overshoot.</dd>
-        </dl>
-      </article>
-      <article class="frame">
-        <figure><svg viewBox="0 0 780 1520" role="img" aria-label="Frame 8: hold on the call to action, white wipe enters from the top right" xmlns="http://www.w3.org/2000/svg"><rect width="780" height="1520" fill="#400685"/><line x1="-497.2" y1="1585.2" x2="207.4" y2="1250.7" stroke="#008FC4" stroke-width="52" stroke-linecap="round"/><line x1="-469.7" y1="1643" x2="298.1" y2="1278.5" stroke="#2DB34A" stroke-width="52" stroke-linecap="round"/><line x1="-442.3" y1="1700.9" x2="388.8" y2="1306.2" stroke="#FFB310" stroke-width="52" stroke-linecap="round"/><rect x="190" y="422.5" width="400" height="115" rx="10" fill="rgba(255,255,255,0.06)" stroke="#FFFFFF" stroke-width="3" stroke-dasharray="12 9"/><text x="390" y="486" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="36" font-weight="800" fill="#FFFFFF" text-anchor="middle" letter-spacing="6">TRUVIO LOGO</text><text x="390" y="520" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="19" font-weight="500" fill="rgba(255,255,255,0.72)" text-anchor="middle">reversed white · supplied file</text><text x="390" y="760" font-family="'Roboto Slab', Georgia, serif" font-size="58" font-weight="500" fill="#FFFFFF" text-anchor="middle">See if Truvio is</text><text x="390" y="832" font-family="'Roboto Slab', Georgia, serif" font-size="58" font-weight="500" fill="#FFFFFF" text-anchor="middle">right for you.</text><rect x="160" y="910" width="460" height="152" rx="76" fill="#FFB310" opacity="0.22"/><rect x="180" y="930" width="420" height="112" rx="56" fill="#FFB310"/><text x="390" y="1001" font-family="'Be Vietnam Pro', system-ui, sans-serif" font-size="44" font-weight="800" fill="#400685" text-anchor="middle">Booth 425</text><polygon points="0,0 780,0 780,40 0,410" fill="#FFFFFF"/><rect class="guide" x="47" y="47" width="686" height="1426" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="3" stroke-dasharray="14 10"/></svg></figure>
-        <div class="fmeta"><span class="fno">F8</span><span class="tc">15.5–18.0 s</span><span class="pn">· Panel 4</span></div>
-        <h3>Hold and loop</h3>
-        <dl>
-          <dt>Super</dt><dd>Same as F7.</dd>
-          <dt>Motion</dt><dd>Hold for reading. One soft glow pulse on the button at 16.0 s. A white wipe at 25.4° crosses from the top right at 17.4 s and hands back to F1.</dd>
+          <dt>Motion</dt><dd>The pillars fall away. The line rises in at 15.8 s. The pill settles at 16.4 s, and one light sweep runs round its outline. From 19.0 s everything dissolves to the empty field, so the loop restarts clean.</dd>
         </dl>
       </article>
     </div>
-    <p class="note">Headlines in these frames use Roboto Slab as a stand-in for Museo Slab. Dashed boxes mark where the supplied logo files go.</p>
+    <p class="note">Headlines use Roboto Slab as a stand-in for Museo Slab. Dashed boxes mark logos still to come. The dashed oval in F2 shows the orbit path and is not part of the video.</p>
   </section>
 
   <section class="section" aria-labelledby="spec-h">
     <div class="section-head">
       <h2 id="spec-h">Type and colour</h2>
-      <p>Starting sizes for the 780 px wide canvas. Adjust once the frames sit on the real screen.</p>
+      <p>Starting sizes for the 780 px wide canvas. Type and the Truvio logo get set in After Effects. Higgsfield renders the plates and their logos.</p>
     </div>
     <div class="spec-grid">
       <div class="table-scroll">
@@ -402,112 +439,101 @@
             <tr><th>Element</th><th>Face</th><th>Size</th><th>Colour</th></tr>
           </thead>
           <tbody>
-            <tr><td>Your Trusted Brands</td><td>Museo Slab 700</td><td>84 px, two lines, left-aligned</td><td>Deep Violet</td></tr>
-            <tr><td>Legacy logos</td><td>Supplied files</td><td>340 px max width, 180 px row pitch</td><td>Original colours</td></tr>
-            <tr><td>Are now</td><td>Museo Slab 900</td><td>150 px, centred</td><td>Deep Violet, then White</td></tr>
-            <tr><td>Truvio logo</td><td>Supplied reversed file</td><td>520 px wide in Panel 3, 400 px in Panel 4</td><td>White</td></tr>
-            <tr><td>Pillars</td><td>Be Vietnam Pro Bold</td><td>44 px, centred, 80 px line pitch</td><td>White</td></tr>
-            <tr><td>See if Truvio is right for you.</td><td>Museo Slab 500</td><td>58 px, two lines, centred</td><td>White</td></tr>
-            <tr><td>Booth 425 button</td><td>Be Vietnam Pro ExtraBold</td><td>44 px on a 420 × 112 px pill</td><td>Deep Violet on Yellow Gold</td></tr>
+            <tr><td>Your Trusted Brands</td><td>Museo Slab 700</td><td>96 px, three lines, centred</td><td>Deep Violet</td></tr>
+            <tr><td>Legacy logos</td><td>White PNG on glass plates</td><td>176 px wide on a front plate</td><td>White</td></tr>
+            <tr><td>Are now</td><td>Museo Slab 900</td><td>120 px, centred</td><td>Deep Violet</td></tr>
+            <tr><td>Truvio logo</td><td>Supplied standard file</td><td>520 px wide, then 420 px</td><td>Deep Violet</td></tr>
+            <tr><td>Pillars</td><td>Museo Slab 700</td><td>72 px, centred, 90 px line pitch</td><td>Spectrum, one colour per word</td></tr>
+            <tr><td>See if Truvio is right for you.</td><td>Museo Slab 700</td><td>64 px, two lines, centred</td><td>Deep Violet</td></tr>
+            <tr><td>Booth 425 button</td><td>Be Vietnam Pro ExtraBold</td><td>44 px in a 420 × 112 px pill</td><td>Deep Violet, 6 px spectrum outline</td></tr>
           </tbody>
         </table>
       </div>
       <div class="swatches">
         <div class="swatch-group">
-          <h3>Before the merge</h3>
-          <div class="swatch"><i style="background:#FFFFFF"></i><span>White</span><code>#FFFFFF</code></div>
-          <div class="swatch"><i style="background:repeating-linear-gradient(135deg,#CFD2D4 0 6px,#FFFFFF 6px 12px)"></i><span>SignUp</span><span class="tbc">Needed</span></div>
+          <h3>Background field</h3>
+          <div class="swatch"><i style="background:#FFFFFF"></i><span>Centre</span><code>#FFFFFF</code></div>
+          <div class="swatch"><i style="background:#F6F6FD"></i><span>Off-white mid stop</span><code>#F6F6FD</code></div>
+          <div class="swatch"><i style="background:#E6E8FC"></i><span>Edges</span><code>#E6E8FC</code></div>
+        </div>
+        <div class="swatch-group">
+          <h3>Plate glows</h3>
+          <div class="swatch"><i style="background:#EB8A23"></i><span>SignUp</span><code>#EB8A23</code></div>
           <div class="swatch"><i style="background:#E03170"></i><span>Axtension</span><code>#E03170</code></div>
           <div class="swatch"><i style="background:#F12425"></i><span>SKsoft</span><code>#F12425</code></div>
           <div class="swatch"><i style="background:#003CFF"></i><span>DynamicWeb</span><code>#003CFF</code></div>
         </div>
         <div class="swatch-group">
-          <h3>After the merge</h3>
+          <h3>Spectrum</h3>
           <div class="swatch"><i style="background:#400685"></i><span>Deep Violet</span><code>#400685</code></div>
-          <div class="swatch"><i style="background:#008FC4"></i><span>Celestial Blue Light</span><span class="tbc">From PDF</span></div>
+          <div class="swatch"><i style="background:#008FC4"></i><span>Celestial Blue</span><code>#008FC4</code></div>
           <div class="swatch"><i style="background:#2DB34A"></i><span>Electric Green</span><code>#2DB34A</code></div>
           <div class="swatch"><i style="background:#FFB310"></i><span>Yellow Gold</span><code>#FFB310</code></div>
         </div>
-        <p class="note">The bands follow the secondary gradient for dark backgrounds at 25.4°. My notes have no hex for Celestial Blue Light, so the mockup uses Celestial Blue #008FC4. Take the real value from the guidelines PDF.</p>
       </div>
     </div>
   </section>
 
   <section class="section" aria-labelledby="render-h">
     <div class="section-head">
-      <h2 id="render-h">Higgsfield render plan</h2>
-      <p>Higgsfield renders motion only. Every word, logo and the button get set by hand in After Effects.</p>
+      <h2 id="render-h">Render plan, after lock</h2>
+      <p>Nothing renders until this page is locked.</p>
     </div>
     <ol class="steps">
       <li class="step">
-        <h3>Storyboard sheet</h3>
-        <p>One GPT Image 2 image with all 8 panels, for a quick direction check with Jess before any video credits go out.</p>
-        <div class="chips"><span>GPT Image 2</span><span>1 image</span><span>4 × 2 grid</span><span>No text or logos in panels</span></div>
+        <h3>Upload references</h3>
+        <p>The white sample as the motion reference, and the four white legacy logos as image references.</p>
+        <div class="chips"><span>1 video</span><span>4 PNG logos</span></div>
+      </li>
+
+      <li class="step">
+        <h3>480p draft</h3>
+        <p>One full-length draft to check motion and timing at low cost.</p>
+        <div class="chips"><span>Seedance 2.5</span><span>omni_reference</span><span>9:16</span><span>20 s</span><span>480p draft</span><span>Audio off</span><span>High bitrate</span></div>
         <div class="prompt">
-          <div class="prompt-head"><span>Prompt</span><button class="copy" type="button" data-copy="p-sheet">Copy</button></div>
-          <pre id="p-sheet">Storyboard sheet with 8 sequential portrait panels (ratio 1:1.95) in a 4 by 2 grid, thin light grey borders, each panel labelled Frame 1 to Frame 8 underneath. Premium B2B motion design, flat vector shapes, locked-off camera, no people.
-Panel 1: pure white background, four thin glossy ribbons enter from the left and right edges, in grey, magenta, red and electric blue.
-Panel 2: white background, the four ribbons run across the frame in four stacked rows, each passing behind an empty white rounded card on the left. Open space at the top.
-Panel 3: white background, the ribbons bend toward the centre and braid into one twisted rope on a 25 degree diagonal.
-Panel 4: the rope tightens into one bright diagonal line. Deep violet floods outward from the line and covers the middle of the frame.
-Panel 5: solid deep violet background, three parallel diagonal bands in light blue, green and gold sweep across the lower half at 25 degrees. Empty centre.
-Panel 6: deep violet, the three bands rest in the lower left corner as rounded bars. Empty centre.
-Panel 7: deep violet, bands at rest, an empty gold pill-shaped button in the middle.
-Panel 8: same as panel 7, with a white diagonal wipe entering from the top right corner.
-No words, letters or logos inside any panel. Palette: white #FFFFFF, deep violet #400685, magenta #E03170, red #F12425, blue #003CFF, light blue #008FC4, green #2DB34A, gold #FFB310.</pre>
+          <div class="prompt-head"><span>Prompt</span><button class="copy" type="button" data-copy="p-main">Copy</button></div>
+          <pre id="p-main">Premium enterprise motion-graphics sequence, portrait 9:16, 20 seconds, no camera shake, elegant and restrained. Follow the motion, pacing and lighting of &lt;&lt;&lt;video_1&gt;&gt;&gt;, restaged for a tall portrait frame.
+
+Background: a soft matte gradient field. Pure white at the centre, easing through off-white to pale lavender #E6E8FC at the edges.
+
+0-5s: Four small dark glass plates orbit slowly around the centre on a tall tilted elliptical path in gentle 3D perspective. They grow larger and sharper as they swing toward the viewer, and smaller, paler and softly blurred as they pass behind. Each plate carries one white logo, reproduced exactly and never redrawn: &lt;&lt;&lt;image_1&gt;&gt;&gt;, &lt;&lt;&lt;image_2&gt;&gt;&gt;, &lt;&lt;&lt;image_3&gt;&gt;&gt;, &lt;&lt;&lt;image_4&gt;&gt;&gt;. Each plate casts a soft coloured glow beneath it, in the same order as the logos: orange #EB8A23, magenta #E03170, red #F12425 and blue #003CFF. The centre of the frame stays empty. Everything drifts slowly.
+
+5-6s: The orbit collapses inward. The four plates accelerate toward the centre with long directional motion-blur smears in their glow colours and braid into a single point of white-hot light. The light blooms outward with a thin horizontal streak.
+
+6-7.5s: Concentric rings in a deep violet, blue, green and gold spectrum expand from the bloom and soften. The centre stays clear and calm.
+
+7.5-10.5s: The rings settle into one faint, soft spectrum halo behind the centre. Total stillness.
+
+10.5-15.5s: The halo drifts gently. A thin spectrum rule in deep violet, blue, green and gold draws from left to right in the lower middle of the frame.
+
+15.5-20s: The rule fades. A rounded white pill outlined in a deep violet, blue, green and gold gradient settles into the lower middle, and a single bright sweep of light runs through its outline. The frame holds perfectly still to the end, the halo breathing almost imperceptibly.
+
+Style: high-end broadcast motion design, soft volumetric light, generous negative space, matte background, no people, no photography, no clutter, smooth cross-dissolves, nothing snaps or cuts. No text, letters or numbers anywhere in the frame. The four logos on the plates are the only graphics with lettering.</pre>
         </div>
       </li>
 
       <li class="step">
-        <h3>Key plates</h3>
-        <p>Three clean stills to lock the start and end of each shot.</p>
-        <div class="chips"><span>GPT Image 2</span><span>9:16</span><span>3 images</span></div>
-        <div class="prompt">
-          <div class="prompt-head"><span>Prompts</span><button class="copy" type="button" data-copy="p-plates">Copy</button></div>
-          <pre id="p-plates">Plate A1 (Shot A start): Portrait 9:16 still. Pure white background. Four thin glossy ribbons in grey, magenta, red and electric blue enter from the left and right edges at mid height. Flat vector, premium, generous empty space. No text, no logos.
-
-Plate A2 (Shot A end): Portrait 9:16 still. Solid deep violet #400685 background with one thin bright white line crossing the centre on a 25 degree diagonal. Flat vector. No text, no logos.
-
-Plate B2 (Shot B end): Portrait 9:16 still. Solid deep violet #400685 background. Three parallel rounded bars in light blue, green and gold on a 25 degree diagonal, resting in the lower left corner. Empty centre. Flat vector. No text, no logos.</pre>
-        </div>
-      </li>
-
-      <li class="step">
-        <h3>Shot A · 0 to 8 s</h3>
-        <p>White open, the ribbons, the braid and the violet flood.</p>
-        <div class="chips"><span>Seedance 2.0</span><span>8 s</span><span>9:16</span><span>1080p</span><span>std mode</span><span>Audio off</span><span>Start: Plate A1</span><span>End: Plate A2</span></div>
-        <div class="prompt">
-          <div class="prompt-head"><span>Prompt</span><button class="copy" type="button" data-copy="p-a">Copy</button></div>
-          <pre id="p-a">Premium flat motion design, portrait, locked-off camera, smooth ease in and out, silent. Pure white background. Four thin glossy ribbons in grey, magenta, red and electric blue glide in from the left and right edges, settle into four gentle horizontal rows and drift slowly. At 6 seconds the ribbons bend toward the centre and braid into one twisting rope on a 25 degree diagonal. At 7 seconds the rope tightens into one bright line, and deep violet floods outward from the line until the whole frame is deep violet. Keep the top third and the left half of each row clear. No text, no letters, no logos, no people.</pre>
-        </div>
-      </li>
-
-      <li class="step">
-        <h3>Shot B · 8 to 18 s</h3>
-        <p>The bands open, settle and hold under the logo, pillars and button.</p>
-        <div class="chips"><span>Seedance 2.0</span><span>10 s</span><span>9:16</span><span>1080p</span><span>std mode</span><span>Audio off</span><span>Start: last frame of Shot A</span><span>End: Plate B2</span></div>
-        <div class="prompt">
-          <div class="prompt-head"><span>Prompt</span><button class="copy" type="button" data-copy="p-b">Copy</button></div>
-          <pre id="p-b">Premium flat motion design, portrait, locked-off camera, smooth easing, silent. Solid deep violet background. A bright diagonal line at 25 degrees splits into three parallel bands in light blue, green and gold. The bands sweep across the lower half, then ease into the lower left corner as rounded bars and drift very slowly for the rest of the shot. The centre and upper half stay empty and calm. No text, no letters, no logos, no people.</pre>
-        </div>
+        <h3>Finalise at 1080p</h3>
+        <p>Once you approve the draft, the same job finalises at 1080p. Drafts stay open for seven days.</p>
+        <div class="chips"><span>Same draft job</span><span>1080 × 1920</span></div>
       </li>
 
       <li class="step">
         <h3>After Effects finish</h3>
-        <p>The plates set the feel. The final gets rebuilt to spec.</p>
+        <p>The render gives the motion. The type goes on by hand.</p>
         <ul>
-          <li>Grade to the exact hex values and rebuild the bands from the gradient spec at 25.4°.</li>
-          <li>Set every super, both logo lockups and the button by hand.</li>
-          <li>Build the white loop wipe from 17.4 s to 18 s.</li>
-          <li>Scale the 1080 × 1920 render to 79.17% and crop 37.5 px from each side to reach 780 × 1520. Keep key action inside the centre.</li>
-          <li>Export to the AV vendor's frame rate and codec.</li>
+          <li>Conform to 30 fps. Your sample came out of Seedance at 24 fps, so expect the same.</li>
+          <li>Set every super, the Truvio logo and the button label.</li>
+          <li>Trim to 19.5 s and build the 0.5 s dissolve to the empty field that closes the loop.</li>
+          <li>Scale the 1080 × 1920 render to 79.17% and crop 37.5 px from each side to reach 780 × 1520.</li>
         </ul>
       </li>
     </ol>
   </section>
 
-  <footer>Storyboard v1 · 28 September 2026 · Next: drop in the logos, then render the sheet.</footer>
+  <footer>Storyboard v2 · 28 September 2026 · v1, the ribbon concept, is in the repo history.</footer>
 </main>
+
 
 <script>
   (function () {
