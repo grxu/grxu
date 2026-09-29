@@ -14,6 +14,18 @@
       It builds a new comp inside a "Truvio Checklist" project folder.
       Nothing is rendered or added to the render queue.
 
+    SAVE THE .AEP
+      Run it in a new, unsaved project and it saves "Truvio Checklist.aep"
+      next to this script. It never overwrites a file and never re-saves a
+      project that already has one. Turn it off with CONFIG.saveAep.
+
+    SCALE THE CHECKLIST
+      The card and everything on it (checkboxes, text, emoji, dividers, shadow)
+      is parented to the CHECKLIST null and scales around the card's centre.
+      Change "Checklist Scale" on the CONTROLS layer (starts at 75%).
+      The heading and logo stay on the safe margins. Text and shapes stay sharp,
+      but the Character panel shows the unscaled 36px size.
+
     CHANGE COLOURS LATER
       Select the CONTROLS layer (top of the comp) and open Effect Controls.
       Every colour in the comp is linked to one of those swatches. The same
@@ -44,6 +56,8 @@
         height: 1080,
         fps: 60,          // the reference clip is 60fps; 30 also works
         margin: 65,       // safe margin: 6% of the short edge
+        checklistScale: 75,   // percent; the card and its rows. Live on CONTROLS > Checklist Scale
+        saveAep: true,        // save "<compName>.aep" next to this script when run in an unsaved project
 
         heading: ["One dealer portal.", "Four fewer headaches."],   // one entry per line
 
@@ -85,7 +99,8 @@
             checkmark:         "#FFFFFF"
         },
 
-        // Pixel sizes at 1080x1080, scaled from the 720px reference
+        // Pixel sizes at 1080x1080, scaled from the 720px reference.
+        // The card and rows are drawn at these sizes, then scaled by checklistScale.
         layout: {
             cardRadius:    46,
             cardBorder:    4,
@@ -119,6 +134,8 @@
     // =====================================================================
     var CTRL = "CONTROLS";
     var LAYOUT = "LAYOUT";
+    var CHECKLIST = "CHECKLIST";
+    var SCALE_CTRL = "Checklist Scale";
 
     // [effect name on CONTROLS, type, CONFIG.colors key, Essential Graphics label]
     var CONTROL_SPEC = [
@@ -140,6 +157,7 @@
     var L = CONFIG.layout, T = CONFIG.timing, C = CONFIG.colors;
     var W = CONFIG.width, H = CONFIG.height, M = CONFIG.margin;
     var N = CONFIG.items.length;
+    var SCALE = CONFIG.checklistScale / 100;
     var TEXT_LEFT = L.cardPadLeft + L.boxSize + L.textGap;   // card's left edge to the start of each line
     var CHECK_DUR = 0.32;     // press, fill, tick: measured from the reference
     var UNCHECK_DUR = 0.24;
@@ -163,6 +181,11 @@
         return 'var w = ' + cardWidth() + ';\n[thisComp.width / 2 - w / 2 + ' + offset + ', value[1]];';
     }
     function transform(layer, matchName) { return layer.property("ADBE Transform Group").property(matchName); }
+    // Parent without AE adjusting the child's transform values
+    function setParent(child, parent) {
+        if (typeof child.setParentWithJump === "function") child.setParentWithJump(parent);
+        else child.parent = parent;
+    }
 
     // Adding an effect invalidates older effect references on that layer,
     // so always re-fetch with fx(layer, name) after adding.
@@ -365,6 +388,8 @@
                 param(fx(controls, spec[0]), "ADBE Slider Control-0001", "Slider").setValue(C[spec[2]]);
             }
         }
+        addEffect(controls, "ADBE Slider Control", SCALE_CTRL);
+        param(fx(controls, SCALE_CTRL), "ADBE Slider Control-0001", "Slider").setValue(CONFIG.checklistScale);
 
         // ---- LAYOUT: auto card width (expression added once rows exist) ----
         var layout = comp.layers.addNull(duration);
@@ -404,8 +429,9 @@
             return m;
         }
 
-        // Shrink the item size until the widest row fits inside the safe margins
-        var maxCardW = W - 2 * M;
+        // Shrink the item size until the widest row fits inside the safe margins (after scaling)
+        var safeW = W - 2 * M;
+        var maxCardW = safeW / SCALE;
         var widest = widestRow();
         for (var pass = 0; pass < 4 && TEXT_LEFT + widest + L.cardPadRight > maxCardW; pass++) {
             size = Math.floor(size * (maxCardW - TEXT_LEFT - L.cardPadRight) / widest);
@@ -427,7 +453,7 @@
         transform(heading, "ADBE Position").setValue([W / 2, M - hb.top]);
         linkTextColor(heading, "Heading");
         var headingBottom = M + hb.height;
-        if (hb.width > maxCardW) warn("The heading is wider than the safe margins. Shorten a line or lower CONFIG.headingSize.");
+        if (hb.width > safeW) warn("The heading is wider than the safe margins. Shorten a line or lower CONFIG.headingSize.");
 
         // ---- logo --------------------------------------------------------
         var logo = null, logoTop = H - M;
@@ -452,8 +478,17 @@
         // ---- vertical layout: centre the card between heading and logo ----
         var cardH = N * L.rowPitch + 2 * L.cardPadV;
         var cardTop = headingBottom + (logoTop - headingBottom - cardH) / 2;
-        if (cardTop - headingBottom < 32) warn("Vertical fit is tight. Lower CONFIG.layout.rowPitch or CONFIG.headingSize.");
         var cardCY = cardTop + cardH / 2;
+        if ((logoTop - headingBottom - cardH * SCALE) / 2 < 32) warn("Vertical fit is tight. Lower CONFIG.checklistScale, CONFIG.layout.rowPitch or CONFIG.headingSize.");
+
+        // ---- CHECKLIST: scales the card and rows around the card's centre --
+        // Anchor = position, so children keep comp coordinates at 100% and every
+        // layout expression below works unchanged.
+        var checklist = comp.layers.addNull(duration);
+        checklist.name = CHECKLIST;
+        checklist.guideLayer = true;
+        transform(checklist, "ADBE Anchor Point").setValue([W / 2, cardCY]);
+        transform(checklist, "ADBE Position").setValue([W / 2, cardCY]);
         var cardLeft = W / 2 - cardW / 2;
         var capH = capRatio * size;
 
@@ -520,6 +555,18 @@
             boxes.push(buildCheckbox(comp, i, cardLeft + L.cardPadLeft + L.boxSize / 2, rowCY, checkT[i], uncheckT[i]));
         }
 
+        // ---- parent the card and rows to CHECKLIST (still at 100%, so nothing moves)
+        var cardLayers = [shadow, card, dividers];
+        for (i = 0; i < N; i++) {
+            cardLayers.push(rows[i].text, boxes[i]);
+            if (rows[i].emoji) cardLayers.push(rows[i].emoji);
+        }
+        for (i = 0; i < cardLayers.length; i++) setParent(cardLayers[i], checklist);
+        transform(checklist, "ADBE Scale").expression = "var s = " + ctrl(SCALE_CTRL) + ";\n[s, s];";
+        // Shape layers apply effects after transforms, so scale the shadow blur by hand
+        param(fx(shadow, "Blur"), "ADBE Gaussian Blur 2-0001", "Blurriness").expression =
+            'value * thisComp.layer("' + CHECKLIST + '").transform.scale[0] / 100;';
+
         // ---- card width follows the longest line from now on --------------
         var rowList = [];
         for (i = 0; i < N; i++) {
@@ -561,7 +608,7 @@
         param(ramp, "ADBE Ramp-0004", "End Color").expression = ctrl("BG End Color");
 
         // ---- stacking order, top to bottom --------------------------------
-        var order = [controls, layout];
+        var order = [controls, layout, checklist];
         if (logo) order.push(logo);
         order.push(heading);
         for (i = 0; i < N; i++) {
@@ -586,6 +633,10 @@
                 if (p.canAddToMotionGraphicsTemplate(comp)) p.addToMotionGraphicsTemplateAs(comp, CONTROL_SPEC[i][3]);
             } catch (e4) { egpOk = false; }
         }
+        try {
+            var sp = fx(controls, SCALE_CTRL).property(1);
+            if (sp.canAddToMotionGraphicsTemplate(comp)) sp.addToMotionGraphicsTemplateAs(comp, "Checklist scale (%)");
+        } catch (e5) { egpOk = false; }
         if (!egpOk) warn("Couldn't add every control to Essential Graphics. The CONTROLS layer still works.");
 
         // ---- verify expressions, tidy up ----------------------------------
@@ -598,6 +649,7 @@
         for (i = 1; i <= comp.numLayers; i++) comp.layer(i).selected = false;
         controls.selected = true;
         layout.locked = true;   // last: a locked layer can't be changed
+        checklist.locked = true;
 
         return { comp: comp, duration: duration, size: size };
     }
@@ -646,19 +698,45 @@
     // =====================================================================
     //  Run
     // =====================================================================
+    // Saves an unsaved project next to this script. Never overwrites a file,
+    // never re-saves a project that already has one.
+    function saveProject() {
+        if (app.project.file) {
+            warn("This project already has a file, so the script didn't save it. Use File > Save.");
+            return null;
+        }
+        var script = new File($.fileName);
+        var folder = ($.fileName && script.parent && script.parent.exists) ? script.parent : Folder.desktop;
+        var f = new File(folder.fsName + "/" + CONFIG.compName + ".aep"), n = 2;
+        while (f.exists) f = new File(folder.fsName + "/" + CONFIG.compName + " " + (n++) + ".aep");
+        try {
+            app.project.save(f);
+            return f;
+        } catch (e) {
+            warn("Couldn't save the .aep (" + e.toString() + "). Use File > Save As.");
+            return null;
+        }
+    }
+
+    var result = null;
     app.beginUndoGroup("Build Truvio Checklist");
     try {
-        var result = build();
-        var msg = "Truvio Checklist is built.\n\n" +
-                  "Comp: " + result.comp.name + " (" + W + "x" + H + ", " + CONFIG.fps + "fps, " +
-                  (Math.round(result.duration * 100) / 100) + "s, loops seamlessly)\n\n" +
-                  "Colours: select the CONTROLS layer and open Effect Controls.\n" +
-                  "They're also in the Essential Graphics panel.";
-        if (warnings.length) msg += "\n\nCheck these:\n- " + warnings.join("\n- ");
-        alert(msg);
+        result = build();
     } catch (err) {
         alert("Truvio Checklist build stopped:\n" + err.toString() + (err.line ? "\n(script line " + err.line + ")" : ""));
     }
     app.endUndoGroup();
+    if (!result) return;
+
+    var saved = CONFIG.saveAep ? saveProject() : null;
+    var msg = "Truvio Checklist is built.\n\n" +
+              "Comp: " + result.comp.name + " (" + W + "x" + H + ", " + CONFIG.fps + "fps, " +
+              (Math.round(result.duration * 100) / 100) + "s, loops seamlessly)\n" +
+              "Checklist at " + CONFIG.checklistScale + "%: change it with CONTROLS > " + SCALE_CTRL + ".\n\n" +
+              "Colours: select the CONTROLS layer and open Effect Controls.\n" +
+              "They're also in the Essential Graphics panel.";
+    if (saved) msg += "\n\nSaved: " + saved.fsName;
+    if (warnings.length) msg += "\n\nCheck these:\n- " + warnings.join("\n- ");
+    alert(msg);
 
 })();
