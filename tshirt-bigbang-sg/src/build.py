@@ -9,6 +9,7 @@ Outputs go to ../print-files and ../mockup. Tweak the SETTINGS block below
 """
 import base64
 import io
+import math
 import os
 from functools import lru_cache
 
@@ -280,11 +281,37 @@ def front_art():
 
 
 # ------------------------------------------------------------------ BACK
+def _jag(a, b, teeth, depth):
+    """Zig-zag points strictly between a and b (a sawtooth to one side)."""
+    (ax, ay), (bx, by) = a, b
+    L = ((bx - ax) ** 2 + (by - ay) ** 2) ** 0.5
+    nx, ny = (by - ay) / L, -(bx - ax) / L
+    pts = []
+    for i in range(1, 2 * teeth):
+        t = i / (2 * teeth)
+        d = depth * (1.0 if i % 2 else 0.0) * (0.7 + 0.6 * ((i * 37) % 10) / 10)
+        pts.append((ax + (bx - ax) * t + nx * d, ay + (by - ay) * t + ny * d))
+    return pts
+
+
+def _dagger(x, y_top, y_bot, w):
+    """A thin pointed sliver (a black streak cut into a white key), widest low down."""
+    left, right, n = [], [], 12
+    for i in range(n + 1):
+        t = i / n
+        half = w / 2 * math.sin(math.pi * t) ** 0.9 * (0.6 + 0.4 * t)
+        yy = y_top + (y_bot - y_top) * t
+        left.append((x - half, yy))
+        right.append((x + half, yy))
+    return left + right[::-1][1:-1]
+
+
 def piano_keys(x, y, W, H, gap, black_w=0.55, black_l=(0.71, 0.70), flare=(0.05, 0.06), flare_from=0.47):
     """Three white keys as polygons; the two black keys are the notches between
     them. black_l = how far each black key reaches down (share of H); flare =
     how much each black key widens on its right over its lower part (share of
-    W, starting at flare_from of H), like a brush pressing harder."""
+    W, from flare_from of H) with a jagged edge, like a brush pressing harder.
+    Returns (key polygons, dagger slivers to cut out above each flare)."""
     kw = (W - 2 * gap) / 3
     bw = kw * black_w
     xs = [x + i * (kw + gap) for i in range(3)]
@@ -294,13 +321,20 @@ def piano_keys(x, y, W, H, gap, black_w=0.55, black_l=(0.71, 0.70), flare=(0.05,
     YF = y + H * flare_from
     f1, f2 = W * flare[0], W * flare[1]
     r1, r2 = b1 + bw / 2, b2 + bw / 2  # right edges of the black keys
-    return [
+    jag1 = _jag((r1 + f1, YF + H * 0.11), (r1, YF), 3, W * 0.014)
+    jag2 = _jag((r2 + f2, YF + H * 0.12), (r2, YF + H * 0.02), 4, W * 0.012)
+    keys = [
         [(xs[0], Y0), (b1 - bw / 2, Y0), (b1 - bw / 2, YB1), (xs[0] + kw, YB1), (xs[0] + kw, Y1), (xs[0], Y1)],
         [(r1, Y0), (b2 - bw / 2, Y0), (b2 - bw / 2, YB2), (xs[1] + kw, YB2), (xs[1] + kw, Y1),
-         (xs[1], Y1), (xs[1], YB1), (r1 + f1, YB1), (r1 + f1, YF + H * 0.06), (r1, YF)],
+         (xs[1], Y1), (xs[1], YB1), (r1 + f1, YB1), (r1 + f1, YF + H * 0.11), *jag1, (r1, YF)],
         [(r2, Y0), (xs[2] + kw, Y0), (xs[2] + kw, Y1), (xs[2], Y1), (xs[2], YB2), (r2 + f2, YB2),
-         (r2 + f2, YF + H * 0.09), (r2, YF + H * 0.03)],
+         (r2 + f2, YF + H * 0.12), *jag2, (r2, YF + H * 0.02)],
     ]
+    daggers = [
+        _dagger(r1 + W * 0.03, YF - H * 0.07, YF + H * 0.09, W * 0.022),
+        _dagger(r2 + W * 0.028, YF - H * 0.12, YF + H * 0.02, W * 0.016),
+    ]
+    return keys, daggers
 
 
 def back_art():
@@ -311,10 +345,10 @@ def back_art():
     keys_top = wy1 + 300
     keys_w = W * 0.76
     keys_h = keys_w / 0.78  # same block proportions as the reference
-    polys = piano_keys(cx - keys_w / 2, keys_top, keys_w, keys_h, gap=keys_w * 0.027)
+    polys, daggers = piano_keys(cx - keys_w / 2, keys_top, keys_w, keys_h, gap=keys_w * 0.027)
     bottom = keys_top + keys_h
     if KEYS_STYLE == "brushed":
-        keys, (_, _, _, kb) = brushed_keys(polys, seed=KEYS_SEED, unit=keys_h / 2000)
+        keys, (_, _, _, kb) = brushed_keys(polys, seed=KEYS_SEED, unit=keys_h / 2000, holes=daggers)
         bottom = max(bottom, kb)  # frayed ends reach past the clean outline
     else:
         keys = ["M" + " L".join(f"{px:.1f},{py:.1f}" for px, py in p) + "Z" for p in polys]

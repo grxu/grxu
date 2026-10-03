@@ -46,9 +46,9 @@ def rough_polygon(pts, rnd, step=6.0, side_amp=7.0, end_amp=26.0, no_bite_x=()):
         nx, ny = dy / L, -dx / L  # outward for clockwise screen-space polygons
         vertical = abs(dy) > abs(dx)
         if vertical:
-            f = _noise(rnd, L, side_amp * 0.25, side_amp * 0.45, L / 2.5, step * 4)
+            f = _noise(rnd, L, side_amp * 0.2, side_amp * 0.18, L / 2.5, step * 9)
         else:
-            f = _noise(rnd, L, end_amp * 0.3, end_amp * 0.6, L / 1.5, step * 3.5)
+            f = _noise(rnd, L, end_amp * 0.35, end_amp * 0.45, L / 1.5, step * 7)
         # now and then a bigger chunk missing from a long edge, like the brush
         # running dry
         bites = []
@@ -100,7 +100,7 @@ def geom_to_path(geom):
     return "".join(d)
 
 
-def brushed_keys(polys, seed=7, unit=1.0):
+def brushed_keys(polys, seed=7, unit=1.0, holes=()):
     """Turn clean key polygons into brushed ones. `unit` scales all amplitudes
     (1.0 suits keys ~2000 units tall). Returns (SVG path data per key, bounds)."""
     rnd = random.Random(seed)
@@ -108,7 +108,12 @@ def brushed_keys(polys, seed=7, unit=1.0):
     # the block's outer sides stay straight-ish; chunks only bite inner edges
     outer_x = (min(p[0] for pts in polys for p in pts), max(p[0] for pts in polys for p in pts))
     for pts in polys:
-        g = rough_polygon(pts, rnd, step=6 * unit, side_amp=7 * unit, end_amp=14 * unit, no_bite_x=outer_x)
+        g = rough_polygon(pts, rnd, step=6 * unit, side_amp=7 * unit, end_amp=7 * unit, no_bite_x=outer_x)
+        # soften the corners slightly, like a loaded brush (an opening keeps the
+        # black notches and daggers sharp while rounding the white corners)
+        g = g.buffer(-14 * unit, join_style="round").buffer(14 * unit, join_style="round")
+        for h in holes:
+            g = g.difference(Polygon(h).buffer(0))
         xs = [p[0] for p in pts]
         ys = [p[1] for p in pts]
         cut = streaks(rnd, min(xs), max(xs), min(ys), max(ys), count=rnd.randint(0, 1),
