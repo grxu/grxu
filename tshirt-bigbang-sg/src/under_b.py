@@ -8,6 +8,7 @@ mockups under ../print-files/options/ and ../mockup/options/.
 
     python3 under_b.py
 """
+import json
 import os
 
 import cairosvg
@@ -96,6 +97,10 @@ def main():
         build.B_WIDTH = (nux1 - nux0) / S
         b_h_u = nuy1 - nuy0
         build.B_NUDGE = ((nux0 + nux1) / 2 - S / 2, nuy0 - (S / 2 - b_h_u / 2 + 10))
+        with open(os.path.join(HERE, "assets", f"under-b-{name}.json"), "w") as fh:
+            json.dump({"png": os.path.basename(out_png), "B_WIDTH": build.B_WIDTH, "B_NUDGE": build.B_NUDGE,
+                       "split_y": split - 0 + 0, "pad": pad, "group_xy": [gx + pad, gy],
+                       "group_size": list(bottom.size)}, fh, indent=1)
         front = build.front_art()
         fdefs, fbody, fW, fH = front
         base = os.path.join(OUT_PRINT, f"FRONT_under-b-{name}_{build.FRONT_MM}x{build.FRONT_MM}mm")
