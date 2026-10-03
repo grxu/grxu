@@ -188,6 +188,10 @@ def watercolour_layer(png_path, S):
     im = Image.open(png_path).convert("RGBA")
     bbox = im.getchannel("A").point(lambda a: 255 if a > 8 else 0).getbbox()
     im = im.crop(bbox)
+    # AI watercolour comes out at alpha ~250 rather than 255; snap near-opaque
+    # paint to solid so the printer lays a full white underbase under it
+    r, g, b, a = im.split()
+    im = Image.merge("RGBA", (r, g, b, a.point(lambda v: 255 if v >= 240 else v)))
     k = S / max(im.size)
     w, h = im.width * k, im.height * k
     buf = io.BytesIO()
@@ -374,7 +378,7 @@ def mockup_svg(front, back, annotate):
             ("BACK", f"Centred, {BACK_W_MM / 10:g} x {back_mm_h / 10:.1f} cm, white ink only"),
         ]
         notes_right = [
-            ("FILES", "FRONT / BACK as .pdf + .svg (vector), .png 300 dpi"),
+            ("FILES", "FRONT / BACK as .pdf + .svg, .png 300 dpi + 2048 px"),
             ("COLOUR", "sRGB artwork; white = 100% white ink"),
             ("BACKGROUND", "Transparent - do NOT print the black"),
             ("SIZING", "Same print size on all shirt sizes unless noted"),
@@ -415,7 +419,7 @@ def main():
 
     export(svg_doc(FRONT_MM, FRONT_MM, fW, fH, fdefs, fbody),
            os.path.join(OUT_PRINT, f"FRONT_left-chest_{FRONT_MM}x{FRONT_MM}mm"), FRONT_MM,
-           extra_png=None if FLOWERS == "watercolour" and find_watercolour() else 4000)
+           extra_png=2048 if FLOWERS == "watercolour" and find_watercolour() else 4000)
     export(svg_doc(BACK_W_MM, back_h_mm, bW, bH, bdefs, bbody),
            os.path.join(OUT_PRINT, f"BACK_{BACK_W_MM}x{back_h_mm:g}mm"), BACK_W_MM)
 
