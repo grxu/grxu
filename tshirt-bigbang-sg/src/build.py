@@ -38,7 +38,7 @@ BACK_W_MM = 270              # back artboard width (mm); height follows the art
 SG_LINE = ""                 # optional line under the piano keys, e.g. "SINGAPORE · 2026"
 KNOCKOUT_MM = 0              # black gap between the white B and the flowers (0 = none)
 FLOWERS = "watercolour"      # "watercolour" (painted PNG layer) or "vector" (generated paths)
-WATERCOLOUR_PNG = os.path.join(HERE, "assets", "watercolour-flowers.png")
+UPLOAD_DIR = os.path.join(ROOT, "upload-here")  # drop the painted flowers PNG here (any name)
 DPI = 300
 FRONT_FROM_CENTRE_MM = 70    # centre line -> left edge of the chest emblem
 FRONT_BELOW_COLLAR_MM = 65   # centre-front collar seam -> top of the emblem
@@ -175,6 +175,14 @@ def svg_doc(w_mm, h_mm, vb_w, vb_h, defs, body, bg=None):
 
 
 # ------------------------------------------------------------------ FRONT
+def find_watercolour():
+    """The painted flowers: the PNG dropped into upload-here/ (newest if several)."""
+    if not os.path.isdir(UPLOAD_DIR):
+        return None
+    pngs = [os.path.join(UPLOAD_DIR, f) for f in os.listdir(UPLOAD_DIR) if f.lower().endswith(".png")]
+    return max(pngs, key=os.path.getmtime) if pngs else None
+
+
 def watercolour_layer(png_path, S):
     """Embed the painted flowers, cropped to their ink and centred on the artboard."""
     im = Image.open(png_path).convert("RGBA")
@@ -221,8 +229,9 @@ def front_art():
     def grp(gid, els):
         groups.append(f'<g id="{gid}">' + "".join(els) + "</g>")
 
-    if FLOWERS == "watercolour" and os.path.exists(WATERCOLOUR_PNG):
-        groups.append(watercolour_layer(WATERCOLOUR_PNG, S))
+    painted = find_watercolour()
+    if FLOWERS == "watercolour" and painted:
+        groups.append(watercolour_layer(painted, S))
     else:
         vector_flowers(art, grp)
 
@@ -406,7 +415,7 @@ def main():
 
     export(svg_doc(FRONT_MM, FRONT_MM, fW, fH, fdefs, fbody),
            os.path.join(OUT_PRINT, f"FRONT_left-chest_{FRONT_MM}x{FRONT_MM}mm"), FRONT_MM,
-           extra_png=None if os.path.exists(WATERCOLOUR_PNG) and FLOWERS == "watercolour" else 4000)
+           extra_png=None if FLOWERS == "watercolour" and find_watercolour() else 4000)
     export(svg_doc(BACK_W_MM, back_h_mm, bW, bH, bdefs, bbody),
            os.path.join(OUT_PRINT, f"BACK_{BACK_W_MM}x{back_h_mm:g}mm"), BACK_W_MM)
 
