@@ -18,3 +18,4 @@ Still to confirm: the front wording, the three numerals, and the back colour.
 | `mockup/` | The blank tee mockup, the same one Floral B uses |
 | `references/front/` | References for the big blue, red and yellow text |
 | `references/back/` | References for the three Roman numerals |
+| `vector/` | Clean four-ink SVG trace of the BIIIG artwork (black, blue, yellow, red), with per-ink separations |
