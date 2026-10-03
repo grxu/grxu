@@ -34,7 +34,8 @@ OUT_MOCK = os.path.join(ROOT, "mockup")
 SHIRT = "#121212"            # garment colour used in the mockup only
 WHITE = "#ffffff"            # white ink (B, wordmark, piano keys)
 FRONT_MM = 100               # front emblem artboard, square (mm)
-B_WIDTH = 0.714              # B width as a fraction of the emblem (0.714 x 100 mm = 7.1 cm)
+B_WIDTH = 0.519              # B width as a fraction of the emblem (0.519 x 100 mm = 5.2 cm)
+B_XSCALE = 1.6               # horizontal stretch of the B (1.6 = same shape as the back wordmark)
 BACK_W_MM = 270              # back artboard width (mm); height follows the art
 SG_LINE = ""                 # optional line under the piano keys, e.g. "SINGAPORE · 2026"
 KNOCKOUT_MM = 1.0            # black gap between the white B and the flowers (0 = none)
@@ -191,6 +192,15 @@ def find_watercolour():
     return EDITED_PNG if os.path.exists(EDITED_PNG) else find_uploaded_watercolour()
 
 
+def native_px():
+    """Pixel width at which the painted flowers print 1:1 (no upscaling), or None."""
+    painted = find_watercolour()
+    if FLOWERS != "watercolour" or not painted:
+        return None
+    im = Image.open(painted).convert("RGBA")
+    return max(im.crop(im.getchannel("A").point(lambda a: 255 if a > 8 else 0).getbbox()).size)
+
+
 def watercolour_layer(png_path, S):
     """Embed the painted flowers, cropped to their ink and centred on the artboard."""
     im = Image.open(png_path).convert("RGBA")
@@ -249,14 +259,14 @@ def front_art():
 
     # the B, centred, with a knockout gap so it reads cleanly on top of the flowers
     B_W = S * B_WIDTH
-    _, (bx0, by0, bx1, by1) = text_path(SLAB, "B", 1000, 0, 0, 2.2)
+    _, (bx0, by0, bx1, by1) = text_path(SLAB, "B", 1000, 0, 0, B_XSCALE)
     b_h = (by1 - by0) * B_W / (bx1 - bx0)
     nx, ny = B_NUDGE
-    b_d, _ = fit_text(SLAB, "B", S / 2 + nx, S / 2 - b_h / 2 + 10 + ny, B_W, xscale=2.2)
+    b_d, _ = fit_text(SLAB, "B", S / 2 + nx, S / 2 - b_h / 2 + 10 + ny, B_W, xscale=B_XSCALE)
     size, bx, by = fit_text.last
     clip = ""
     if KNOCKOUT_MM:
-        art.defs.append(knockout_clip("f-knockout", text_shape(SLAB, "B", size, bx, by, 2.2),
+        art.defs.append(knockout_clip("f-knockout", text_shape(SLAB, "B", size, bx, by, B_XSCALE),
                                       KNOCKOUT_MM * S / FRONT_MM, S, S))
         clip = ' clip-path="url(#f-knockout)"'
     body = [
@@ -428,7 +438,7 @@ def main():
 
     export(svg_doc(FRONT_MM, FRONT_MM, fW, fH, fdefs, fbody),
            os.path.join(OUT_PRINT, f"FRONT_left-chest_{FRONT_MM}x{FRONT_MM}mm"), FRONT_MM,
-           extra_png=2048 if FLOWERS == "watercolour" and find_watercolour() else 4000)
+           extra_png=native_px() or 4000)
     export(svg_doc(BACK_W_MM, back_h_mm, bW, bH, bdefs, bbody),
            os.path.join(OUT_PRINT, f"BACK_{BACK_W_MM}x{back_h_mm:g}mm"), BACK_W_MM)
 
