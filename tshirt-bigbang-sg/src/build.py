@@ -7,6 +7,8 @@
 Outputs go to ../print-files and ../mockup. Tweak the SETTINGS block below
 (sizes, the Singapore line, flower seeds) and re-run to regenerate everything.
 """
+import base64
+import io
 import os
 from functools import lru_cache
 
@@ -17,6 +19,7 @@ from fontTools.pens.svgPathPen import SVGPathPen
 from fontTools.pens.transformPen import TransformPen
 from fontTools.ttLib import TTFont
 from fontTools.varLib.instancer import instantiateVariableFont
+from PIL import Image
 from shapely.geometry import Polygon
 
 from flowers import Art, bud, cupped_bloom, iris, leaf
@@ -30,12 +33,14 @@ OUT_MOCK = os.path.join(ROOT, "mockup")
 # ------------------------------------------------------------------ SETTINGS
 SHIRT = "#121212"            # garment colour used in the mockup only
 WHITE = "#ffffff"            # white ink (B, wordmark, piano keys)
-FRONT_MM = 100               # front emblem artboard, square (mm)
+FRONT_MM = 120               # front emblem artboard, square (mm)
 BACK_W_MM = 270              # back artboard width (mm); height follows the art
-SG_LINE = "SINGAPORE · 2026"  # line under the piano keys; "" to remove
-KNOCKOUT_MM = 1.2            # black gap between the white B and the flowers
+SG_LINE = ""                 # optional line under the piano keys, e.g. "SINGAPORE · 2026"
+KNOCKOUT_MM = 0              # black gap between the white B and the flowers (0 = none)
+FLOWERS = "watercolour"      # "watercolour" (painted PNG layer) or "vector" (generated paths)
+WATERCOLOUR_PNG = os.path.join(HERE, "assets", "watercolour-flowers.png")
 DPI = 300
-FRONT_FROM_CENTRE_MM = 75    # centre line -> left edge of the chest emblem
+FRONT_FROM_CENTRE_MM = 70    # centre line -> left edge of the chest emblem
 FRONT_BELOW_COLLAR_MM = 65   # centre-front collar seam -> top of the emblem
 BACK_BELOW_COLLAR_MM = 100   # centre-back collar seam -> top of the back art
 
@@ -161,6 +166,7 @@ def layer(gid, label, body, extra=""):
 def svg_doc(w_mm, h_mm, vb_w, vb_h, defs, body, bg=None):
     return ('<?xml version="1.0" encoding="UTF-8"?>\n'
             '<svg xmlns="http://www.w3.org/2000/svg" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
             'xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" '
             f'width="{w_mm}mm" height="{h_mm}mm" viewBox="0 0 {vb_w:.1f} {vb_h:.1f}">\n'
             f'<defs>{"".join(defs)}</defs>\n'
@@ -169,15 +175,23 @@ def svg_doc(w_mm, h_mm, vb_w, vb_h, defs, body, bg=None):
 
 
 # ------------------------------------------------------------------ FRONT
-def front_art():
-    """Square emblem: white slab B over a ring of flowers. 1 unit = 0.1 mm at 100 mm."""
-    S = 1000
-    art = Art("f")
-    groups = []
+def watercolour_layer(png_path, S):
+    """Embed the painted flowers, cropped to their ink and centred on the artboard."""
+    im = Image.open(png_path).convert("RGBA")
+    bbox = im.getchannel("A").point(lambda a: 255 if a > 8 else 0).getbbox()
+    im = im.crop(bbox)
+    k = S / max(im.size)
+    w, h = im.width * k, im.height * k
+    buf = io.BytesIO()
+    im.save(buf, "PNG", optimize=True)
+    data = base64.b64encode(buf.getvalue()).decode()
+    return (f'<image id="watercolour-flowers" x="{(S - w) / 2:.1f}" y="{(S - h) / 2:.1f}" '
+            f'width="{w:.1f}" height="{h:.1f}" preserveAspectRatio="xMidYMid meet" '
+            f'xlink:href="data:image/png;base64,{data}"/>')
 
-    def grp(gid, els):
-        groups.append(f'<g id="{gid}">' + "".join(els) + "</g>")
 
+def vector_flowers(art, grp):
+    """The original procedural flower ring (kept as an alternative to the watercolour)."""
     # leaves first (they sit behind everything)
     leaves = []
     for i, (x, y, L, a) in enumerate([
@@ -197,16 +211,34 @@ def front_art():
     grp("iris-blue-top-left", iris(art, 285, 300, 205, 14, rot=-12))
     grp("peony-crimson-top-right", cupped_bloom(art, 715, 290, 195, "crimson", 15, "peony", rot=15))
 
+
+def front_art():
+    """Square emblem: white slab B over a ring of flowers. 1 unit = 0.1 mm at 100 mm."""
+    S = 1000
+    art = Art("f")
+    groups = []
+
+    def grp(gid, els):
+        groups.append(f'<g id="{gid}">' + "".join(els) + "</g>")
+
+    if FLOWERS == "watercolour" and os.path.exists(WATERCOLOUR_PNG):
+        groups.append(watercolour_layer(WATERCOLOUR_PNG, S))
+    else:
+        vector_flowers(art, grp)
+
     # the B, centred, with a knockout gap so it reads cleanly on top of the flowers
     B_W = 500
     _, (bx0, by0, bx1, by1) = text_path(SLAB, "B", 1000, 0, 0, 2.2)
     b_h = (by1 - by0) * B_W / (bx1 - bx0)
     b_d, _ = fit_text(SLAB, "B", S / 2, S / 2 - b_h / 2 + 10, B_W, xscale=2.2)
     size, bx, by = fit_text.last
-    art.defs.append(knockout_clip("f-knockout", text_shape(SLAB, "B", size, bx, by, 2.2),
-                                  KNOCKOUT_MM * 10, S, S))
+    clip = ""
+    if KNOCKOUT_MM:
+        art.defs.append(knockout_clip("f-knockout", text_shape(SLAB, "B", size, bx, by, 2.2),
+                                      KNOCKOUT_MM * S / FRONT_MM, S, S))
+        clip = ' clip-path="url(#f-knockout)"'
     body = [
-        layer("layer-flowers", "Flowers (full colour)", groups, ' clip-path="url(#f-knockout)"'),
+        layer("layer-flowers", "Flowers (full colour)", groups, clip),
         layer("layer-B", "B (white ink)", [f'<path id="letter-B" d="{b_d}" fill="{WHITE}"/>']),
     ]
     return art.defs, body, S, S
@@ -363,6 +395,8 @@ def export(svg, base, w_mm, png_dpi=DPI, extra_png=None):
 
 def main():
     os.makedirs(OUT_PRINT, exist_ok=True)
+    for f in os.listdir(OUT_PRINT):  # drop outputs from earlier settings
+        os.remove(os.path.join(OUT_PRINT, f))
     os.makedirs(OUT_MOCK, exist_ok=True)
     front = front_art()
     back = back_art()
@@ -371,7 +405,8 @@ def main():
     back_h_mm = round(bH / 10, 1)
 
     export(svg_doc(FRONT_MM, FRONT_MM, fW, fH, fdefs, fbody),
-           os.path.join(OUT_PRINT, f"FRONT_left-chest_{FRONT_MM}x{FRONT_MM}mm"), FRONT_MM, extra_png=4000)
+           os.path.join(OUT_PRINT, f"FRONT_left-chest_{FRONT_MM}x{FRONT_MM}mm"), FRONT_MM,
+           extra_png=None if os.path.exists(WATERCOLOUR_PNG) and FLOWERS == "watercolour" else 4000)
     export(svg_doc(BACK_W_MM, back_h_mm, bW, bH, bdefs, bbody),
            os.path.join(OUT_PRINT, f"BACK_{BACK_W_MM}x{back_h_mm:g}mm"), BACK_W_MM)
 
