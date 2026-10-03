@@ -19,3 +19,4 @@ Still to confirm: the front wording, the three numerals, and the back colour.
 | `references/front/` | References for the big blue, red and yellow text |
 | `references/back/` | References for the three Roman numerals |
 | `vector/` | Clean four-ink SVG trace of the BIIIG artwork (black, blue, yellow, red), with per-ink separations. v1 keeps the small cream BIIIG; v2 merges it into the red and black |
+| `print/` | Print-ready SVGs for the black tee: `front-biiig.svg` (blue, red, yellow) and `back-iii.svg` (white) |
