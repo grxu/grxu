@@ -33,15 +33,18 @@ OUT_MOCK = os.path.join(ROOT, "mockup")
 # ------------------------------------------------------------------ SETTINGS
 SHIRT = "#121212"            # garment colour used in the mockup only
 WHITE = "#ffffff"            # white ink (B, wordmark, piano keys)
-FRONT_MM = 120               # front emblem artboard, square (mm)
+FRONT_MM = 100               # front emblem artboard, square (mm)
+B_WIDTH = 0.714              # B width as a fraction of the emblem (0.714 x 100 mm = 7.1 cm)
 BACK_W_MM = 270              # back artboard width (mm); height follows the art
 SG_LINE = ""                 # optional line under the piano keys, e.g. "SINGAPORE · 2026"
-KNOCKOUT_MM = 0              # black gap between the white B and the flowers (0 = none)
+KNOCKOUT_MM = 1.0            # black gap between the white B and the flowers (0 = none)
+B_NUDGE = (25, 45)           # shift the B from centre (x, y) in 1/1000ths of the artboard
 FLOWERS = "watercolour"      # "watercolour" (painted PNG layer) or "vector" (generated paths)
 UPLOAD_DIR = os.path.join(ROOT, "upload-here")  # drop the painted flowers PNG here (any name)
+EDITED_PNG = os.path.join(HERE, "assets", "flowers-tight.png")  # written by edit_flowers.py
 DPI = 300
-FRONT_FROM_CENTRE_MM = 70    # centre line -> left edge of the chest emblem
-FRONT_BELOW_COLLAR_MM = 65   # centre-front collar seam -> top of the emblem
+FRONT_FROM_CENTRE_MM = 80    # centre line -> left edge of the chest emblem
+FRONT_BELOW_COLLAR_MM = 75   # centre-front collar seam -> top of the emblem
 BACK_BELOW_COLLAR_MM = 100   # centre-back collar seam -> top of the back art
 
 SLAB = "Ultra-Regular.ttf"   # Ultra by Astigmatic, Apache 2.0 licence
@@ -175,12 +178,17 @@ def svg_doc(w_mm, h_mm, vb_w, vb_h, defs, body, bg=None):
 
 
 # ------------------------------------------------------------------ FRONT
-def find_watercolour():
-    """The painted flowers: the PNG dropped into upload-here/ (newest if several)."""
+def find_uploaded_watercolour():
+    """The painted flowers as uploaded: the PNG in upload-here/ (newest if several)."""
     if not os.path.isdir(UPLOAD_DIR):
         return None
     pngs = [os.path.join(UPLOAD_DIR, f) for f in os.listdir(UPLOAD_DIR) if f.lower().endswith(".png")]
     return max(pngs, key=os.path.getmtime) if pngs else None
+
+
+def find_watercolour():
+    """The flowers to print: the reworked version from edit_flowers.py if present."""
+    return EDITED_PNG if os.path.exists(EDITED_PNG) else find_uploaded_watercolour()
 
 
 def watercolour_layer(png_path, S):
@@ -240,10 +248,11 @@ def front_art():
         vector_flowers(art, grp)
 
     # the B, centred, with a knockout gap so it reads cleanly on top of the flowers
-    B_W = 500
+    B_W = S * B_WIDTH
     _, (bx0, by0, bx1, by1) = text_path(SLAB, "B", 1000, 0, 0, 2.2)
     b_h = (by1 - by0) * B_W / (bx1 - bx0)
-    b_d, _ = fit_text(SLAB, "B", S / 2, S / 2 - b_h / 2 + 10, B_W, xscale=2.2)
+    nx, ny = B_NUDGE
+    b_d, _ = fit_text(SLAB, "B", S / 2 + nx, S / 2 - b_h / 2 + 10 + ny, B_W, xscale=2.2)
     size, bx, by = fit_text.last
     clip = ""
     if KNOCKOUT_MM:
