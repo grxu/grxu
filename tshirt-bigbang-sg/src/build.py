@@ -43,10 +43,10 @@ KEYS_STYLE = "brushed"       # piano keys: "brushed" (rough painted edges) or "c
 KEYS_SEED = 7                # change to get a different brush pattern
 SG_LINE = ""                 # optional line under the piano keys, e.g. "SINGAPORE · 2026"
 KNOCKOUT_MM = 1.0            # black gap between the white B and the flowers (0 = none)
-B_NUDGE = (25, 45)           # shift the B from centre (x, y) in 1/1000ths of the artboard
+B_NUDGE = (103, -75)          # shift the B from centre (x, y) in 1/1000ths of the artboard
 FLOWERS = "watercolour"      # "watercolour" (painted PNG layer) or "vector" (generated paths)
 UPLOAD_DIR = os.path.join(ROOT, "upload-here")  # drop the painted flowers PNG here (any name)
-EDITED_PNG = os.path.join(HERE, "assets", "flowers-tight.png")  # written by edit_flowers.py
+EDITED_PNG = os.path.join(HERE, "assets", "option-2.png")  # final front, written by options.py
 DPI = 300
 FRONT_FROM_CENTRE_MM = 80    # centre line -> left edge of the chest emblem
 FRONT_BELOW_COLLAR_MM = 75   # centre-front collar seam -> top of the emblem
@@ -479,8 +479,9 @@ def export(svg, base, w_mm, png_dpi=DPI, extra_png=None):
 
 def main():
     os.makedirs(OUT_PRINT, exist_ok=True)
-    for f in os.listdir(OUT_PRINT):  # drop outputs from earlier settings
-        os.remove(os.path.join(OUT_PRINT, f))
+    for f in os.listdir(OUT_PRINT):  # drop outputs from earlier settings (keeps options/)
+        if os.path.isfile(os.path.join(OUT_PRINT, f)):
+            os.remove(os.path.join(OUT_PRINT, f))
     os.makedirs(OUT_MOCK, exist_ok=True)
     front = front_art()
     back = back_art()
