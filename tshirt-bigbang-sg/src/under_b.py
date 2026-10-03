@@ -23,11 +23,9 @@ OUT_PRINT = os.path.join(ROOT, "print-files", "options")
 OUT_MOCK = os.path.join(ROOT, "mockup", "options")
 
 GROUP_W = 1.15       # bottom group width as a multiple of the B's width
-GAP = 0.10           # space between B and the group, as a share of the B's height
+GAP = -0.14          # space between B and the group (share of B height); negative = tucked behind the B
 ALIGNS = {           # group centre relative to the B centre, as a share of B width
-    "centred": 0.0,
-    "left-aligned": None,   # group's left edge on the B's left edge
-    "nudged-left": -0.12,
+    "nudged-left-hug": -0.12,
 }
 S = 1000
 
