@@ -22,6 +22,7 @@ from fontTools.varLib.instancer import instantiateVariableFont
 from PIL import Image
 from shapely.geometry import Polygon
 
+from brush import brushed_keys
 from flowers import Art, bud, cupped_bloom, iris, leaf
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -37,6 +38,8 @@ FRONT_MM = 100               # front emblem artboard, square (mm)
 B_WIDTH = 0.519              # B width as a fraction of the emblem (0.519 x 100 mm = 5.2 cm)
 B_XSCALE = 1.6               # horizontal stretch of the B (1.6 = same shape as the back wordmark)
 BACK_W_MM = 270              # back artboard width (mm); height follows the art
+KEYS_STYLE = "brushed"       # piano keys: "brushed" (rough painted edges) or "clean"
+KEYS_SEED = 7                # change to get a different brush pattern
 SG_LINE = ""                 # optional line under the piano keys, e.g. "SINGAPORE · 2026"
 KNOCKOUT_MM = 1.0            # black gap between the white B and the flowers (0 = none)
 B_NUDGE = (25, 45)           # shift the B from centre (x, y) in 1/1000ths of the artboard
@@ -277,19 +280,21 @@ def front_art():
 
 
 # ------------------------------------------------------------------ BACK
-def piano_keys(x, y, W, H, gap, black_w=0.62, black_l=0.66):
+def piano_keys(x, y, W, H, gap, black_w=0.62, black_l=(0.67, 0.64)):
+    """Three white keys as polygons; the two black keys are the notches between
+    them (black_l = how far each black key reaches down, as a share of H)."""
     kw = (W - 2 * gap) / 3
-    bw, bl = kw * black_w, H * black_l
+    bw = kw * black_w
     xs = [x + i * (kw + gap) for i in range(3)]
     b1, b2 = xs[0] + kw + gap / 2, xs[1] + kw + gap / 2
-    Y0, YB, Y1 = y, y + bl, y + H
-    polys = [
-        [(xs[0], Y0), (b1 - bw / 2, Y0), (b1 - bw / 2, YB), (xs[0] + kw, YB), (xs[0] + kw, Y1), (xs[0], Y1)],
-        [(b1 + bw / 2, Y0), (b2 - bw / 2, Y0), (b2 - bw / 2, YB), (xs[1] + kw, YB), (xs[1] + kw, Y1),
-         (xs[1], Y1), (xs[1], YB), (b1 + bw / 2, YB)],
-        [(b2 + bw / 2, Y0), (xs[2] + kw, Y0), (xs[2] + kw, Y1), (xs[2], Y1), (xs[2], YB), (b2 + bw / 2, YB)],
+    Y0, Y1 = y, y + H
+    YB1, YB2 = y + H * black_l[0], y + H * black_l[1]
+    return [
+        [(xs[0], Y0), (b1 - bw / 2, Y0), (b1 - bw / 2, YB1), (xs[0] + kw, YB1), (xs[0] + kw, Y1), (xs[0], Y1)],
+        [(b1 + bw / 2, Y0), (b2 - bw / 2, Y0), (b2 - bw / 2, YB2), (xs[1] + kw, YB2), (xs[1] + kw, Y1),
+         (xs[1], Y1), (xs[1], YB1), (b1 + bw / 2, YB1)],
+        [(b2 + bw / 2, Y0), (xs[2] + kw, Y0), (xs[2] + kw, Y1), (xs[2], Y1), (xs[2], YB2), (b2 + bw / 2, YB2)],
     ]
-    return ["M" + " L".join(f"{px:.1f},{py:.1f}" for px, py in p) + "Z" for p in polys]
 
 
 def back_art():
@@ -299,12 +304,18 @@ def back_art():
     word_d, (_, _, _, wy1) = fit_text(SLAB, "BIGBANG", cx, 0, W, xscale=1.6, tracking_em=0.02)
     keys_top = wy1 + 300
     keys_w, keys_h = W * 0.8, W * 0.93
-    keys = piano_keys(cx - keys_w / 2, keys_top, keys_w, keys_h, gap=keys_w * 0.02)
+    polys = piano_keys(cx - keys_w / 2, keys_top, keys_w, keys_h, gap=keys_w * 0.025)
     bottom = keys_top + keys_h
+    if KEYS_STYLE == "brushed":
+        keys, (_, _, _, kb) = brushed_keys(polys, seed=KEYS_SEED, unit=keys_h / 2000)
+        bottom = max(bottom, kb)  # frayed ends reach past the clean outline
+    else:
+        keys = ["M" + " L".join(f"{px:.1f},{py:.1f}" for px, py in p) + "Z" for p in polys]
     body = [layer("layer-wordmark", "BIGBANG wordmark (white ink)",
                   [f'<path id="wordmark" d="{word_d}" fill="{WHITE}"/>']),
             layer("layer-keys", "Piano keys (white ink)",
-                  [f'<path id="key-{i + 1}" d="{k}" fill="{WHITE}"/>' for i, k in enumerate(keys)])]
+                  [f'<path id="key-{i + 1}" d="{k}" fill="{WHITE}" fill-rule="evenodd"/>'
+                   for i, k in enumerate(keys)])]
     if SG_LINE:
         sg_d, (_, _, _, sy1) = fit_text(SANS, SG_LINE, cx, bottom + 160, W * 0.46, tracking_em=0.32, wght=600)
         body.append(layer("layer-sg", "Singapore line (white ink)", [f'<path id="sg-line" d="{sg_d}" fill="{WHITE}"/>']))
