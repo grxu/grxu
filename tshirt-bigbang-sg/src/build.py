@@ -280,20 +280,26 @@ def front_art():
 
 
 # ------------------------------------------------------------------ BACK
-def piano_keys(x, y, W, H, gap, black_w=0.62, black_l=(0.67, 0.64)):
+def piano_keys(x, y, W, H, gap, black_w=0.55, black_l=(0.71, 0.70), flare=(0.05, 0.06), flare_from=0.47):
     """Three white keys as polygons; the two black keys are the notches between
-    them (black_l = how far each black key reaches down, as a share of H)."""
+    them. black_l = how far each black key reaches down (share of H); flare =
+    how much each black key widens on its right over its lower part (share of
+    W, starting at flare_from of H), like a brush pressing harder."""
     kw = (W - 2 * gap) / 3
     bw = kw * black_w
     xs = [x + i * (kw + gap) for i in range(3)]
     b1, b2 = xs[0] + kw + gap / 2, xs[1] + kw + gap / 2
     Y0, Y1 = y, y + H
     YB1, YB2 = y + H * black_l[0], y + H * black_l[1]
+    YF = y + H * flare_from
+    f1, f2 = W * flare[0], W * flare[1]
+    r1, r2 = b1 + bw / 2, b2 + bw / 2  # right edges of the black keys
     return [
         [(xs[0], Y0), (b1 - bw / 2, Y0), (b1 - bw / 2, YB1), (xs[0] + kw, YB1), (xs[0] + kw, Y1), (xs[0], Y1)],
-        [(b1 + bw / 2, Y0), (b2 - bw / 2, Y0), (b2 - bw / 2, YB2), (xs[1] + kw, YB2), (xs[1] + kw, Y1),
-         (xs[1], Y1), (xs[1], YB1), (b1 + bw / 2, YB1)],
-        [(b2 + bw / 2, Y0), (xs[2] + kw, Y0), (xs[2] + kw, Y1), (xs[2], Y1), (xs[2], YB2), (b2 + bw / 2, YB2)],
+        [(r1, Y0), (b2 - bw / 2, Y0), (b2 - bw / 2, YB2), (xs[1] + kw, YB2), (xs[1] + kw, Y1),
+         (xs[1], Y1), (xs[1], YB1), (r1 + f1, YB1), (r1 + f1, YF + H * 0.06), (r1, YF)],
+        [(r2, Y0), (xs[2] + kw, Y0), (xs[2] + kw, Y1), (xs[2], Y1), (xs[2], YB2), (r2 + f2, YB2),
+         (r2 + f2, YF + H * 0.09), (r2, YF + H * 0.03)],
     ]
 
 
@@ -303,8 +309,9 @@ def back_art():
     cx = W / 2
     word_d, (_, _, _, wy1) = fit_text(SLAB, "BIGBANG", cx, 0, W, xscale=1.6, tracking_em=0.02)
     keys_top = wy1 + 300
-    keys_w, keys_h = W * 0.8, W * 0.93
-    polys = piano_keys(cx - keys_w / 2, keys_top, keys_w, keys_h, gap=keys_w * 0.025)
+    keys_w = W * 0.76
+    keys_h = keys_w / 0.78  # same block proportions as the reference
+    polys = piano_keys(cx - keys_w / 2, keys_top, keys_w, keys_h, gap=keys_w * 0.027)
     bottom = keys_top + keys_h
     if KEYS_STYLE == "brushed":
         keys, (_, _, _, kb) = brushed_keys(polys, seed=KEYS_SEED, unit=keys_h / 2000)

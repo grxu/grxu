@@ -32,7 +32,7 @@ def _noise(rnd, length, smooth_amp, jag_amp, smooth_wl, jag_step):
     return f
 
 
-def rough_polygon(pts, rnd, step=6.0, side_amp=7.0, end_amp=26.0):
+def rough_polygon(pts, rnd, step=6.0, side_amp=7.0, end_amp=26.0, no_bite_x=()):
     """Roughen a polygon (clockwise in SVG coords). Vertical edges are treated as
     the brush direction (gentle wobble); horizontal edges as stroke ends (fraying)."""
     out = []
@@ -52,7 +52,8 @@ def rough_polygon(pts, rnd, step=6.0, side_amp=7.0, end_amp=26.0):
         # now and then a bigger chunk missing from a long edge, like the brush
         # running dry
         bites = []
-        if vertical and L > step * 60 and rnd.random() < 0.45:
+        outer = any(abs(x0 - nx_) < 1 and abs(x1 - nx_) < 1 for nx_ in no_bite_x)
+        if vertical and not outer and L > step * 60 and rnd.random() < 0.45:
             bites.append((rnd.uniform(0.25, 0.85) * L, rnd.uniform(6, 14) * step, rnd.uniform(2.5, 5) * side_amp))
         m = max(2, int(L / step))
         for i in range(m):
@@ -104,11 +105,13 @@ def brushed_keys(polys, seed=7, unit=1.0):
     (1.0 suits keys ~2000 units tall). Returns (SVG path data per key, bounds)."""
     rnd = random.Random(seed)
     out, geoms = [], []
+    # the block's outer sides stay straight-ish; chunks only bite inner edges
+    outer_x = (min(p[0] for pts in polys for p in pts), max(p[0] for pts in polys for p in pts))
     for pts in polys:
-        g = rough_polygon(pts, rnd, step=6 * unit, side_amp=7 * unit, end_amp=14 * unit)
+        g = rough_polygon(pts, rnd, step=6 * unit, side_amp=7 * unit, end_amp=14 * unit, no_bite_x=outer_x)
         xs = [p[0] for p in pts]
         ys = [p[1] for p in pts]
-        cut = streaks(rnd, min(xs), max(xs), min(ys), max(ys), count=rnd.randint(0, 2),
+        cut = streaks(rnd, min(xs), max(xs), min(ys), max(ys), count=rnd.randint(0, 1),
                       max_len=(max(ys) - min(ys)) * 0.12, max_w=7 * unit)
         if cut is not None:
             g = g.difference(cut)
