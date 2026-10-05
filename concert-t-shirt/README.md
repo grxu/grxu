@@ -9,9 +9,11 @@ Black tee.
 | Side | Artwork | Print file | Size |
 |---|---|---|---|
 | Front | Floral B, left chest | `print/FRONT_left-chest_100x100mm.ai` | 100 × 100 mm |
-| Back | BIGBANG over the III bars, with the cat, bear and lion from `character-tracing/` | `print/BACK_270x317.4mm.ai` | 270 × 317.4 mm |
+| Back | BIGBANG over the III bars, with the cat, bear and lion from `character-tracing/` | `print/BACK_270x317.4mm.ai` | 277.5 × 317.4 mm artboard; the lettering is 270 mm wide |
 
 ![BIGBANG mockup](mockup/bigbang-mockup.png)
+
+The print vendor pack is in [`vendor/`](vendor/).
 
 ### Earlier version: BIIIG
 
@@ -30,4 +32,5 @@ Black tee.
 | `references/front/` | Front reference, `front-biiig.svg` (the same file as `print/front-biiig.svg`) |
 | `references/back/` | Back reference, `back-iii.svg` (the same file as `print/back-iii.svg`) |
 | `vector/` | Clean four-ink SVG trace of the BIIIG artwork (black, blue, yellow, red), with per-ink separations. v1 keeps the small cream BIIIG; v2 merges it into the red and black |
+| `vendor/` | **Send this to the print vendor.** Spec sheet, clean print PDFs and 300 dpi PNGs (backgrounds removed), and the mockup |
 | `print/` | Print files. Current: `FRONT_left-chest_100x100mm.ai` and `BACK_270x317.4mm.ai`. Earlier BIIIG version: `front-biiig.svg` (blue, red, yellow) and `back-iii.svg` (white) |
