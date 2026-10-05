@@ -38,7 +38,7 @@ The cat covers part of the bear, and the bear's paw and drape cover part of the 
 |---|---|
 | Cat | Nothing was hidden. The tips of its right whiskers, which crossed the bear's face, are put back |
 | Bear | The lower left and right sides of the hood, the left edge of the face, the left paw (a mirror of the right paw) and the outer edge of the left drape. The black mark on the hood's right side is finished, and a smaller matching one is added on the left. The cat's whiskers are removed from its face |
-| Lion | The lower-left mane, hidden by the bear's paw and drape: one ray is finished and the next is added, following the spacing of the others |
+| Lion | The lower-left mane, hidden by the bear's paw and drape: one ray is finished and the next is added, following the spacing of the others. The small white gap between the towel, the mane and the right arm is left transparent, as it's background showing through |
 
 ## Folders
 
