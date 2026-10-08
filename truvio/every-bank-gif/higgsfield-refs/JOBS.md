@@ -9,6 +9,7 @@ Layout ref upload: media `0e3bc410-2710-4369-8dcd-52e587894867`
 | T0 | `T0.png` | `fc2feafc-d818-4673-90cc-1d379751b74f` | Nano Banana Pro · 1:1 · 2K · batch 4 | 8 credits |
 | T2 | `T2.png` | `1914cd6d-db62-40d2-9bca-d1064072528c` | Nano Banana Pro · 1:1 · 2K · batch 2, T0 attached · two runs | 8 credits |
 | C0 | `C0.png` | `37824a55-0c70-4b7f-a7b7-4f24f5fa1846` | Nano Banana Pro · 1:1 · 2K · batch 2, T0 attached | 4 credits |
+| C2 | `C2.png` | `8ce9f136-e81a-4034-9c70-dd82b493604c` | Nano Banana Pro · 1:1 · 2K · batch 2, C0 attached · two runs | 8 credits |
 
 Nano Banana Pro is 2 credits per image.
 
@@ -35,3 +36,16 @@ Run 2, kit prompt plus: "Most of the pleat is already inside the slit. Only its 
 ## C0 batch notes
 - `37824a55-0c70-4b7f-a7b7-4f24f5fa1846`: **pick.** The sheet is in the same spot as in T0 (mean diff 7.6 out of 255 over the sheet). The front step is within about 20px of the tower's base line at 2048px. Four columns with a wider middle gap, three steps, golden plaque. The slot is a solid yellow panel with no dark opening; it gets fixed in Photoshop (see the to-dos above).
 - `a3d47ec6-6930-4196-a46d-4ee57e51eee9`: the sheet moved about 40px down and the base sits lower. The slot does read as open. Out.
+
+## C2 batch notes
+Both runs used the kit prompt plus: "The letterbox slot is an open gap with a thin dark opening, and the sheet goes into that opening." The slot reads as open in all four images, and the bank is unchanged from C0 in all four (same outline, drift of 1 to 7 levels out of 255).
+
+For scale, the sheet on the tabletop in T0 and C0 is 213px wide at 2048px, and the slot plate is 180px. The original sheet is only about 18% wider than the slot.
+
+Run 1, kit prompt plus the open-gap line:
+- `c1434458-8acf-4989-905e-79e57978188f`: a slot-width strip draped out of the slot, with the grey band running down its whole length. Doesn't read as stuck. Out.
+- `93d23081-042f-475b-a890-ffa70fcb1914`: the clearest jam, with a wide sheet crumpled against both sides of the plate. But the sheet is about 500px wide, roughly 2.3× the original, so V7 would have to grow it. Out.
+
+Run 2, run 1 prompt plus: "The sheet is the same size as the sheet that lay on the tabletop, only a little wider than the slot, so its two side edges catch on the plate and crumple."
+- `8ce9f136-e81a-4034-9c70-dd82b493604c`: **pick.** About 1.5× the original width, with the grey band just inside the slot. It reads as soft cloth draped over the steps rather than crisp paper, and its edges don't catch on the plate.
+- `e5773157-64d9-4ed4-8e47-afe51730a471`: a draped strip again. Out.
