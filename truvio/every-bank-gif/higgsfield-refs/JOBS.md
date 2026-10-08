@@ -11,6 +11,7 @@ Layout ref upload: media `0e3bc410-2710-4369-8dcd-52e587894867`
 | C0 | `C0.png` | `37824a55-0c70-4b7f-a7b7-4f24f5fa1846` | Nano Banana Pro · 1:1 · 2K · batch 2, T0 attached | 4 credits |
 | C2 | `C2.png` | `8ce9f136-e81a-4034-9c70-dd82b493604c` | Nano Banana Pro · 1:1 · 2K · batch 2, C0 attached · two runs | 8 credits |
 | R0 | `R0.png` | `57058009-573b-4070-8628-dcc7e9ff2497` | Nano Banana Pro · 1:1 · 2K · batch 2, T0 attached | 4 credits |
+| R2 | `R2.png` | `4088cd46-251a-4d00-86cb-28daaf009c73` | Nano Banana Pro · 1:1 · 2K · batch 2, R0 attached · two runs | 8 credits |
 
 Nano Banana Pro is 2 credits per image.
 
@@ -56,3 +57,14 @@ Run 2, run 1 prompt plus: "The sheet is the same size as the sheet that lay on t
 Both keep the sheet where it was in T0 (mean diff about 5 out of 255 over the sheet). Both are about twice the tower's width, centred on the frame, and both read clearly at 400px.
 - `42d65f36-c588-4674-8378-148055b7b048`: base on the tower's line (3px off). But the lantern spire reaches y 269, which is 13% from the top: higher than the tower's top and inside the top 15% that has to stay clear. The drum is deeply fluted. Out.
 - `57058009-573b-4070-8628-dcc7e9ff2497`: **pick.** The top sits at y 369, a little lower than the tower (301), with the top 15% clear. A few shallow grooves, a plain teal ring and a teal plaque. The base front is 12px lower than the tower's; see the to-dos.
+
+## R2 batch notes
+All four keep the rotunda identical to R0 (same outline, drift of 1 to 3 levels out of 255), and in all four the sheet is gone from the tabletop.
+
+Run 1, kit prompt as written. In both images the tube sticks a long way out toward the camera and down to the tabletop, so the spiral end sits on the floor rather than in the ring.
+- `bd0c2c33-9ac7-4e27-9eeb-728fac9b3bbe`: also has a band around the tube just outside the porthole that could read as tape. Out.
+- `0fb6a102-98c4-426c-ba0e-0d8c6c3d2a84`: no tape, but long, down to the floor. Out.
+
+Run 2, kit prompt plus: "Most of the tube is already inside the porthole. Only a short stub sticks out, no longer than it is wide, so the spiral end sits right inside the teal ring. It does not reach the tabletop."
+- `4088cd46-251a-4d00-86cb-28daaf009c73`: **pick.** A short stub with the spiral end right at the teal ring, ending above the plinth. No tape.
+- `92aa0a08-ba7a-4f8a-a3eb-a89f622bb453`: no tape, but the stub runs down to the front edge of the base. Out.
