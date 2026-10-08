@@ -10,11 +10,13 @@ Layout ref upload: media `0e3bc410-2710-4369-8dcd-52e587894867`
 | T2 | `T2.png` | `1914cd6d-db62-40d2-9bca-d1064072528c` | Nano Banana Pro · 1:1 · 2K · batch 2, T0 attached · two runs | 8 credits |
 | C0 | `C0.png` | `37824a55-0c70-4b7f-a7b7-4f24f5fa1846` | Nano Banana Pro · 1:1 · 2K · batch 2, T0 attached | 4 credits |
 | C2 | `C2.png` | `8ce9f136-e81a-4034-9c70-dd82b493604c` | Nano Banana Pro · 1:1 · 2K · batch 2, C0 attached · two runs | 8 credits |
+| R0 | `R0.png` | `57058009-573b-4070-8628-dcc7e9ff2497` | Nano Banana Pro · 1:1 · 2K · batch 2, T0 attached | 4 credits |
 
 Nano Banana Pro is 2 credits per image.
 
 ## Photoshop to-dos for Step 11
 - C0: darken the inside of the letterbox slot so it reads as an open gap. As generated it's a solid yellow panel.
+- R0: the front of the rotunda's base sits 12px lower than the tower's at 2048 (1134 against 1122). Nudge plate-R up to match when lining the plates up.
 
 ## T0 batch notes
 - `9f416128-a7d1-4f14-b38e-dde43541a38a`: hard floor edge across the full width at about 65% height. Reads as a horizon. Out.
@@ -49,3 +51,8 @@ Run 1, kit prompt plus the open-gap line:
 Run 2, run 1 prompt plus: "The sheet is the same size as the sheet that lay on the tabletop, only a little wider than the slot, so its two side edges catch on the plate and crumple."
 - `8ce9f136-e81a-4034-9c70-dd82b493604c`: **pick.** About 1.5× the original width, with the grey band just inside the slot. It reads as soft cloth draped over the steps rather than crisp paper, and its edges don't catch on the plate.
 - `e5773157-64d9-4ed4-8e47-afe51730a471`: a draped strip again. Out.
+
+## R0 batch notes
+Both keep the sheet where it was in T0 (mean diff about 5 out of 255 over the sheet). Both are about twice the tower's width, centred on the frame, and both read clearly at 400px.
+- `42d65f36-c588-4674-8378-148055b7b048`: base on the tower's line (3px off). But the lantern spire reaches y 269, which is 13% from the top: higher than the tower's top and inside the top 15% that has to stay clear. The drum is deeply fluted. Out.
+- `57058009-573b-4070-8628-dcc7e9ff2497`: **pick.** The top sits at y 369, a little lower than the tower (301), with the top 15% clear. A few shallow grooves, a plain teal ring and a teal plaque. The base front is 12px lower than the tower's; see the to-dos.
