@@ -14,7 +14,7 @@ Layout ref upload: media `0e3bc410-2710-4369-8dcd-52e587894867`
 | R2 | `R2.png` | `4088cd46-251a-4d00-86cb-28daaf009c73` | Nano Banana Pro · 1:1 · 2K · batch 2, R0 attached · two runs | 8 credits |
 | T1 | `T1.png` | `61d6578b-3808-4c7c-a4ac-4c4a169ef611` | Nano Banana Pro · 1:1 · 2K · batch 2, T0 attached · two runs | 8 credits |
 
-Nano Banana Pro is 2 credits per image.
+Nano Banana Pro is 2 credits per image. Kling 3.0 pro (1080p tier), sound off, is 1.75 credits per second.
 
 ## Photoshop to-dos for Step 11
 - C0: darken the inside of the letterbox slot so it reads as an open gap. As generated it's a solid yellow panel.
@@ -80,3 +80,14 @@ Run 1, kit prompt as written. In both images the sheet grew to about 1.5 to 2× 
 Run 2, kit prompt plus: "The sheet keeps its exact size and spot from the reference, centred in front of the tower. The crease runs left to right, parallel to the tower's front. The half nearest the camera lies flat where it was; the half nearest the tower lifts toward the slit."
 - `61d6578b-3808-4c7c-a4ac-4c4a169ef611`: **pick.** Crease runs left to right. The front half lies flat over T0's sheet, a little wider on the left (857 to 1105, against 917 to 1130). The back half lifts toward the tower with the grey band along its top edge. It stands steeper than 60° and covers the lower part of the slit.
 - `3671c01a-04de-4d1d-bd9d-b53388731ce0`: the crease is diagonal and the lifted half runs up to the tower's right side. The sheet is far longer. Out.
+
+## V1 attempts (no pick yet)
+Kling 3.0 · pro · 1:1 · 3 s (Kling's shortest) · sound off · batch 2. First frame T0, last frame T2, kit prompt word for word. There's no negative-prompt field, so it was left out. Each clip comes back at 1440×1440, 24 fps, 73 frames. 10.5 credits per run.
+
+Run 1:
+- `1c563c97-c3f3-4931-b0c7-865759932369`: the sheet hovers flat for about 1.4 s and grows as it rises. Over f49 to f55 zigzags sprout from its edge and it shrinks into the pleat: a morph. Tower drift up to 6 out of 255.
+- `77c12a4a-9625-4651-9995-c0253015509d`: hovers for about 1.2 s, then smears and ghosts into a finished pleat over f42 to f46, with motion blur: a dissolve. Tower drift up to 3.5.
+
+Run 2 (the kit's one rerun, same settings):
+- `92a9c85e-43e2-48b8-9077-f5021a786fe0`: the sheet crumples into a shredded mass (f32 to f44) before becoming a pleat. Tower drift up to 9.7. Out.
+- `d35c3873-0de9-46a8-888e-c8deeaf920ac`: closest. Flat until f36, one ghosted in-between frame at f37, a finished pleat at f38: an instant snap rather than crease by crease, and the grey band disappears. Then it turns and steps into the slit cleanly. Tower drift up to 4.2, no hands.
