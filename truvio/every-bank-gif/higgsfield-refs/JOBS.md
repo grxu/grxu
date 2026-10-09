@@ -9,7 +9,7 @@ Layout ref upload: media `0e3bc410-2710-4369-8dcd-52e587894867`
 | T0 | `T0.png` | `fc2feafc-d818-4673-90cc-1d379751b74f` | Nano Banana Pro · 1:1 · 2K · batch 4 | 8 credits |
 | T2 | `T2.png` | `1914cd6d-db62-40d2-9bca-d1064072528c` | Nano Banana Pro · 1:1 · 2K · batch 2, T0 attached · two runs | 8 credits |
 | C0 | `C0.png` | `37824a55-0c70-4b7f-a7b7-4f24f5fa1846` | Nano Banana Pro · 1:1 · 2K · batch 2, T0 attached | 4 credits |
-| C2 | `C2.png` | `8ce9f136-e81a-4034-9c70-dd82b493604c` | Nano Banana Pro · 1:1 · 2K · batch 2, C0 attached · two runs | 8 credits |
+| C2 | `C2.png` | `23af23c5-ea25-4eb5-8748-794a9c9f21fd` | Nano Banana Pro · 1:1 · 2K · batch 2, C0 attached · three runs | 12 credits |
 | R0 | `R0.png` | `57058009-573b-4070-8628-dcc7e9ff2497` | Nano Banana Pro · 1:1 · 2K · batch 2, T0 attached | 4 credits |
 | R2 | `R2.png` | `4088cd46-251a-4d00-86cb-28daaf009c73` | Nano Banana Pro · 1:1 · 2K · batch 2, R0 attached · two runs | 8 credits |
 | T1 | `T1.png` | `61d6578b-3808-4c7c-a4ac-4c4a169ef611` | Nano Banana Pro · 1:1 · 2K · batch 2, T0 attached · two runs | 8 credits |
@@ -51,7 +51,7 @@ Run 1, kit prompt plus the open-gap line:
 - `93d23081-042f-475b-a890-ffa70fcb1914`: the clearest jam, with a wide sheet crumpled against both sides of the plate. But the sheet is about 500px wide, roughly 2.3× the original, so V7 would have to grow it. Out.
 
 Run 2, run 1 prompt plus: "The sheet is the same size as the sheet that lay on the tabletop, only a little wider than the slot, so its two side edges catch on the plate and crumple."
-- `8ce9f136-e81a-4034-9c70-dd82b493604c`: **pick.** About 1.5× the original width, with the grey band just inside the slot. It reads as soft cloth draped over the steps rather than crisp paper, and its edges don't catch on the plate.
+- `8ce9f136-e81a-4034-9c70-dd82b493604c`: first pick, replaced by run 3 after V7. About 1.5× the original width, with the grey band just inside the slot. It reads as soft cloth draped over the steps rather than crisp paper, and its edges don't catch on the plate.
 - `e5773157-64d9-4ed4-8e47-afe51730a471`: a draped strip again. Out.
 
 ## R0 batch notes
@@ -109,3 +109,8 @@ Kling 3.0 · pro · 1:1 · 3 s · sound off · batch 2. First frame R0, last fra
 Kling 3.0 · pro · 1:1 · 3 s · sound off · batch 2. First frame C0, last frame C2, kit prompt word for word. 10.5 credits.
 - `0882ec39-c7df-4762-828a-4461364bd063`: closest. Lifts, approaches, the leading edge goes into the slot and stops dead, crisp with its lines visible (f34 to f46). From f48 it loses its lines and turns into wavy cloth that flutters wider than the slot (f50 to f56), then grows and sags into C2's drape (f58 to f64). Only one clear push. Bank drift up to 2.3.
 - `8ecc740e-3a0c-4ee0-8bce-52792e473799`: same first half (in and stopped, f38 to f52), then blows up into a blurred, oversized crumple (f54 to f60) before dropping into the drape. Bank drift up to 2.8.
+
+## C2 run 3 (redone for V7)
+With C2 as soft cloth, V7 turned the crisp sheet into fabric on its way to the last frame. Rerun with the run 2 prompt plus: "Crisp printer paper, not fabric: sharp angular creases, its two top corners bent back where they catch on the ends of the plate."
+- `23af23c5-ea25-4eb5-8748-794a9c9f21fd`: **pick, the new `C2.png`.** Crisp paper. Both top corners bend back where they catch on the ends of the plate, and the grey band sits inside the slot. The bank is unchanged. It's large, about 2× the original sheet.
+- `9a28ba4e-3ca9-49f9-94c5-bf2a13420304`: crisp and a little smaller, but twisted diagonally out of the slot rather than catching on both sides. Out.
