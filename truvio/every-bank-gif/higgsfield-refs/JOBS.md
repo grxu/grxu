@@ -17,8 +17,8 @@ Layout ref upload: media `0e3bc410-2710-4369-8dcd-52e587894867`
 Nano Banana Pro is 2 credits per image. Kling 3.0 pro (1080p tier), sound off, is 1.75 credits per second.
 
 ## Photoshop to-dos for Step 11
-- C0: darken the inside of the letterbox slot so it reads as an open gap. As generated it's a solid yellow panel.
-- R0: the front of the rotunda's base sits 12px lower than the tower's at 2048 (1134 against 1122). Nudge plate-R up to match when lining the plates up.
+- ~~C0: darken the inside of the letterbox slot so it reads as an open gap.~~ Done in `plate-C.png`.
+- ~~R0: nudge plate-R up 12px so its base lines up with the tower's.~~ Done in `plate-R.png`.
 
 ## T0 batch notes
 - `9f416128-a7d1-4f14-b38e-dde43541a38a`: hard floor edge across the full width at about 65% height. Reads as a horizon. Out.
@@ -118,3 +118,9 @@ With C2 as soft cloth, V7 turned the crisp sheet into fabric on its way to the l
 Run 2, same prompt and settings, with the crisp C2 (`23af23c5-…`) as the last frame. 10.5 credits.
 - `9297d544-6d9a-4ea5-a356-58df235c30bf`: **pick, `V7.mp4`.** Crisp paper throughout. Lifts with the grey band intact, goes in and stops dead (f30 to f38), catches at both ends of the plate, then hangs and swings like real paper before settling (f46 to f72). Flaws: the small sheet jumps to the larger C2 sheet between f38 and f40, and there's a small glitch inside the slot at f44. In AE, cut from f38 to f46 to cover both. Bank drift up to 3.1.
 - `137f4e5d-2160-4eea-98c4-7c69984cc4bc`: the sheet's grey band turns dark green. Out.
+
+## Step 11: plates and cut-outs
+Built by `../tools/make_plates.py` (run `python3 -I tools/make_plates.py higgsfield-refs higgsfield-refs` from the kit folder). Every file is 2048×2048 and lines up with T0, so the layers stack at 0,0.
+- `plate-T.png`, `plate-R.png`, `plate-C.png`: T0, R0 and C0 with the sheet and its contact shadow removed. The floor is rebuilt as a smooth surface from the surrounding pixels (x 895 to 1162, y 1166 to 1252), with no seam even at high contrast. On `plate-R` the whole frame is moved up 12px (base row 1138 against the tower's 1137). On `plate-C` the slot panel (x 958 to 1116, y 815 to 856) is a dark recess with the gold bevel, frame and screws kept. C0's front step still sits about 24px lower than the tower base at the centre line; that's the steps reaching forward in perspective, so it's left as it is.
+- `file-flat.png`: T0's flat sheet plus its contact shadow (black at partial alpha). Over `plate-T` it gives back T0 within 0.25 out of 255.
+- `file-fold.png`: T1's half-folded sheet plus its floor shadow, cut against `plate-T`. Each panel is filled to its outline, so the part standing in front of the white tower stays whole. Shadow is only cut below the tower base, so moving the layer leaves no ghosts. Over `plate-T` it gives back T1 within 3.3, which is T1's own slight tower drift.
