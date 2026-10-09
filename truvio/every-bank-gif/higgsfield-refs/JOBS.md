@@ -81,7 +81,7 @@ Run 2, kit prompt plus: "The sheet keeps its exact size and spot from the refere
 - `61d6578b-3808-4c7c-a4ac-4c4a169ef611`: **pick.** Crease runs left to right. The front half lies flat over T0's sheet, a little wider on the left (857 to 1105, against 917 to 1130). The back half lifts toward the tower with the grey band along its top edge. It stands steeper than 60° and covers the lower part of the slit.
 - `3671c01a-04de-4d1d-bd9d-b53388731ce0`: the crease is diagonal and the lifted half runs up to the tower's right side. The sheet is far longer. Out.
 
-## V1 attempts (no pick yet)
+## V1 attempts
 Kling 3.0 · pro · 1:1 · 3 s (Kling's shortest) · sound off · batch 2. First frame T0, last frame T2, kit prompt word for word. There's no negative-prompt field, so it was left out. Each clip comes back at 1440×1440, 24 fps, 73 frames. 10.5 credits per run.
 
 Run 1:
@@ -91,3 +91,11 @@ Run 1:
 Run 2 (the kit's one rerun, same settings):
 - `92a9c85e-43e2-48b8-9077-f5021a786fe0`: the sheet crumples into a shredded mass (f32 to f44) before becoming a pleat. Tower drift up to 9.7. Out.
 - `d35c3873-0de9-46a8-888e-c8deeaf920ac`: closest. Flat until f36, one ghosted in-between frame at f37, a finished pleat at f38: an instant snap rather than crease by crease, and the grey band disappears. Then it turns and steps into the slit cleanly. Tower drift up to 4.2, no hands.
+
+### V1 decision: hybrid, AE stills plus D
+`V1.mp4` is `d35c3873-0de9-46a8-888e-c8deeaf920ac`. In AE, build the fold as stop-motion:
+1. T0's flat sheet (`file-flat.png` over `plate-T`).
+2. T1's half-fold (`file-fold.png` over `plate-T`).
+3. `V1.mp4` from source frame 38 at 24 fps: the finished pleat turning and stepping into the slit, then the hold.
+
+From f38 to the end is 35 source frames, about 18 frames at 12 fps, which fits V1's slot (frames 6 to 23). Nothing before f38 is used, so the flat-to-pleat snap never shows.
