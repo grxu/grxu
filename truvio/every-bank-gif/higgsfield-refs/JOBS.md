@@ -99,3 +99,13 @@ Run 2 (the kit's one rerun, same settings):
 3. `V1.mp4` from source frame 38 at 24 fps: the finished pleat turning and stepping into the slit, then the hold.
 
 From f38 to the end is 35 source frames, about 18 frames at 12 fps, which fits V1's slot (frames 6 to 23). Nothing before f38 is used, so the flat-to-pleat snap never shows.
+
+## V4 (rotunda roll): pick
+Kling 3.0 · pro · 1:1 · 3 s · sound off · batch 2. First frame R0, last frame R2, kit prompt word for word. 10.5 credits.
+- `40c0c571-6f30-433c-9c8f-50d5bef70f5e`: **pick, `V4.mp4`.** Flat until f30. Curls at f32 to f34, bends into a U at f36 to f40, loops into a roll at f42 to f44, then lies down as a tube and pushes into the ring until only the stub shows (f46 to f62). The loop-to-tube step is quick but moves through real in-between shapes. No tape, no hands. Rotunda drift up to 1.7.
+- `150275da-d920-47f3-b910-5e534db00e82`: flips up, nearly vanishes into a blur at f24 to f26, comes back as a flat white block, then becomes the tube: a morph. Out.
+
+## V7 (classical jam): no pick yet
+Kling 3.0 · pro · 1:1 · 3 s · sound off · batch 2. First frame C0, last frame C2, kit prompt word for word. 10.5 credits.
+- `0882ec39-c7df-4762-828a-4461364bd063`: closest. Lifts, approaches, the leading edge goes into the slot and stops dead, crisp with its lines visible (f34 to f46). From f48 it loses its lines and turns into wavy cloth that flutters wider than the slot (f50 to f56), then grows and sags into C2's drape (f58 to f64). Only one clear push. Bank drift up to 2.3.
+- `8ecc740e-3a0c-4ee0-8bce-52792e473799`: same first half (in and stopped, f38 to f52), then blows up into a blurred, oversized crumple (f54 to f60) before dropping into the drape. Bank drift up to 2.8.
