@@ -124,3 +124,22 @@ Built by `../tools/make_plates.py` (run `python3 -I tools/make_plates.py higgsfi
 - `plate-T.png`, `plate-R.png`, `plate-C.png`: T0, R0 and C0 with the sheet and its contact shadow removed. The floor is rebuilt as a smooth surface from the surrounding pixels (x 895 to 1162, y 1166 to 1252), with no seam even at high contrast. On `plate-R` the whole frame is moved up 12px (base row 1138 against the tower's 1137). On `plate-C` the slot panel (x 958 to 1116, y 815 to 856) is a dark recess with the gold bevel, frame and screws kept. C0's front step still sits about 24px lower than the tower base at the centre line; that's the steps reaching forward in perspective, so it's left as it is.
 - `file-flat.png`: T0's flat sheet plus its contact shadow (black at partial alpha). Over `plate-T` it gives back T0 within 0.25 out of 255.
 - `file-fold.png`: T1's half-folded sheet plus its floor shadow, cut against `plate-T`. Each panel is filled to its outline, so the part standing in front of the white tower stays whole. Shadow is only cut below the tower base, so moving the layer leaves no ghosts. Over `plate-T` it gives back T1 within 3.3, which is T1's own slight tower drift.
+
+## Slide clips (Steps 12 to 15)
+Kling 3.0 · pro · 1:1 · 3 s · sound off · batch 2 · start frame only, kit prompts word for word. 10.5 credits per step. The plates were uploaded to Higgsfield as plate-T `a2b9b7fe-2a02-4c26-9d9e-a94a2b8309f9`, plate-R `c6715637-f687-4b9a-a15c-9025e20d8bea` and plate-C `2c93df42-34a1-44d8-8899-b0e628c05f94`.
+
+V2, tower out to the left (plate-T):
+- `ce79bf60-5e90-4bc3-ac77-ac25002c053e`: **pick, `V2.mp4`.** Upright and rigid, with slight leans at f36 and f60. It doesn't quite leave in time: a thin sliver is still on the left edge at f72. In AE, cut from that last frame to the empty plate.
+- `48e07bb8-2809-440a-ab29-8558c3957e8d`: the tower leans and wobbles from side to side the whole way. Out.
+
+V3, rotunda out to the right (plate-R, reversed in AE):
+- `6a3f246b-a243-47ca-b7d5-602189ee891e`: **pick, `V3.mp4`.** Rocks back at f12 to f15 as asked, then glides out rigid. Fully gone by f66, leaving a clean hold.
+- `69220bd9-e7d1-42db-ba24-dca576c50ddb`: also good, but only gone on the very last frame.
+
+V5, rotunda out to the left (plate-R):
+- `0c2eb667-00ca-4931-974d-9827b7dd4e3d`: **pick, `V5.mp4`.** Moves left rigid along the tabletop and is gone by f68. A faint lavender light streak stays on the floor at the end; fade it out in AE or cut to the empty plate.
+- `0cb27c11-9364-4352-ac0b-885b37bfb99f`: drifts toward the camera as it goes (bigger and lower in frame) and never fully exits. Out.
+
+V6, classical bank out to the right (plate-C, reversed in AE):
+- `caf20a14-b4ec-4116-98d6-5d3c4ebeba68`: **pick, `V6.mp4`.** Rocks back at f9 to f15, slides out rigid and level, gone on the last frame.
+- `69b7db27-c600-4428-afbf-9ad0ce31dbca`: the same move, with a slight tilt mid-slide.
