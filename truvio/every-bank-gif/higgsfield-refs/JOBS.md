@@ -105,7 +105,7 @@ Kling 3.0 · pro · 1:1 · 3 s · sound off · batch 2. First frame R0, last fra
 - `40c0c571-6f30-433c-9c8f-50d5bef70f5e`: **pick, `V4.mp4`.** Flat until f30. Curls at f32 to f34, bends into a U at f36 to f40, loops into a roll at f42 to f44, then lies down as a tube and pushes into the ring until only the stub shows (f46 to f62). The loop-to-tube step is quick but moves through real in-between shapes. No tape, no hands. Rotunda drift up to 1.7.
 - `150275da-d920-47f3-b910-5e534db00e82`: flips up, nearly vanishes into a blur at f24 to f26, comes back as a flat white block, then becomes the tube: a morph. Out.
 
-## V7 (classical jam): no pick yet
+## V7 (classical jam)
 Kling 3.0 · pro · 1:1 · 3 s · sound off · batch 2. First frame C0, last frame C2, kit prompt word for word. 10.5 credits.
 - `0882ec39-c7df-4762-828a-4461364bd063`: closest. Lifts, approaches, the leading edge goes into the slot and stops dead, crisp with its lines visible (f34 to f46). From f48 it loses its lines and turns into wavy cloth that flutters wider than the slot (f50 to f56), then grows and sags into C2's drape (f58 to f64). Only one clear push. Bank drift up to 2.3.
 - `8ecc740e-3a0c-4ee0-8bce-52792e473799`: same first half (in and stopped, f38 to f52), then blows up into a blurred, oversized crumple (f54 to f60) before dropping into the drape. Bank drift up to 2.8.
@@ -114,3 +114,7 @@ Kling 3.0 · pro · 1:1 · 3 s · sound off · batch 2. First frame C0, last fra
 With C2 as soft cloth, V7 turned the crisp sheet into fabric on its way to the last frame. Rerun with the run 2 prompt plus: "Crisp printer paper, not fabric: sharp angular creases, its two top corners bent back where they catch on the ends of the plate."
 - `23af23c5-ea25-4eb5-8748-794a9c9f21fd`: **pick, the new `C2.png`.** Crisp paper. Both top corners bend back where they catch on the ends of the plate, and the grey band sits inside the slot. The bank is unchanged. It's large, about 2× the original sheet.
 - `9a28ba4e-3ca9-49f9-94c5-bf2a13420304`: crisp and a little smaller, but twisted diagonally out of the slot rather than catching on both sides. Out.
+
+Run 2, same prompt and settings, with the crisp C2 (`23af23c5-…`) as the last frame. 10.5 credits.
+- `9297d544-6d9a-4ea5-a356-58df235c30bf`: **pick, `V7.mp4`.** Crisp paper throughout. Lifts with the grey band intact, goes in and stops dead (f30 to f38), catches at both ends of the plate, then hangs and swings like real paper before settling (f46 to f72). Flaws: the small sheet jumps to the larger C2 sheet between f38 and f40, and there's a small glitch inside the slot at f44. In AE, cut from f38 to f46 to cover both. Bank drift up to 3.1.
+- `137f4e5d-2160-4eea-98c4-7c69984cc4bc`: the sheet's grey band turns dark green. Out.
