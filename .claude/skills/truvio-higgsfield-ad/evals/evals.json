@@ -1,0 +1,54 @@
+{
+  "skill_name": "truvio-higgsfield-ad",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Single Object Hero brief: glass hourglass with teal #3FD1C2 coins on #400685, Banking & Treasury copy, on-design line pasted from Production Planning. Write the Higgsfield prompt.",
+      "expected_output": "Questions flag the pasted headline and the off-palette teal; a prompt file in the house format with 1:1 and 4:5 prompts, copy unchanged.",
+      "files": [],
+      "assertions": [
+        "Flags that the on-design line 'Stop Promising Dates You're Not Sure You Can Hit' does not fit the treasury ad (likely pasted from another campaign)",
+        "Flags teal #3FD1C2 as off-palette and offers a brand colour alternative",
+        "Writes a prompt file containing a 'How the image matches the copy' section",
+        "Gives separate prompt text or a layout swap for 1:1 and 4:5",
+        "Prompt keeps the headline and logo out of the generated image and reserves empty space for the copy",
+        "Prompt controls text (no readable words/numbers beyond what is named, or no text at all)",
+        "Includes a brand check and a fixes list",
+        "Copy lines quoted in the file are unchanged from the brief",
+        "Writing has no em dashes and no semicolons"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Hero-only Higgsfield prompt for the Three Deadlines Drop zone parachutes, plus animation ideas for Higgsfield.",
+      "expected_output": "Hero-only image prompt on flat violet, and animation prompts that follow the first/last-frame rules.",
+      "files": [],
+      "assertions": [
+        "Image prompt is hero only: no copy band layout, hero centred with wide margins on a flat violet ground",
+        "Keeps the established cast and colours (invoices Celestial Blue, box Yellow Gold, cards Electric Green)",
+        "Each animation idea states which copy line it turns into motion",
+        "Animation specifies start and end frames without headline, logo or CTA",
+        "Animation prompt locks the camera",
+        "Animation prompt gives timed beats (seconds) for the moves",
+        "Animation prompt ends with a still hold",
+        "Says that anything absent from the first frame gets faded in, or that exact elements (text/marks) go to After Effects",
+        "Includes a fixes list for the video prompt"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Review the real Seedance plane clip and suggest prompt improvements.",
+      "expected_output": "Frames extracted and actually viewed; specific timed observations; a v2 section appended to the prompt file copy.",
+      "files": [],
+      "assertions": [
+        "Extracted frames or contact sheets from the clip into the output folder",
+        "Reply cites specific moments in the clip with timestamps",
+        "Diagnoses causes, not just symptoms",
+        "Appends a v2 section to the copy of the prompt file (original left untouched)",
+        "Provides a complete v2 prompt",
+        "Includes fixes or a fallback for v2",
+        "Does not invent problems: claims match the visible frames (judge from contact sheets)"
+      ]
+    }
+  ]
+}

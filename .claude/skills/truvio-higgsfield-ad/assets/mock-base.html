@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Truvio ad mock</title>
+<style>
+/* The board fills the render window, so render_mock.sh sets the size (1080x1080 or 1080x1350). */
+/* Arvo Bold stands in for Museo Slab, which is licensed. */
+@font-face{font-family:'Slab';src:url('fonts/arvo-latin-700-normal.woff2') format('woff2');font-weight:700}
+@font-face{font-family:'BVP';src:url('fonts/be-vietnam-pro-latin-400-normal.woff2') format('woff2');font-weight:400}
+@font-face{font-family:'BVP';src:url('fonts/be-vietnam-pro-latin-800-normal.woff2') format('woff2');font-weight:800}
+:root{
+  --violet:#400685; --offwhite:#E6E8FC;
+  --red:#F76336; --green:#2DB34A; --silver:#CFD2D4; --darkgray:#6D757A;
+  --M:65px;                    /* 6% of the short edge. Nothing light crosses it. */
+  --headline:66px; --stageTop:240px; --lockupW:176px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100vw;height:100vh;overflow:hidden;background:var(--violet)}
+body{font-family:'BVP',sans-serif;-webkit-font-smoothing:antialiased}
+.board{position:relative;width:100vw;height:100vh;overflow:hidden;background:var(--violet)}
+h1{position:absolute;left:var(--M);top:var(--M);z-index:3;font-family:'Slab',serif;font-weight:700;
+  font-size:var(--headline);line-height:1.08;letter-spacing:-.012em;color:var(--offwhite)}
+.lockup{position:absolute;left:var(--M);bottom:var(--M);width:var(--lockupW);z-index:3}
+.stage{position:absolute;left:var(--M);right:var(--M);top:var(--stageTop);bottom:var(--M);
+  display:flex;align-items:center;justify-content:center;z-index:2}
+.hero{width:460px;height:650px;background:#fff;transform:rotate(5deg);
+  filter:drop-shadow(1px 2px 2px rgba(14,0,40,.38)) drop-shadow(10px 18px 24px rgba(14,0,40,.42))}
+#qa{display:none}
+</style>
+</head>
+<body>
+<div class="board" id="board">
+  <h1>Headline line one<br>headline line two</h1>
+  <div class="stage">
+    <div class="hero"><!-- build the hero here --></div>
+  </div>
+  <img class="lockup" src="assets/truvio-lockup-reversed.png" alt="truvio">
+</div>
+<pre id="qa"></pre>
+<script>
+document.fonts.ready.then(() => {
+  const b = document.getElementById('board').getBoundingClientRect();
+  const box = s => { const e = document.querySelector(s); if (!e) return null; const r = e.getBoundingClientRect();
+    return {l:+(r.left-b.left).toFixed(1), t:+(r.top-b.top).toFixed(1), r:+(b.right-r.right).toFixed(1),
+            bo:+(b.bottom-r.bottom).toFixed(1), w:+r.width.toFixed(1), h:+r.height.toFixed(1)}; };
+  document.getElementById('qa').textContent = JSON.stringify({
+    headline: box('h1'), lockup: box('.lockup'), hero: box('.hero'),
+    fontsLoaded: [...document.fonts].filter(f => f.status === 'loaded').map(f => f.family + ' ' + f.weight)});
+});
+</script>
+</body>
+</html>
