@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Crammed note screen</title>
+<style>
+/* The Notes screen alone, 328 x 696, for the comp. Export it with export_svg.py at 328x696. */
+@font-face{font-family:'BVP';src:url('fonts/be-vietnam-pro-latin-400-normal.woff2') format('woff2');font-weight:400}
+@font-face{font-family:'BVP';src:url('fonts/be-vietnam-pro-latin-800-normal.woff2') format('woff2');font-weight:800}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100vw;height:100vh;overflow:hidden;background:transparent}
+body{-webkit-font-smoothing:antialiased}
+#qa{display:none}
+</style>
+<link rel="stylesheet" href="note.css">
+<style>.screen{left:0;top:0}</style>
+</head>
+<body>
+<div class="screen" id="board"></div>
+<pre id="qa"></pre>
+<script src="note.js"></script>
+<script>
+document.fonts.ready.then(() => {
+  document.getElementById('qa').textContent = JSON.stringify({viewport: [innerWidth, innerHeight],
+    fontsLoaded: [...document.fonts].filter(f => f.status === 'loaded').map(f => f.family + ' ' + f.weight)});
+});
+</script>
+</body>
+</html>

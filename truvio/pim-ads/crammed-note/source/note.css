@@ -1,0 +1,20 @@
+/* The Notes screen, shared by the board mocks and the screen-only export.
+   Sized for a 328 x 696 screen, which sits in a 352 x 720 phone.
+   Body text runs at about 1.8 times real iOS size (like Larger Text), so the list reads at feed size.
+   Be Vietnam Pro stands in for SF Pro. Apple licenses SF Pro for app mock-ups on its platforms, not for ads. */
+:root{ --notes:#E3A600; /* stand-in for Apple's Notes yellow. Sample a real Notes screenshot before you comp. */ }
+.screen{position:absolute;width:328px;height:696px;background:#fff;border-radius:46px;overflow:hidden;color:#000;font-family:'BVP',sans-serif}
+.screen .sb{position:absolute;left:0;right:0;top:0;height:54px}
+.screen .time{position:absolute;left:38px;top:13px;font-weight:800;font-size:20px;line-height:26px;letter-spacing:-.01em}
+.screen .island{position:absolute;left:112px;top:11px;width:104px;height:31px;border-radius:16px;background:#000}
+.screen .sys{position:absolute;right:26px;top:19px;width:76px;height:14px}
+.screen .sys svg{position:absolute;top:0}
+.screen .nav{position:absolute;left:0;right:0;top:56px;height:48px}
+.screen .nav svg{position:absolute}
+.screen .note{position:absolute;left:22px;right:20px;top:116px}
+.screen .title{font-weight:800;font-size:31px;line-height:36px;letter-spacing:-.015em;margin-bottom:14px}
+.screen .li{position:relative;padding-left:24px;font-size:26px;line-height:34px;margin-bottom:6px}
+.screen .dot{position:absolute;left:1px;top:0}
+.screen .tb{position:absolute;left:0;right:0;bottom:32px;height:34px}
+.screen .tb svg{position:absolute;top:0}
+.screen .home{position:absolute;left:104px;bottom:9px;width:120px;height:5px;border-radius:3px;background:#000}

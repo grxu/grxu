@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Crammed note B plate reference</title>
+<style>
+/* 1:1 board. Arvo Bold stands in for Museo Slab, which is licensed. */
+@font-face{font-family:'Slab';src:url('fonts/arvo-latin-700-normal.woff2') format('woff2');font-weight:700}
+@font-face{font-family:'BVP';src:url('fonts/be-vietnam-pro-latin-400-normal.woff2') format('woff2');font-weight:400}
+@font-face{font-family:'BVP';src:url('fonts/be-vietnam-pro-latin-800-normal.woff2') format('woff2');font-weight:800}
+:root{
+  --violet:#400685; --offwhite:#E6E8FC; --gold:#FFB310;
+  --M:65px; --lockupW:176px;
+  --phoneW:352px; --phoneH:720px; --phoneTop:65px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100vw;height:100vh;overflow:hidden;background:var(--violet)}
+body{font-family:'BVP',sans-serif;-webkit-font-smoothing:antialiased}
+.board{position:relative;width:100vw;height:100vh;overflow:hidden;background:var(--violet)}
+
+/* Phone lying flat, shot from directly above, turned 5 degrees anticlockwise. Scaled to 95 percent so the turned phone fits the same box. */
+.phone{position:absolute;left:calc(50% - var(--phoneW) / 2);top:var(--phoneTop);width:var(--phoneW);height:var(--phoneH);
+  border-radius:58px;background:linear-gradient(135deg,#6a6a72 0%,#2a2a30 18%,#1a1a1e 55%,#3a3a40 85%,#5a5a62 100%);
+  transform:rotate(-5deg) scale(.95);
+  filter:drop-shadow(2px 3px 3px rgba(14,0,40,.42)) drop-shadow(14px 24px 26px rgba(14,0,40,.48))}
+.phone .bezel{position:absolute;inset:4px;border-radius:54px;background:#050506}
+.phone .screen{left:12px;top:12px}
+
+.line{position:absolute;left:var(--M);right:var(--M);top:var(--lineTop,832px);text-align:center;z-index:3;
+  font-family:'Slab',serif;font-weight:700;font-size:36px;line-height:1.16;letter-spacing:-.008em;color:var(--offwhite)}
+.line .gold{color:var(--gold)}
+.lockup{position:absolute;left:var(--M);bottom:var(--M);width:var(--lockupW);z-index:3}
+.cta{position:absolute;right:var(--M);bottom:calc(var(--M) + 14px);z-index:3;font-weight:800;font-size:24px;color:var(--offwhite);display:flex;align-items:center;gap:10px}
+.cta svg{margin-top:2px}
+#qa{display:none}
+/* Plate reference: no copy, no lockup, blank screen. */
+.line,.cta,.lockup{display:none}
+</style>
+<link rel="stylesheet" href="note.css">
+</head>
+<body>
+<div class="board" id="board">
+  <div class="phone" data-layer="Phone"><div class="bezel"></div><div class="screen" data-layer="Note_screen"></div></div>
+  <div class="line" data-layer="Line"><span>There's a better place for it.</span><br><span class="gold">Truvio PIM, inside Business Central.</span></div>
+  <div class="cta" data-layer="CTA">See it in a demo<svg width="24" height="16" viewBox="0 0 24 16"><path d="M1.5 8h19M14 2l6.5 6-6.5 6" fill="none" stroke="#E6E8FC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <img class="lockup" data-layer="Truvio_lockup" src="assets/truvio-lockup-reversed.png" alt="truvio">
+</div>
+<pre id="qa"></pre>
+<script>
+document.fonts.ready.then(() => {
+  const b = document.getElementById('board').getBoundingClientRect();
+  const R = s => document.querySelector(s).getBoundingClientRect();
+  const box = s => { const r = R(s);
+    return {l:+(r.left-b.left).toFixed(1), t:+(r.top-b.top).toFixed(1), r:+(b.right-r.right).toFixed(1),
+            bo:+(b.bottom-r.bottom).toFixed(1), w:+r.width.toFixed(1), h:+r.height.toFixed(1)}; };
+  const lines = s => [...document.querySelectorAll(s)].map(e => Math.round(e.getBoundingClientRect().height / parseFloat(getComputedStyle(e).lineHeight)));
+  document.getElementById('qa').textContent = JSON.stringify({
+    viewport: [innerWidth, innerHeight],
+    phone: box('.phone'),
+        fontsLoaded: [...document.fonts].filter(f => f.status === 'loaded').map(f => f.family + ' ' + f.weight)});
+});
+</script>
+</body>
+</html>
