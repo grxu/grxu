@@ -7,6 +7,16 @@ Flat HTML mocks of the ad, rendered with headless Chrome at 2x. They show hierar
 2. Copy `mock-base.html` once per option (`option-a.html`, `idea-1-pile.html`) and build the hero in the `.stage`. Shared styles go in one CSS file, so options stay consistent.
 3. Render: `scripts/render_mock.sh <file.html> <out-basename> [1080x1080|1080x1350]`. It writes `<out>@2x.png` and `<out>.png`, prints the element boxes, and runs QA.
 
+## Illustrator files
+When Grady wants to finish a mock in Illustrator, run `scripts/export_svg.py <file.html> <out-basename> [WxH]`.
+- It writes `<out>.svg`, the editable master, and `<out>.ai`, a PDF-based Illustrator file of the same artwork.
+- Put `data-layer="Name"` on the parts that should become named groups (headline, labels, each hero, CTA, lockup).
+- Text stays live and names fonts by PostScript name (MuseoSlab-700, BeVietnamPro-Regular, BeVietnamPro-ExtraBold), so Illustrator asks for the licensed fonts. The .ai embeds Arvo in place of Museo Slab.
+- The lockup goes in as vectors when `assets/truvio-lockup-reversed.svg` sits next to the PNG.
+- Shadows sit on their own `_shadow` shapes under each group, so the UI stays vector in the .ai.
+- Check the printed diff against the mock and read the QA render it points to. Under 3 percent of pixels off is antialiasing.
+- Neither file carries Illustrator's private editing data. Say so, and tell Grady to Save As .ai once to get a native file.
+
 ## Build rules
 - Board: flat #400685, unless the brief says otherwise. Copy and lockup follow the campaign layout (look at earlier mocks in the folder). The default is the headline top left, two lines at most, Arvo Bold 66px #E6E8FC, with the lockup small at the bottom left, 176px wide.
 - 65px safe margin on all sides. Nothing light crosses it.
