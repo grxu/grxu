@@ -24,7 +24,8 @@ body{font-family:'BVP',sans-serif;-webkit-font-smoothing:antialiased;color:#1b1b
 h1{position:absolute;left:var(--M);top:var(--M);width:900px;z-index:3;font-family:'Slab',serif;font-weight:700;
   font-size:var(--headline);line-height:1.08;letter-spacing:-.012em;color:var(--offwhite)}
 .lockup{position:absolute;left:var(--M);bottom:var(--M);width:var(--lockupW);z-index:3}
-.cta{position:absolute;right:var(--M);bottom:calc(var(--M) + 14px);z-index:3;font-weight:800;font-size:24px;color:var(--offwhite)}
+.cta{position:absolute;right:var(--M);bottom:calc(var(--M) + 14px);z-index:3;font-weight:800;font-size:24px;color:var(--offwhite);display:flex;align-items:center;gap:10px}
+.cta svg{margin-top:2px}
 
 /* The split sits centred between the hook and the lockup row. */
 .split{position:absolute;left:var(--M);right:var(--M);top:208px;bottom:123px;
@@ -66,17 +67,19 @@ h1{position:absolute;left:var(--M);top:var(--M);width:900px;z-index:3;font-famil
 .scroll::before{content:"";position:absolute;left:0;right:0;top:4px;height:30px;border-radius:4px;background:#8F989D}
 
 /* Truvio PIM: the same card, clean, with the PIM panel docked on the right. */
-.pimtile .clean{position:absolute;top:42px;left:0;bottom:0;width:205px;background:#DCE7ED;padding:16px 18px 0}
-.pimtile .clean .ttl{width:80%;background:#4d6470}
-.pimtile .clean .tab{border-color:#B7CAD4;color:#1e3a48}
-.st{margin-bottom:14px}
+.pimtile .clean{position:absolute;top:42px;left:0;right:0;bottom:0;background:#B9CDD8;padding:16px 20px 0}
+.pimtile .clean .ttl{width:62%;background:#4d6470}
+.pimtile .clean .crumb{color:#4d6470}
+.pimtile .clean .tab{border-color:#A4BCC8;color:#1e3a48}
+.st{margin-bottom:16px;width:150px}
 .st .k{font-size:10.5px;color:#2f4b59;margin-bottom:5px}
-.st .v{height:22px;border:1px solid #A9BFCA;border-radius:3px;background:#fff;display:flex;align-items:center;padding:0 7px;font-size:10.5px}
-.st .v i{height:6px;border-radius:3px;background:#8FA5B1}
-.panel{position:absolute;top:42px;right:0;bottom:0;width:270px;background:#fff;padding:16px 16px 0;
-  box-shadow:-10px 0 24px rgba(64,6,133,.18),-1px 0 0 rgba(156,157,236,.6)}
+.st .v{height:24px;border:1px solid #93ADBA;border-radius:3px;background:#C9DAE3;display:flex;align-items:center;padding:0 7px;font-size:10.5px}
+.st .v i{height:6px;border-radius:3px;background:#7F9AA8}
+.tiles{position:relative}
+.panel{position:absolute;top:-10px;bottom:-22px;right:0;width:300px;z-index:2;background:#fff;border-radius:12px;padding:18px 18px 0;overflow:hidden;
+  box-shadow:0 0 0 1px rgba(156,157,236,.7),0 0 26px rgba(156,157,236,.65),10px 18px 30px rgba(14,0,40,.45)}
 .panel .addin{font-size:10.5px;color:#6d757a}
-.panel .name{font-size:16px;color:#2b2b2b;margin-top:1px;white-space:nowrap}
+.panel .name{font-size:18px;color:#2b2b2b;margin-top:1px;white-space:nowrap}
 .hero{margin-top:12px;background:#F1F2F3;border-radius:8px;padding:10px;display:grid;grid-template-columns:64px 1fr;gap:10px;align-items:center}
 .thumb{width:64px;height:64px;background:#fff;border-radius:5px;display:grid;place-items:center;box-shadow:0 1px 3px rgba(0,0,0,.12)}
 .pname{font-weight:800;font-size:12.5px;line-height:1.25;color:#111}
@@ -119,22 +122,24 @@ h1{position:absolute;left:var(--M);top:var(--M);width:900px;z-index:3;font-famil
           <div class="st"><div class="k">Description</div><div class="v"><i style="width:85%"></i></div></div>
           <div class="st"><div class="k">Item Category Code</div><div class="v"><i style="width:45%"></i></div></div>
         </div>
-        <div class="panel">
-          <div class="addin">Add-in</div>
-          <div class="name">Truvio PIM Product View</div>
-          <div class="hero">
-            <div class="thumb"><svg width="54" height="34" viewBox="0 0 54 34"><g fill="none" stroke-width="2.4"><circle cx="11" cy="22" r="9" stroke="#1d2a30"/><circle cx="43" cy="22" r="9" stroke="#1d2a30"/><path d="M11 22 20 9h17l6 13M20 9l7 13h-16M27 22 37 9M18 5h5M35 5l2 4" stroke="#2DB34A" stroke-linecap="round" stroke-linejoin="round"/><path d="M33 5h5" stroke="#FFB310" stroke-linecap="round"/></g></svg></div>
-            <div><div class="pname">Mongoose Tyax Comp Disc (T3)</div><span class="master">Master</span></div>
-          </div>
-          <div class="sec">Assets</div>
-          <div id="rows"></div>
-        </div>
       </div>
 
+
+      <!-- Truvio PIM pop-up -->
+      <div class="panel">
+        <div class="addin">Add-in</div>
+        <div class="name">Truvio PIM Product View</div>
+        <div class="hero">
+          <div class="thumb"><svg width="54" height="34" viewBox="0 0 54 34"><g fill="none" stroke-width="2.4"><circle cx="11" cy="22" r="9" stroke="#1d2a30"/><circle cx="43" cy="22" r="9" stroke="#1d2a30"/><path d="M11 22 20 9h17l6 13M20 9l7 13h-16M27 22 37 9M18 5h5M35 5l2 4" stroke="#2DB34A" stroke-linecap="round" stroke-linejoin="round"/><path d="M33 5h5" stroke="#FFB310" stroke-linecap="round"/></g></svg></div>
+          <div><div class="pname">Mongoose Tyax Comp Disc (T3)</div><span class="master">Master</span></div>
+        </div>
+        <div class="sec">Assets</div>
+        <div id="rows"></div>
+      </div>
     </div>
   </div>
 
-  <div class="cta">Bring your messiest item to a demo →</div>
+  <div class="cta">Bring your messiest item to a demo<svg width="24" height="16" viewBox="0 0 24 16"><path d="M1.5 8h19M14 2l6.5 6-6.5 6" fill="none" stroke="#E6E8FC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
   <img class="lockup" src="assets/truvio-lockup-reversed.png" alt="truvio">
 </div>
 <pre id="qa"></pre>
@@ -158,20 +163,26 @@ document.getElementById('today').innerHTML =
   R([100, 100, 72]) +
   G([50, 65, 45, 60, 70, 40]);
 
-const rows = Array.from({length: 3}, () =>
-  `<div class="row"><div class="t">${bike}</div><div><div class="fn"></div><div class="fs"></div></div><div class="en">EN</div>${dl}</div>`).join('');
-document.getElementById('rows').innerHTML = rows;
+const row = `<div class="row"><div class="t">${bike}</div><div><div class="fn"></div><div class="fs"></div></div><div class="en">EN</div>${dl}</div>`;
+const rowsEl = document.getElementById('rows'), panel = document.querySelector('.panel');
+const fitRows = () => {
+  for (let i = 0; i < 8; i++) {
+    rowsEl.insertAdjacentHTML('beforeend', row);
+    if (rowsEl.lastElementChild.getBoundingClientRect().bottom > panel.getBoundingClientRect().bottom - 18) { rowsEl.lastElementChild.remove(); break; }
+  }
+};
 
 document.fonts.ready.then(() => {
+  fitRows();
   const b = document.getElementById('board').getBoundingClientRect();
   const box = s => { const e = document.querySelector(s); if (!e) return null; const r = e.getBoundingClientRect();
     return {l:+(r.left-b.left).toFixed(1), t:+(r.top-b.top).toFixed(1), r:+(b.right-r.right).toFixed(1),
             bo:+(b.bottom-r.bottom).toFixed(1), w:+r.width.toFixed(1), h:+r.height.toFixed(1)}; };
   const lastRow = document.querySelector('#rows .row:last-child').getBoundingClientRect().bottom;
-  const tileBottom = document.querySelector('.pimtile').getBoundingClientRect().bottom;
+  const tileBottom = panel.getBoundingClientRect().bottom;
   document.getElementById('qa').textContent = JSON.stringify({
     viewport: [innerWidth, innerHeight],
-    headline: box('h1'), labelL: box('.label.l'), today: box('.today'), pim: box('.pimtile'),
+    headline: box('h1'), labelL: box('.label.l'), today: box('.today'), pim: box('.pimtile'), popup: box('.panel'), labelR: box('.label.r'),
     pimRowsClearance: +(tileBottom - lastRow).toFixed(1), cta: box('.cta'), lockup: box('.lockup'),
     fontsLoaded: [...document.fonts].filter(f => f.status === 'loaded').map(f => f.family + ' ' + f.weight)});
 });
