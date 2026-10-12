@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Variants thread, flat option, Higgsfield reference</title>
+<link rel="stylesheet" href="thread.css">
+</head>
+<body class="ref ">
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <path id="arrow" d="M12 3.2 20.6 12.6H15.4V20.8H8.6V12.6H3.4Z"/>
+    <path id="bubble" d="M4.5 5.5h15a1.8 1.8 0 0 1 1.8 1.8v8.4a1.8 1.8 0 0 1-1.8 1.8H11l-4.6 3.6v-3.6H4.5a1.8 1.8 0 0 1-1.8-1.8V7.3a1.8 1.8 0 0 1 1.8-1.8Z"/>
+    <path id="share" d="M13.5 4.5 20.5 11l-7 6.5v-3.9C8.6 13.6 5.6 15.3 3.5 19c.6-5.6 3.9-9.4 10-10.4Z"/>
+    <g id="person"><circle cx="12" cy="9" r="4.2"/><path d="M4.6 20.4c.9-4 3.8-6.2 7.4-6.2s6.5 2.2 7.4 6.2Z"/></g>
+  </defs>
+</svg>
+<div class="board" id="board">
+  <div class="stack">
+
+    <div class="card" data-layer="Thread">
+      <div class="meta">
+        <div class="icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="#fff"><rect x="1" y="1" width="8" height="8" rx="2"/><rect x="11" y="1" width="8" height="8" rx="2"/><rect x="1" y="11" width="8" height="8" rx="2"/><rect x="11" y="11" width="8" height="8" rx="2" fill="#FFB310"/></svg></div>
+        <span class="comm">c/ERPadmins</span><span class="dot">·</span><span class="user">variant_wrangler</span>
+      </div>
+      <h1 class="title" data-layer="Post_title">How are you handling complex variants in Business Central?</h1>
+      <p class="body" data-layer="Post_body">One product, 12 sizes, 8 colors, 3 materials. Our item setup is falling apart.</p>
+      <div class="acts">
+        <div class="pill"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6D757A" stroke-width="2" stroke-linejoin="round"><use href="#arrow"/></svg><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6D757A" stroke-width="2" stroke-linejoin="round" style="transform:rotate(180deg)"><use href="#arrow"/></svg></div>
+        <div class="pill"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6D757A" stroke-width="2" stroke-linejoin="round"><use href="#bubble"/></svg></div>
+        <div class="pill"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6D757A" stroke-width="2" stroke-linejoin="round"><use href="#share"/></svg></div>
+      </div>
+
+      <div class="answer" data-layer="Top_answer">
+        <div class="meta">
+          <div class="av" style="background:#FFB310"><svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><use href="#person"/></svg></div>
+          <span class="comm">erp_ops_lead</span><span class="tag">Top answer</span>
+        </div>
+        <p class="text">We moved variants and enrichment into <b>Truvio&nbsp;PIM</b>.<br>It runs inside BC and syncs back only what BC needs.</p>
+        <div class="acts" style="margin-top:16px">
+          <div class="pill"><svg width="24" height="24" viewBox="0 0 24 24" fill="#F76336" stroke="#F76336" stroke-width="2" stroke-linejoin="round"><use href="#arrow"/></svg><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6D757A" stroke-width="2" stroke-linejoin="round" style="transform:rotate(180deg)"><use href="#arrow"/></svg></div>
+          <div class="pill"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6D757A" stroke-width="2" stroke-linejoin="round"><use href="#bubble"/></svg></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout" data-layer="Truvio_callout">
+      <img class="lockup" data-layer="Truvio_lockup" src="assets/truvio-lockup-reversed.png" alt="truvio">
+      <div class="cta" data-layer="CTA">Test your hardest variants in a demo<svg width="26" height="18" viewBox="0 0 24 16"><path d="M1.5 8h19M14 2l6.5 6-6.5 6" fill="none" stroke="#E6E8FC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+
+  </div>
+</div>
+<pre id="qa"></pre>
+<script>
+document.fonts.ready.then(() => {
+  const b = document.getElementById('board').getBoundingClientRect();
+  const box = s => { const e = document.querySelector(s); if (!e) return null; const r = e.getBoundingClientRect();
+    return {l:+(r.left-b.left).toFixed(1), t:+(r.top-b.top).toFixed(1), r:+(b.right-r.right).toFixed(1),
+            bo:+(b.bottom-r.bottom).toFixed(1), w:+r.width.toFixed(1), h:+r.height.toFixed(1)}; };
+  const lines = s => { const e = document.querySelector(s); return e ? Math.round(e.getBoundingClientRect().height / parseFloat(getComputedStyle(e).lineHeight)) : null; };
+  document.getElementById('qa').textContent = JSON.stringify({
+    viewport: [innerWidth, innerHeight],
+    card: box('.card'), title: box('.title'), titleLines: lines('.title'), body: box('.body'), bodyLines: lines('.body'),
+    answer: box('.answer'), answerLines: lines('.answer .text'), callout: box('.callout'), lockup: box('.lockup'), cta: box('.cta'),
+    fontsLoaded: [...document.fonts].filter(f => f.status === 'loaded').map(f => f.family + ' ' + f.weight)});
+});
+</script>
+</body>
+</html>

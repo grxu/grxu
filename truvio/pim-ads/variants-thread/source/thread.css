@@ -1,0 +1,61 @@
+/* Shared styles for the variants thread mocks. The board fills the render window (1080x1080). */
+/* Arvo Bold stands in for Museo Slab. Be Vietnam Pro stands in for the forum app's UI sans. */
+@page{size:1080px 1080px;margin:0}
+@font-face{font-family:'Slab';src:url('fonts/arvo-latin-700-normal.woff2') format('woff2');font-weight:700}
+@font-face{font-family:'BVP';src:url('fonts/be-vietnam-pro-latin-400-normal.woff2') format('woff2');font-weight:400}
+@font-face{font-family:'BVP';src:url('fonts/be-vietnam-pro-latin-800-normal.woff2') format('woff2');font-weight:800}
+:root{
+  --violet:#400685; --offwhite:#E6E8FC; --paper:#F8F9FE;
+  --red:#F76336; --green:#2DB34A; --blue:#008FC4; --gold:#FFB310; --teal:#006D5B; --twilight:#9C9DEC;
+  --silver:#CFD2D4; --darkgray:#6D757A; --ink:#141414;
+  --M:65px; --lockupW:176px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100vw;height:100vh;overflow:hidden;background:var(--violet)}
+body{font-family:'BVP',sans-serif;-webkit-font-smoothing:antialiased;color:var(--ink)}
+.board{position:relative;width:100vw;height:100vh;overflow:hidden;background:var(--violet)}
+
+/* Thread and callout sit as one column inside the safe margin. */
+.stack{position:absolute;left:var(--M);right:var(--M);top:var(--M);bottom:var(--M);
+  display:flex;flex-direction:column;justify-content:center;gap:36px}
+
+/* ---------- Thread card ---------- */
+.card{position:relative;background:#fff;border-radius:18px;padding:36px 42px 34px;
+  filter:drop-shadow(1px 2px 2px rgba(14,0,40,.35)) drop-shadow(10px 18px 26px rgba(14,0,40,.45))}
+.meta{display:flex;align-items:center;gap:12px;font-size:22px;line-height:1;white-space:nowrap}
+.meta .comm{font-weight:800}
+.meta .dot,.meta .user{color:var(--darkgray)}
+.icon{width:40px;height:40px;border-radius:50%;background:var(--blue);display:grid;place-items:center;flex:none}
+.av{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;flex:none}
+.title{font-weight:800;font-size:52px;line-height:1.13;letter-spacing:-.014em;margin-top:24px}
+.body{font-size:31px;line-height:1.38;color:#2a2a2a;margin-top:16px}
+.acts{display:flex;gap:12px;margin-top:22px}
+.pill{height:44px;border:1.5px solid var(--silver);border-radius:22px;display:flex;align-items:center;gap:12px;padding:0 14px}
+.pill svg{display:block}
+
+/* Top answer, nested under the post */
+.answer{position:relative;margin-top:26px;background:var(--offwhite);border-radius:14px;padding:22px 26px 20px}
+.answer .meta{gap:12px}
+.tag{font-weight:800;font-size:16px;line-height:1;color:#fff;background:var(--teal);padding:6px 12px 7px;border-radius:14px}
+.answer .text{font-size:31px;line-height:1.38;margin-top:14px}
+.answer .text b{font-weight:800}
+.answer .pill{background:#fff}
+
+/* Option B: the top answer lifts out of the thread, like the PIM pop-up in the item card ad. */
+.lift .card{padding-bottom:0}
+.lift .answer{background:#fff;margin:28px -42px -40px 48px;padding:24px 26px 22px;border-radius:16px;
+  box-shadow:0 0 0 1px rgba(156,157,236,.7),0 0 26px rgba(156,157,236,.65),10px 18px 30px rgba(14,0,40,.45)}
+.lift .stack{gap:76px}
+
+/* ---------- Truvio callout ---------- */
+.callout{position:relative;height:132px;border-radius:18px;border:2px solid transparent;
+  background:linear-gradient(var(--violet),var(--violet)) padding-box,
+             linear-gradient(64.6deg,#33B4E8,var(--green) 55%,var(--gold)) border-box;
+  display:flex;align-items:center;justify-content:space-between;padding:0 34px}
+.lockup{width:var(--lockupW);display:block}
+.cta{font-weight:800;font-size:26px;color:var(--offwhite);display:flex;align-items:center;gap:12px;white-space:nowrap}
+.cta svg{margin-top:2px}
+
+/* Higgsfield reference: no logo and no CTA in the image. Grady sets both in the comp. */
+.ref .lockup,.ref .cta{visibility:hidden}
+#qa{display:none}
