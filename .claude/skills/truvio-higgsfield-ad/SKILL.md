@@ -94,7 +94,7 @@ If your own earlier prompt or fix note caused the problem, say so plainly and co
 
 - Save everything in the ad's folder inside `OUTPUTS/<campaign>/`. Prompt files go there, mocks go there as PNGs with `source/` for the HTML.
 - In a cloud session, the ad's folder is `truvio/<campaign>/<ad-name>/` in the repo. Commit and push when you deliver. The container is wiped when the session ends.
-- Send mocks with SendUserFile, rendered.
+- Send mocks with SendUserFile, rendered. When Grady asks for an Illustrator file, use `scripts/export_svg.py` (see `references/layout-mocks.md`).
 - Keep the reply short, written to `anti-ai-writing.md`. Cover what you made, any departure from the brief and why, what Grady must fix before publishing (font stand-ins, reconstructed lockup, new copy needing sign-off), and what you verified, with numbers.
 - Save decisions Grady made (colour swaps, approved exceptions, chosen direction) to project memory, so the next run doesn't ask again.
 
