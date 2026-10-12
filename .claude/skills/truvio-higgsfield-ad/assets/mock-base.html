@@ -45,6 +45,7 @@ document.fonts.ready.then(() => {
     return {l:+(r.left-b.left).toFixed(1), t:+(r.top-b.top).toFixed(1), r:+(b.right-r.right).toFixed(1),
             bo:+(b.bottom-r.bottom).toFixed(1), w:+r.width.toFixed(1), h:+r.height.toFixed(1)}; };
   document.getElementById('qa').textContent = JSON.stringify({
+    viewport: [innerWidth, innerHeight],
     headline: box('h1'), lockup: box('.lockup'), hero: box('.hero'),
     fontsLoaded: [...document.fonts].filter(f => f.status === 'loaded').map(f => f.family + ' ' + f.weight)});
 });

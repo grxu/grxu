@@ -2,7 +2,8 @@
 # Render a Truvio layout mock with headless Chrome at 2x, write the 1x file and run QA.
 # usage:
 #   render_mock.sh --init <source-dir>                 copy kit fonts, lockups and the base template
-#   render_mock.sh <input.html> <out-basename> [WxH]    WxH defaults to 1080x1080 (also 1080x1350)
+#   render_mock.sh <input.html> <out-basename> [WxH] [--accent HEX]
+#                                                      WxH defaults to 1080x1080 (also 1080x1350)
 # Set TRUVIO_KIT or CHROME to override the paths found below.
 set -e
 HERE="$(cd "$(dirname "$0")" && pwd)"
@@ -10,7 +11,9 @@ HERE="$(cd "$(dirname "$0")" && pwd)"
 KIT="${TRUVIO_KIT:-$HOME/Documents/Truvio CoWork/ABOUT ME/truvio-brand/ad-render-kit}"
 [[ -d "$KIT" ]] || KIT="$HERE/../assets/render-kit"
 if [[ -z "$CHROME" ]]; then
-  for c in "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" /opt/pw-browsers/chromium \
+  # The Linux headless shell comes first: full Chromium's new headless mode shrinks the viewport by about 87px.
+  for c in "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+           /opt/pw-browsers/chromium_headless_shell-*/chrome-linux/headless_shell /opt/pw-browsers/chromium \
            "$(command -v google-chrome || true)" "$(command -v chromium || true)"; do
     if [[ -n "$c" && -x "$c" ]]; then CHROME="$c"; break; fi
   done
@@ -34,6 +37,14 @@ flags=(--headless=new --disable-gpu --hide-scrollbars --allow-file-access-from-f
 [[ "$(uname)" == Linux ]] && flags+=(--no-sandbox)
 "$CHROME" "${flags[@]}" --screenshot="${abs_base}@2x.png" "$url" 2>/dev/null
 "$CHROME" "${flags[@]}" --dump-dom "$url" 2>/dev/null \
-  | python3 -c 'import sys,re,html;m=re.search(r"<pre id=\"qa\">(.*?)</pre>",sys.stdin.read(),re.S);print(html.unescape(m.group(1)) if m else "no QA block in page")'
-python3 "$HERE/qa_mock.py" "$base"
+  | python3 -c '
+import sys,re,html,json
+m=re.search(r"<pre id=\"qa\">(.*?)</pre>",sys.stdin.read(),re.S)
+if not m: print("no QA block in page"); sys.exit()
+q=html.unescape(m.group(1)); print(q)
+vp=json.loads(q).get("viewport")
+if vp and vp!=[int(sys.argv[1]),int(sys.argv[2])]:
+    print(f"WARNING: viewport {vp[0]}x{vp[1]}, expected {sys.argv[1]}x{sys.argv[2]}. Layout is wrong. Use another Chrome build.")
+' "$W" "$H"
+python3 "$HERE/qa_mock.py" "$base" "${@:4}"
 echo "contact sheet: python3 $HERE/qa_mock.py --sheet out.png a.png b.png ..."
