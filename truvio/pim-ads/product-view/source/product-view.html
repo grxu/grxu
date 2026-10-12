@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Product View</title>
+<style>
+/* The board fills the render window, so render_mock.sh sets the size (1080x1080). */
+/* Arvo Bold stands in for Museo Slab. Be Vietnam Pro stands in for Segoe UI inside the BC and PIM UI. */
+/* The BC window and the Product View panel are a drawn stand-in for the real screenshot. Swap the Screenshot group for the capture. */
+@page{size:1080px 1080px;margin:0}
+@font-face{font-family:'Slab';src:url('fonts/arvo-latin-700-normal.woff2') format('woff2');font-weight:700}
+@font-face{font-family:'BVP';src:url('fonts/be-vietnam-pro-latin-400-normal.woff2') format('woff2');font-weight:400}
+@font-face{font-family:'BVP';src:url('fonts/be-vietnam-pro-latin-800-normal.woff2') format('woff2');font-weight:800}
+:root{
+  --violet:#400685; --offwhite:#E6E8FC;
+  --red:#F76336; --green:#2DB34A; --blue:#008FC4; --gold:#FFB310; --teal:#006D5B; --twilight:#9C9DEC;
+  --silver:#CFD2D4; --darkgray:#6D757A;
+  --M:65px; --headline:62px; --lockupW:176px;
+  --bcBar:#002B36; --bcTeal:#0F7C8C;       /* BC's own chrome, kept so it reads as Business Central */
+  --labelX:812px;                          /* left edge of the arrow labels */
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100vw;height:100vh;overflow:hidden;background:var(--violet)}
+body{font-family:'BVP',sans-serif;-webkit-font-smoothing:antialiased;color:#1b1b1b}
+.board{position:relative;width:100vw;height:100vh;overflow:hidden;background:var(--violet)}
+h1{position:absolute;left:var(--M);top:var(--M);z-index:3;font-family:'Slab',serif;font-weight:700;
+  font-size:var(--headline);line-height:1.08;letter-spacing:-.012em;color:var(--offwhite);white-space:nowrap}
+.lockup{position:absolute;left:var(--M);bottom:var(--M);width:var(--lockupW);z-index:3}
+.cta{position:absolute;right:var(--M);bottom:calc(var(--M) + 14px);z-index:3;font-weight:800;font-size:24px;color:var(--offwhite);display:flex;align-items:center;gap:10px}
+.cta svg{margin-top:2px}
+
+/* ---------- Stand-in screenshot: the BC item card with the Product View on top ---------- */
+.shot{position:absolute;left:var(--M);top:262px;width:675px;height:643px}
+.bc{position:absolute;left:0;top:0;width:625px;height:610px;border-radius:12px;overflow:hidden;background:#B9CDD8;
+  filter:drop-shadow(1px 2px 2px rgba(14,0,40,.35)) drop-shadow(10px 18px 26px rgba(14,0,40,.45))}
+.bar{height:50px;background:var(--bcBar);display:flex;align-items:center;gap:16px;color:#fff;font-weight:800;font-size:16px}
+.waffle{width:50px;height:50px;background:var(--bcTeal);display:grid;place-items:center}
+.waffle i{display:grid;grid-template-columns:repeat(3,3.5px);gap:3.5px}
+.waffle i b{width:3.5px;height:3.5px;background:#fff;border-radius:1px}
+.clean{padding:18px 20px 0}
+.crumb{font-size:12px;color:#4d6470}
+.ttl{height:10px;width:62%;border-radius:5px;background:#4d6470;margin-top:8px}
+.tab{font-weight:800;font-size:13.5px;margin:18px 0 12px;padding-bottom:6px;border-bottom:1px solid #A4BCC8;color:#1e3a48}
+.st{margin-bottom:18px;width:150px}
+.st .k{font-size:11.5px;color:#2f4b59;margin-bottom:6px;white-space:nowrap}
+.st .v{height:26px;border:1px solid #93ADBA;border-radius:3px;background:#C9DAE3;display:flex;align-items:center;padding:0 8px;font-size:11.5px}
+.st .v i{height:6px;border-radius:3px;background:#7F9AA8}
+
+.pv{position:absolute;left:130px;top:56px;width:545px;height:587px;z-index:2;background:#fff;border-radius:12px;padding:20px 22px 0;overflow:hidden;
+  box-shadow:0 0 0 1px rgba(156,157,236,.7),0 0 26px rgba(156,157,236,.65),10px 18px 30px rgba(14,0,40,.45)}
+.addin{font-size:12px;color:#6d757a}
+.name{font-size:22px;color:#2b2b2b;margin-top:1px;white-space:nowrap}
+.hero{margin-top:10px;background:#F1F2F3;border-radius:8px;padding:8px;display:grid;grid-template-columns:56px 1fr;gap:12px;align-items:center}
+.thumb{width:56px;height:56px;background:#fff;border-radius:5px;display:grid;place-items:center;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.pname{height:10px;width:58%;border-radius:5px;background:#2b2b2b}
+.pid{height:6px;width:26%;border-radius:3px;background:#B4BABE;margin-top:8px}
+.master{display:inline-block;margin-top:8px;font-weight:800;font-size:10px;color:#fff;background:var(--teal);padding:2px 8px;border-radius:8px}
+.sec{margin-top:15px}
+.sh{height:8px;border-radius:4px;background:#3d474d;margin-bottom:10px}
+
+/* Images: product photos, one per view */
+.imgs{display:grid;grid-template-columns:repeat(6,1fr);gap:11px}
+.img{height:74px;border-radius:6px;background:#F1F2F3;border:1px solid #E1E4E6;display:grid;place-items:center;overflow:hidden;position:relative}
+/* Lifestyle shots: sky over a ground band, the bike standing on it */
+.img.scene{background:linear-gradient(180deg,#D7E8F2 0%,#D7E8F2 68%,#B9C9A8 68%,#B9C9A8 100%);align-items:end;padding-bottom:8px}
+.img.scene.warm{background:linear-gradient(180deg,#F2E6D6 0%,#F2E6D6 68%,#CDBFA9 68%,#CDBFA9 100%)}
+
+/* PDFs and spec sheets: asset rows */
+.row{display:grid;grid-template-columns:30px 1fr 30px 14px;gap:12px;align-items:center;border:1px solid #DADDE0;border-radius:6px;padding:5px 12px 5px 8px;margin-bottom:6px;height:40px}
+.pdf{position:relative;width:26px;height:30px}
+.pdf .tagp{position:absolute;left:-3px;top:14px;font-weight:800;font-size:8px;line-height:11px;color:#fff;background:var(--red);padding:0 3px;border-radius:2px}
+.row .fn{height:7px;width:52%;border-radius:4px;background:#555}
+.row .fs{height:5px;width:30%;border-radius:3px;background:#C3C8CB;margin-top:6px}
+.row .en{font-size:10px;font-weight:800;border:1px solid #C3C8CB;border-radius:9px;text-align:center;padding:1px 0}
+
+/* Variant thumbnails: the same bike in each frame colour */
+.vars{display:grid;grid-template-columns:repeat(7,1fr);gap:9px}
+.var{height:56px;border-radius:6px;background:#fff;border:1px solid #DADDE0;display:grid;place-items:center}
+.var.on{border:2px solid var(--teal)}
+
+/* Related products */
+.rels{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.rel{height:64px;border:1px solid #DADDE0;border-radius:6px;display:grid;grid-template-columns:48px 1fr;gap:10px;align-items:center;padding:0 10px 0 7px}
+.rel .t{width:48px;height:48px;border-radius:5px;background:#F1F2F3;display:grid;place-items:center}
+.rel .n{height:7px;width:84%;border-radius:4px;background:#555}
+.rel .p{height:5px;width:44%;border-radius:3px;background:#C3C8CB;margin-top:7px}
+
+/* ---------- Arrows and labels ---------- */
+.arrows{position:absolute;left:0;top:0;width:1080px;height:1080px;z-index:4}
+.arrows svg{display:block}
+.lab{position:absolute;left:var(--labelX);z-index:4;font-weight:800;font-size:30px;line-height:1.12;color:var(--offwhite);white-space:nowrap}
+#qa{display:none}
+</style>
+</head>
+<body>
+<div class="board" id="board">
+  <h1 data-layer="Headline">Everything about the product.<br>Right on the item card.</h1>
+
+  <div class="shot" data-layer="Screenshot_standin">
+    <div class="bc" data-layer="BC_item_card">
+      <div class="bar"><div class="waffle"><i><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b></i></div>Dynamics 365 Business Central</div>
+      <div class="clean">
+        <div class="crumb">Item Card</div><div class="ttl"></div>
+        <div class="tab">Item</div>
+        <div class="st"><div class="k">No.</div><div class="v">10001</div></div>
+        <div class="st"><div class="k">Description</div><div class="v"><i style="width:85%"></i></div></div>
+        <div class="st"><div class="k">Type</div><div class="v"><i style="width:45%"></i></div></div>
+        <div class="st"><div class="k">Blocked</div><div class="v"><i style="width:30%"></i></div></div>
+        <div class="st"><div class="k">Last Date Modified</div><div class="v"><i style="width:55%"></i></div></div>
+      </div>
+    </div>
+
+    <div class="pv" data-layer="Product_View">
+      <div class="addin">Add-in</div>
+      <div class="name">Truvio PIM Product View</div>
+      <div class="hero">
+        <div class="thumb" id="heroThumb"></div>
+        <div><div class="pname"></div><div class="pid"></div><span class="master">Master</span></div>
+      </div>
+      <div class="sec" data-layer="Sec_Images"><div class="sh" style="width:58px"></div><div class="imgs" id="imgs"></div></div>
+      <div class="sec" data-layer="Sec_PDFs"><div class="sh" style="width:96px"></div><div id="pdfs"></div></div>
+      <div class="sec" data-layer="Sec_Related"><div class="sh" style="width:118px"></div><div class="rels" id="rels"></div></div>
+      <div class="sec" data-layer="Sec_Variants"><div class="sh" style="width:70px"></div><div class="vars" id="vars"></div></div>
+    </div>
+  </div>
+
+  <div class="lab" data-layer="Label_Images" data-target="#imgs">Images</div>
+  <div class="lab" data-layer="Label_PDFs" data-target="#pdfs">PDFs and<br>spec sheets</div>
+  <div class="lab" data-layer="Label_Related" data-target="#rels">Related<br>products</div>
+  <div class="lab" data-layer="Label_Variants" data-target="#vars">Variant<br>thumbnails</div>
+  <div class="arrows" data-layer="Arrows"><svg id="arrows" width="1080" height="1080" viewBox="0 0 1080 1080"></svg></div>
+
+  <div class="cta" data-layer="CTA">Click through it in a demo<svg width="24" height="16" viewBox="0 0 24 16"><path d="M1.5 8h19M14 2l6.5 6-6.5 6" fill="none" stroke="#E6E8FC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <img class="lockup" data-layer="Truvio_lockup" src="assets/truvio-lockup-reversed.png" alt="truvio">
+</div>
+<pre id="qa"></pre>
+<script>
+// One bike, drawn in the 54x34 box. Views and colours change per thumbnail.
+const BIKE = (frame = '#2DB34A', dark = '#1d2a30') =>
+  `<g fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="22" r="9" stroke="${dark}"/><circle cx="43" cy="22" r="9" stroke="${dark}"/>` +
+  `<path d="M11 22 20 9h17l6 13M20 9l7 13h-16M27 22 37 9" stroke="${frame}"/><path d="M17 5h6M35 4l2 5" stroke="${dark}"/></g>`;
+const svg = (w, h, vb, inner) => `<svg width="${w}" height="${h}" viewBox="${vb}">${inner}</svg>`;
+const FRONT = `<g fill="none" stroke-linecap="round" stroke-width="2.4"><ellipse cx="27" cy="23" rx="2.6" ry="9" stroke="#1d2a30"/><path d="M27 7v8" stroke="#2DB34A"/><path d="M19 7h16" stroke="#1d2a30"/></g>`;
+
+document.getElementById('heroThumb').innerHTML = svg(48, 30, '-1 0 56 34', BIKE());
+document.getElementById('imgs').innerHTML = [
+  ['#F1F2F3', svg(62, 40, '-1 0 56 34', BIKE())],                                   // studio side
+  ['scene', svg(50, 32, '-1 0 56 34', BIKE())],                                     // lifestyle
+  ['#F1F2F3', svg(74, 74, '22 -1 34 34', BIKE())],                                  // close-up, front half
+  ['#F1F2F3', svg(56, 56, '11 3 32 32', FRONT)],                                     // front
+  ['#ECEEF0', svg(62, 40, '-1 0 56 34', `<g transform="translate(6 2) skewX(-14) scale(.86 .92)">${BIKE()}</g>`)], // perspective
+  ['warm', svg(50, 32, '-1 0 56 34', BIKE('#2DB34A'))]                              // lifestyle, warm
+].map(([bg, s]) => `<div class="img${bg === 'scene' ? ' scene' : bg === 'warm' ? ' scene warm' : ''}"${bg.startsWith('#') ? ` style="background:${bg}"` : ''}>${s}</div>`).join('');
+
+const dl = '<svg width="14" height="15" viewBox="0 0 11 12"><path d="M5.5 1v7M2.5 5.5l3 3 3-3M1.5 11h8" fill="none" stroke="#008FC4" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const doc = '<svg width="26" height="30" viewBox="0 0 26 30"><path d="M3 1h13l7 7v21H3z" fill="#fff" stroke="#9AA2A7" stroke-width="1.4" stroke-linejoin="round"/><path d="M16 1v7h7" fill="none" stroke="#9AA2A7" stroke-width="1.4" stroke-linejoin="round"/></svg>';
+const pdfRow = (fn, fs) => `<div class="row"><div class="pdf">${doc}<span class="tagp">PDF</span></div><div><div class="fn" style="width:${fn}%"></div><div class="fs" style="width:${fs}%"></div></div><div class="en">EN</div>${dl}</div>`;
+document.getElementById('pdfs').innerHTML = pdfRow(46, 28) + pdfRow(58, 24);
+
+document.getElementById('vars').innerHTML = ['#2DB34A', '#008FC4', '#FFB310', '#F76336', '#400685', '#6D757A', '#1d2a30']
+  .map((c, i) => `<div class="var${i ? '' : ' on'}">${svg(42, 27, '-1 0 56 34', BIKE(c))}</div>`).join('');
+
+const REL = {
+  helmet: '<path d="M7 31C7 18 17 10 28 10c9 0 15 6 15 15 0 3-1 5-3 6z" fill="#008FC4"/><path d="M19 15l3 8M27 13l1 9M35 15l-1 8" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M9 31h31" stroke="#1d2a30" stroke-width="2.4" stroke-linecap="round"/>',
+  lock: '<path d="M16 27V17a8 8 0 0 1 16 0v10" fill="none" stroke="#3d474d" stroke-width="4"/><rect x="10" y="25" width="28" height="11" rx="3" fill="#FFB310"/>',
+  light: '<rect x="7" y="18" width="20" height="13" rx="4" fill="#3d474d"/><circle cx="25" cy="24.5" r="5" fill="#E6E8FC" stroke="#3d474d" stroke-width="2"/><path d="M33 18l8-3M33 24.5h9M33 31l8 3" stroke="#FFB310" stroke-width="2.2" stroke-linecap="round"/>'
+};
+document.getElementById('rels').innerHTML = ['helmet', 'lock', 'light']
+  .map((k, i) => `<div class="rel"><div class="t">${svg(40, 40, '0 0 48 48', REL[k])}</div><div><div class="n" style="width:${[84, 70, 78][i]}%"></div><div class="p"></div></div></div>`).join('');
+
+// Each label sits level with its target. The arrow runs from the label to the target's right edge.
+// Yellow Gold over a Deep Violet keyline, so the tip still reads where it lands on the white panel.
+const GAP = 14, KEY = '#400685', GOLD = '#FFB310';
+const layout = () => {
+  const b = document.getElementById('board').getBoundingClientRect();
+  let paths = '';
+  for (const lab of document.querySelectorAll('.lab')) {
+    const t = document.querySelector(lab.dataset.target).getBoundingClientRect();
+    const cy = t.top - b.top + t.height / 2;
+    lab.style.top = (cy - lab.offsetHeight / 2) + 'px';
+    const x0 = lab.offsetLeft - GAP, x1 = t.right - b.left + 3;
+    const d = `M${x0} ${cy}H${x1 + 4}M${x1 + 13} ${cy - 10}L${x1 + 2} ${cy}L${x1 + 13} ${cy + 10}`;
+    paths += `<path d="${d}" fill="none" stroke="${KEY}" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>` +
+             `<path d="${d}" fill="none" stroke="${GOLD}" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+  }
+  document.getElementById('arrows').innerHTML = paths;
+};
+
+document.fonts.ready.then(() => {
+  layout();
+  const b = document.getElementById('board').getBoundingClientRect();
+  const box = s => { const e = typeof s === 'string' ? document.querySelector(s) : s; if (!e) return null; const r = e.getBoundingClientRect();
+    return {l:+(r.left-b.left).toFixed(1), t:+(r.top-b.top).toFixed(1), r:+(b.right-r.right).toFixed(1),
+            bo:+(b.bottom-r.bottom).toFixed(1), w:+r.width.toFixed(1), h:+r.height.toFixed(1)}; };
+  const pv = document.querySelector('.pv').getBoundingClientRect();
+  const lastSec = document.querySelector('#vars').getBoundingClientRect();
+  document.getElementById('qa').textContent = JSON.stringify({
+    viewport: [innerWidth, innerHeight],
+    headline: box('h1'), bc: box('.bc'), productView: box('.pv'),
+    sections: ['#imgs', '#pdfs', '#rels', '#vars'].map(s => box(s)),
+    labels: [...document.querySelectorAll('.lab')].map(box),
+    pvBottomClearance: +(pv.bottom - lastSec.bottom).toFixed(1),
+    cta: box('.cta'), lockup: box('.lockup'),
+    fontsLoaded: [...document.fonts].filter(f => f.status === 'loaded').map(f => f.family + ' ' + f.weight)});
+});
+</script>
+</body>
+</html>
