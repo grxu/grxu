@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Three steps</title>
+<style>
+/* The board fills the render window, so render_mock.sh sets the size (1080x1080). */
+/* Arvo Bold stands in for Museo Slab. Be Vietnam Pro stands in for Segoe UI inside the mapping stand-in. */
+/* body.plate hides everything set by hand, so the render is the Higgsfield layout reference. */
+@page{size:1080px 1080px;margin:0}
+@font-face{font-family:'Slab';src:url('fonts/arvo-latin-700-normal.woff2') format('woff2');font-weight:700}
+@font-face{font-family:'BVP';src:url('fonts/be-vietnam-pro-latin-400-normal.woff2') format('woff2');font-weight:400}
+@font-face{font-family:'BVP';src:url('fonts/be-vietnam-pro-latin-800-normal.woff2') format('woff2');font-weight:800}
+:root{
+  --violet:#400685; --offwhite:#E6E8FC; --paper:#F8F9FE;
+  --green:#2DB34A; --blue:#008FC4; --blueLight:#33B4E8; --gold:#FFB310; --teal:#006D5B;
+  --silver:#CFD2D4; --darkgray:#6D757A;
+  --M:65px; --headline:66px; --lockupW:176px;
+  --col:290px; --gap:40px; --tile:104px; --visH:112px;
+  --bcBar:#002B36; --bcTeal:#0F7C8C;       /* BC's own chrome, as in the messy item card */
+  --grad:linear-gradient(64.6deg,var(--blueLight),var(--green) 55%,var(--gold));  /* secondary gradient, 25.4 degrees */
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100vw;height:100vh;overflow:hidden;background:var(--violet)}
+body{font-family:'BVP',sans-serif;-webkit-font-smoothing:antialiased;color:#1b1b1b}
+.board{position:relative;width:100vw;height:100vh;overflow:hidden;background:var(--violet)}
+h1{position:absolute;left:var(--M);top:var(--M);width:950px;z-index:3;font-family:'Slab',serif;font-weight:700;
+  font-size:var(--headline);line-height:1.08;letter-spacing:-.012em;color:var(--offwhite)}
+.lockup{position:absolute;left:var(--M);bottom:var(--M);width:var(--lockupW);z-index:3}
+.cta{position:absolute;right:var(--M);bottom:calc(var(--M) + 14px);z-index:3;font-weight:800;font-size:24px;color:var(--offwhite);display:flex;align-items:center;gap:10px}
+.cta svg{margin-top:2px}
+.footer{position:absolute;left:var(--M);top:884px;z-index:3;font-size:24px;line-height:1.3;color:var(--offwhite)}
+
+/* ---------- Three steps, one column each ---------- */
+.steps{position:absolute;left:var(--M);top:262px;display:grid;grid-template-columns:repeat(3,var(--col));column-gap:var(--gap);z-index:3}
+.vis{height:var(--visH);display:flex;align-items:center}
+.num{margin-top:26px;width:48px;height:48px;border-radius:50%;background:var(--grad);display:grid;place-items:center;
+  font-family:'Slab',serif;font-weight:700;font-size:26px;line-height:1;color:var(--violet);padding-top:2px}
+.txt{margin-top:18px;font-weight:800;font-size:28px;line-height:1.22;color:var(--offwhite)}
+
+/* Icon tiles: the only parts Higgsfield draws. */
+.tile{width:var(--tile);height:var(--tile);border-radius:22px;background:var(--paper);display:grid;place-items:center;
+  filter:drop-shadow(1px 2px 2px rgba(14,0,40,.35)) drop-shadow(8px 14px 18px rgba(14,0,40,.42))}
+
+/* Step 1: stand-in for Microsoft's official AppSource badge. Grady places the real asset. */
+.badge{width:216px;height:72px;border-radius:10px;background:#000;border:1.5px solid #6D757A;display:grid;place-items:center;
+  font-size:13px;color:#9AA2A7;letter-spacing:.02em}
+
+/* ---------- Mapping screen stand-in, cropped by the card ---------- */
+/* Replace with the real mapping screen, rebuilt flat from Grady's screenshot. */
+.map{position:absolute;left:395px;width:620px;top:596px;height:248px;z-index:2;border-radius:12px;overflow:hidden;background:#fff;
+  filter:drop-shadow(1px 2px 2px rgba(14,0,40,.35)) drop-shadow(10px 18px 26px rgba(14,0,40,.45))}
+.bar{height:38px;background:var(--bcBar);display:flex;align-items:center;gap:12px}
+.waffle{width:38px;height:38px;background:var(--bcTeal);display:grid;place-items:center}
+.waffle i{display:grid;grid-template-columns:repeat(3,3px);gap:3px}
+.waffle i b{width:3px;height:3px;background:#fff;border-radius:1px}
+.bar .t{width:170px;height:7px;border-radius:4px;background:#5d7680}
+.mbody{padding:14px 20px 0}
+.mttl{width:38%;height:9px;border-radius:5px;background:#3d474d}
+.mhead,.mrow{display:grid;grid-template-columns:1fr 64px 1fr 40px;gap:14px;align-items:center}
+.mhead{margin:16px 0 6px;padding-bottom:7px;border-bottom:1px solid #d9dde0}
+.mhead i{height:6px;border-radius:3px;background:#3d474d;width:46%}
+.mrow{height:34px;border-bottom:1px solid #ECEEF0}
+.mrow .f{height:22px;border:1px solid #B9BFC3;border-radius:3px;display:flex;align-items:center;padding:0 8px}
+.mrow .f i{height:6px;border-radius:3px;background:#9AA2A7}
+.dir{height:22px;border-radius:11px;display:grid;place-items:center}
+.dir.to{background:rgba(0,143,196,.12)} .dir.from{background:rgba(45,179,74,.14)} .dir.both{background:rgba(64,6,133,.10)}
+.sw{width:30px;height:16px;border-radius:8px;background:var(--teal);position:relative}
+.sw::after{content:"";position:absolute;right:2px;top:2px;width:12px;height:12px;border-radius:50%;background:#fff}
+.sw.off{background:#C3C8CB}.sw.off::after{right:auto;left:2px}
+
+/* ---------- Plate reference ---------- */
+body.plate h1,body.plate .lockup,body.plate .cta,body.plate .footer,body.plate .num,body.plate .txt,
+body.plate .badge,body.plate .map{visibility:hidden}
+#qa{display:none}
+</style>
+</head>
+<body>
+<div class="board" id="board">
+  <h1 data-layer="Headline">Full control of your<br>product data in 3 steps</h1>
+
+  <div class="steps">
+    <div class="step" data-layer="Step_1">
+      <div class="vis"><div class="badge" data-layer="AppSource_badge_placeholder">AppSource badge</div></div>
+      <div class="num" data-layer="Number_1">1</div>
+      <div class="txt" data-layer="Text_1">Install from<br>AppSource</div>
+    </div>
+    <div class="step" data-layer="Step_2">
+      <div class="vis"><div class="tile" id="tile2" data-layer="Icon_Setup">
+        <!-- Eight-tooth cog with a tick: setup. No wand and sparkles, which now read as AI. -->
+        <svg width="64" height="64" viewBox="0 0 64 64"><g transform="translate(32 32)"><g fill="#400685"><circle r="21.5"/><rect x="-5" y="-29" width="10" height="11" rx="2.2" transform="rotate(0)"/><rect x="-5" y="-29" width="10" height="11" rx="2.2" transform="rotate(45)"/><rect x="-5" y="-29" width="10" height="11" rx="2.2" transform="rotate(90)"/><rect x="-5" y="-29" width="10" height="11" rx="2.2" transform="rotate(135)"/><rect x="-5" y="-29" width="10" height="11" rx="2.2" transform="rotate(180)"/><rect x="-5" y="-29" width="10" height="11" rx="2.2" transform="rotate(225)"/><rect x="-5" y="-29" width="10" height="11" rx="2.2" transform="rotate(270)"/><rect x="-5" y="-29" width="10" height="11" rx="2.2" transform="rotate(315)"/></g><circle r="12" fill="#F8F9FE"/><path d="M-5.6 .4l3.8 3.8L5.8-3.6" fill="none" stroke="#2DB34A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g></svg>
+      </div></div>
+      <div class="num" data-layer="Number_2">2</div>
+      <div class="txt" data-layer="Text_2">Run the guided<br>setup wizard</div>
+    </div>
+    <div class="step" data-layer="Step_3">
+      <div class="vis"><div class="tile" id="tile3" data-layer="Icon_Sync">
+        <!-- Two arrows, opposite ways: "and which way". -->
+        <svg width="64" height="64" viewBox="0 0 64 64"><g fill="none" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21h52M46 10l11 11-11 11" stroke="#400685"/><path d="M59 43H7M18 32 7 43l11 11" stroke="#2DB34A"/></g></svg>
+      </div></div>
+      <div class="num" data-layer="Number_3">3</div>
+      <div class="txt" data-layer="Text_3">Choose what syncs,<br>and which way</div>
+    </div>
+  </div>
+
+  <div class="map" data-layer="Mapping_screen_standin">
+    <div class="bar"><div class="waffle"><i><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b></i></div><span class="t"></span></div>
+    <div class="mbody">
+      <div class="mttl"></div>
+      <div class="mhead"><i></i><span></span><i></i><span></span></div>
+      <div id="rows"></div>
+    </div>
+  </div>
+
+  <div class="footer" data-layer="Footer">No code. No middleware. BC stays your system of record.</div>
+  <div class="cta" data-layer="CTA">Try it in a live demo<svg width="24" height="16" viewBox="0 0 24 16"><path d="M1.5 8h19M14 2l6.5 6-6.5 6" fill="none" stroke="#E6E8FC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <img class="lockup" data-layer="Truvio_lockup" src="assets/truvio-lockup-reversed.png" alt="truvio">
+</div>
+<pre id="qa"></pre>
+<script>
+// Mapping rows: BC field, direction, PIM field, sync on or off. Grey bars only, no readable words.
+const arrow = {
+  to:  '<svg width="30" height="12" viewBox="0 0 30 12"><path d="M2 6h24M20 1.5 26 6l-6 4.5" fill="none" stroke="#008FC4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  from:'<svg width="30" height="12" viewBox="0 0 30 12"><path d="M28 6H4M10 1.5 4 6l6 4.5" fill="none" stroke="#2DB34A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  both:'<svg width="30" height="14" viewBox="0 0 30 14"><path d="M3 4h23M21 0.8 26 4M27 10H4M9 13.2 4 10" fill="none" stroke="#400685" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>'};
+const rows = [[62,'to',48,1],[78,'both',70,1],[54,'from',58,1],[70,'to',44,0],[48,'both',66,1]];
+document.getElementById('rows').innerHTML = rows.map(([a,d,b,on]) =>
+  `<div class="mrow"><div class="f"><i style="width:${a}%"></i></div><div class="dir ${d}">${arrow[d]}</div>` +
+  `<div class="f"><i style="width:${b}%"></i></div><span class="sw${on?'':' off'}"></span></div>`).join('');
+
+document.fonts.ready.then(() => {
+  const b = document.getElementById('board').getBoundingClientRect();
+  const box = s => { const e = document.querySelector(s); if (!e) return null; const r = e.getBoundingClientRect();
+    return {l:+(r.left-b.left).toFixed(1), t:+(r.top-b.top).toFixed(1), r:+(b.right-r.right).toFixed(1),
+            bo:+(b.bottom-r.bottom).toFixed(1), w:+r.width.toFixed(1), h:+r.height.toFixed(1)}; };
+  const txt = [...document.querySelectorAll('.txt')].map(e => { const r = e.getBoundingClientRect(); return [+(r.right-b.left).toFixed(1), +(r.bottom-b.top).toFixed(1), +e.scrollWidth]; });
+  document.getElementById('qa').textContent = JSON.stringify({
+    viewport: [innerWidth, innerHeight],
+    headline: box('h1'), steps: box('.steps'), badge: box('.badge'), tile2: box('#tile2'), tile3: box('#tile3'),
+    stepText_right_bottom_scrollW: txt, map: box('.map'), footer: box('.footer'), cta: box('.cta'), lockup: box('.lockup'),
+    fontsLoaded: [...document.fonts].filter(f => f.status === 'loaded').map(f => f.family + ' ' + f.weight)});
+});
+</script>
+</body>
+</html>
