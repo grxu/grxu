@@ -95,14 +95,14 @@ h1{position:absolute;left:var(--M);top:var(--M);width:900px;z-index:3;font-famil
 </head>
 <body>
 <div class="board" id="board">
-  <h1>Your item card wasn't<br>built for this.</h1>
+  <h1 data-layer="Headline">Your item card wasn't<br>built for this.</h1>
 
   <div class="split">
-    <div class="labels"><div class="label l">BC item card today</div><div class="label r">With Truvio PIM</div></div>
+    <div class="labels"><div class="label l" data-layer="Label_Today">BC item card today</div><div class="label r" data-layer="Label_TruvioPIM">With Truvio PIM</div></div>
     <div class="tiles">
 
       <!-- Today -->
-      <div class="tile today">
+      <div class="tile today" data-layer="Tile_Today">
         <div class="bar"><div class="waffle"><i><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b></i></div>Dynamics 365 Business Central</div>
         <div class="body">
           <div class="crumb">Item Card</div><div class="ttl"></div>
@@ -113,7 +113,7 @@ h1{position:absolute;left:var(--M);top:var(--M);width:900px;z-index:3;font-famil
       </div>
 
       <!-- Truvio PIM -->
-      <div class="tile pimtile">
+      <div class="tile pimtile" data-layer="Tile_TruvioPIM">
         <div class="bar"><div class="waffle"><i><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b></i></div>Dynamics 365 Business Central</div>
         <div class="clean">
           <div class="crumb">Item Card</div><div class="ttl"></div>
@@ -126,7 +126,7 @@ h1{position:absolute;left:var(--M);top:var(--M);width:900px;z-index:3;font-famil
 
 
       <!-- Truvio PIM pop-up -->
-      <div class="panel">
+      <div class="panel" data-layer="PIM_popup">
         <div class="addin">Add-in</div>
         <div class="name">Truvio PIM Product View</div>
         <div class="hero">
@@ -139,8 +139,8 @@ h1{position:absolute;left:var(--M);top:var(--M);width:900px;z-index:3;font-famil
     </div>
   </div>
 
-  <div class="cta">Bring your messiest item to a demo<svg width="24" height="16" viewBox="0 0 24 16"><path d="M1.5 8h19M14 2l6.5 6-6.5 6" fill="none" stroke="#E6E8FC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-  <img class="lockup" src="assets/truvio-lockup-reversed.png" alt="truvio">
+  <div class="cta" data-layer="CTA">Bring your messiest item to a demo<svg width="24" height="16" viewBox="0 0 24 16"><path d="M1.5 8h19M14 2l6.5 6-6.5 6" fill="none" stroke="#E6E8FC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <img class="lockup" data-layer="Truvio_lockup" src="assets/truvio-lockup-reversed.png" alt="truvio">
 </div>
 <pre id="qa"></pre>
 <script>

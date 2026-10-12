@@ -48,8 +48,12 @@ Truvio PIM LinkedIn single-image ad, 1:1 (1080x1080) only. Split screen of two s
 
 ## Files
 - `messy-item-card-1x1.png`: final at 1x. `messy-item-card-1x1@2x.png` at 2160x2160.
-- `messy-item-card-1x1.pdf`: vector, open in Illustrator. Text stays live, fonts embedded. Shadows and the glow may come in as raster.
-- `source/messy-item-card.html`: the mock. Render with `.claude/skills/truvio-higgsfield-ad/scripts/render_mock.sh source/messy-item-card.html messy-item-card-1x1 1080x1080`.
+- `messy-item-card-1x1.svg`: the editable Illustrator master. Named groups (Headline, Label_Today, Label_TruvioPIM, Tile_Today, Tile_TruvioPIM, PIM_popup, CTA, Truvio_lockup, plus Field, Red, Row and shadow groups inside). Live text set in MuseoSlab-700, BeVietnamPro-Regular and BeVietnamPro-ExtraBold. Vector lockup from the official SVG. Shadows are SVG filters on their own `_shadow` shapes.
+- `messy-item-card-1x1.ai`: the same artwork as a PDF-based Illustrator file. Opens in Illustrator directly. Text is live with Arvo Bold standing in for Museo Slab. The four shadows are raster, everything else is vector.
+- `messy-item-card-1x1.pdf`: the earlier print of the HTML mock. The .ai replaces it for editing.
+- Neither the .svg nor the .ai carries Illustrator's private editing data. Open one, then Save As .ai once to get a native file.
+- Shadow values for native Illustrator Drop Shadow, if you rebuild them: tiles 10px x, 18px y, 13px blur, #0E0028 at 45 percent, plus 1px, 2px, 1px blur at 35 percent. Pop-up 10px x, 18px y, 15px blur at 45 percent, a #9C9DEC outer glow at 65 percent with 13px blur, and a 1px #9C9DEC stroke at 70 percent.
+- `source/messy-item-card.html`: the mock. Render with `.claude/skills/truvio-higgsfield-ad/scripts/render_mock.sh source/messy-item-card.html messy-item-card-1x1 1080x1080`. Export the Illustrator files with `.claude/skills/truvio-higgsfield-ad/scripts/export_svg.py source/messy-item-card.html messy-item-card-1x1 1080x1080`.
 
 ## QA
 - Viewport matches the canvas: 1080x1080.
@@ -59,3 +63,4 @@ Truvio PIM LinkedIn single-image ad, 1:1 (1080x1080) only. Split screen of two s
 - Hook clears the labels by 118px. The pop-up clears the lockup row by 95px.
 - Pop-up rows clear its bottom edge by 22px. No clipped row.
 - PDF fonts: Arvo Bold, Be Vietnam Pro Regular and ExtraBold, all embedded. No fallback font.
+- SVG rendered back against the mock: mean difference 4.7 per pixel, 2.1 percent of pixels off by more than 60, all on antialiased edges. The .ai matches the mock the same way, with all three fonts embedded as live text.
