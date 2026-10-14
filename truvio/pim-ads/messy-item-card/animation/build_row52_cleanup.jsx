@@ -1,18 +1,34 @@
 // Row 52 Clean-up: builds the After Effects comp from the layer PNGs in ./assets.
 // Run in After Effects: File > Scripts > Run Script File, then pick this file.
 // Every layer is a full-frame 2160x2160 PNG at 50 percent scale, so it sits exactly where it sits in the .ai.
-// Anchor points sit on each moving part, so scale happens around the part. Keyframes use 60 percent ease.
+// Layers in a mask group go into a precomp (Row52_CleanBody, Row52_Assets) with a rectangle mask on it.
+// Keyframe eases carry the in and out influence from the timeline, so the motion matches the preview.
 (function () {
   var DATA = {
  "comp": "Row52_CleanUp",
  "w": 1080,
  "h": 1080,
  "fps": 30,
- "dur": 6.0,
+ "dur": 8.0,
+ "masks": {
+  "CleanBody": [
+   561.9,
+   481.4,
+   448,
+   407.1
+  ],
+  "Assets": [
+   717.2,
+   608.0,
+   293.1,
+   296.0
+  ]
+ },
  "layers": [
   {
    "name": "BG",
    "file": "assets/BG.png",
+   "group": null,
    "anchor": [
     540.0,
     540.0
@@ -22,6 +38,7 @@
   {
    "name": "Logo",
    "file": "assets/Logo.png",
+   "group": null,
    "anchor": [
     540.0,
     540.0
@@ -31,6 +48,7 @@
   {
    "name": "Headline",
    "file": "assets/Headline.png",
+   "group": null,
    "anchor": [
     540.0,
     540.0
@@ -40,6 +58,7 @@
   {
    "name": "Label_BC",
    "file": "assets/Label_BC.png",
+   "group": null,
    "anchor": [
     540.0,
     540.0
@@ -49,6 +68,7 @@
   {
    "name": "Label_PIM",
    "file": "assets/Label_PIM.png",
+   "group": null,
    "anchor": [
     540.0,
     540.0
@@ -58,6 +78,7 @@
   {
    "name": "CTA",
    "file": "assets/CTA.png",
+   "group": null,
    "anchor": [
     540.0,
     540.0
@@ -67,6 +88,7 @@
   {
    "name": "Tile_Today",
    "file": "assets/Tile_Today.png",
+   "group": null,
    "anchor": [
     540.0,
     540.0
@@ -76,6 +98,7 @@
   {
    "name": "Red_L1",
    "file": "assets/Red_L1.png",
+   "group": null,
    "anchor": [
     290.3,
     676.4
@@ -83,24 +106,36 @@
    "keys": {
     "s": [
      [
-      0.6,
+      0.8,
       [
        100,
        100
-      ]
-     ],
-     [
-      0.85,
+      ],
       [
-       104,
-       104
+       60,
+       60
       ]
      ],
      [
-      1.15,
+      1.2,
+      [
+       103,
+       103
+      ],
+      [
+       60,
+       60
+      ]
+     ],
+     [
+      1.7,
       [
        100,
        100
+      ],
+      [
+       60,
+       60
       ]
      ]
     ]
@@ -109,6 +144,7 @@
   {
    "name": "Red_L2",
    "file": "assets/Red_L2.png",
+   "group": null,
    "anchor": [
     290.3,
     789.45
@@ -116,24 +152,36 @@
    "keys": {
     "s": [
      [
-      0.68,
+      0.92,
       [
        100,
        100
-      ]
-     ],
-     [
-      0.93,
+      ],
       [
-       104,
-       104
+       60,
+       60
       ]
      ],
      [
-      1.23,
+      1.32,
+      [
+       103,
+       103
+      ],
+      [
+       60,
+       60
+      ]
+     ],
+     [
+      1.82,
       [
        100,
        100
+      ],
+      [
+       60,
+       60
       ]
      ]
     ]
@@ -142,6 +190,7 @@
   {
    "name": "Red_L3",
    "file": "assets/Red_L3.png",
+   "group": null,
    "anchor": [
     290.3,
     902.4
@@ -149,32 +198,45 @@
    "keys": {
     "s": [
      [
-      0.76,
+      1.04,
       [
        100,
        100
-      ]
-     ],
-     [
-      1.01,
+      ],
       [
-       104,
-       104
+       60,
+       60
       ]
      ],
      [
-      1.31,
+      1.44,
+      [
+       103,
+       103
+      ],
+      [
+       60,
+       60
+      ]
+     ],
+     [
+      1.94,
       [
        100,
        100
+      ],
+      [
+       60,
+       60
       ]
      ]
     ]
    }
   },
   {
-   "name": "Tile_PIM_clean",
-   "file": "assets/Tile_PIM_clean.png",
+   "name": "Tile_PIM_base",
+   "file": "assets/Tile_PIM_base.png",
+   "group": null,
    "anchor": [
     540.0,
     540.0
@@ -184,26 +246,17 @@
   {
    "name": "Tile_PIM_clutter",
    "file": "assets/Tile_PIM_clutter.png",
+   "group": null,
    "anchor": [
     540.0,
     540.0
    ],
-   "keys": {
-    "o": [
-     [
-      2.4,
-      100
-     ],
-     [
-      3.0,
-      0
-     ]
-    ]
-   }
+   "keys": {}
   },
   {
    "name": "Red_R3",
    "file": "assets/Red_R3.png",
+   "group": null,
    "anchor": [
     780.98,
     903.06
@@ -211,273 +264,246 @@
    "keys": {
     "s": [
      [
-      0.76,
+      1.04,
       [
        100,
        100
-      ]
-     ],
-     [
-      1.01,
+      ],
       [
-       104,
-       104
+       60,
+       60
       ]
      ],
      [
-      1.31,
+      1.44,
+      [
+       103,
+       103
+      ],
+      [
+       60,
+       60
+      ]
+     ],
+     [
+      1.94,
       [
        100,
        100
+      ],
+      [
+       60,
+       60
       ]
-     ]
-    ],
-    "o": [
-     [
-      2.4,
-      100
-     ],
-     [
-      3.0,
-      0
      ]
     ]
    }
   },
   {
-   "name": "PIM_popup",
-   "file": "assets/PIM_popup.png",
+   "name": "Clean_body",
+   "file": "assets/Clean_body.png",
+   "group": "CleanBody",
    "anchor": [
-    863.75,
-    670.35
+    540.0,
+    540.0
    ],
    "keys": {
-    "o": [
-     [
-      1.15,
-      0
-     ],
-     [
-      1.45,
-      100
-     ]
-    ],
-    "s": [
-     [
-      1.15,
-      [
-       88,
-       88
-      ]
-     ],
-     [
-      1.5,
-      [
-       102,
-       102
-      ]
-     ],
-     [
-      1.7,
-      [
-       100,
-       100
-      ]
-     ]
-    ],
     "p": [
-     [
-      1.15,
-      [
-       0,
-       20
-      ]
-     ],
-     [
-      1.5,
-      [
-       0,
-       0
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "name": "Row1",
-   "file": "assets/Row1.png",
-   "anchor": [
-    863.75,
-    639.15
-   ],
-   "keys": {
-    "o": [
-     [
-      2.3,
-      0
-     ],
-     [
-      2.55,
-      100
-     ]
-    ],
-    "s": [
-     [
-      2.3,
-      [
-       96,
-       96
-      ]
-     ],
-     [
-      2.55,
-      [
-       100,
-       100
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "name": "Row2",
-   "file": "assets/Row2.png",
-   "anchor": [
-    863.75,
-    695.62
-   ],
-   "keys": {
-    "o": [
-     [
-      2.5,
-      0
-     ],
-     [
-      2.75,
-      100
-     ]
-    ],
-    "s": [
-     [
-      2.5,
-      [
-       96,
-       96
-      ]
-     ],
-     [
-      2.75,
-      [
-       100,
-       100
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "name": "Row3",
-   "file": "assets/Row3.png",
-   "anchor": [
-    863.75,
-    752.09
-   ],
-   "keys": {
-    "o": [
-     [
-      2.75,
-      0
-     ],
-     [
-      3.05,
-      100
-     ]
-    ],
-    "p": [
-     [
-      2.75,
-      [
-       0,
-       14
-      ]
-     ],
-     [
-      3.05,
-      [
-       0,
-       0
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "name": "Row4",
-   "file": "assets/Row4.png",
-   "anchor": [
-    863.75,
-    808.56
-   ],
-   "keys": {
-    "o": [
-     [
-      2.9,
-      0
-     ],
-     [
-      3.2,
-      100
-     ]
-    ],
-    "p": [
-     [
-      2.9,
-      [
-       0,
-       14
-      ]
-     ],
-     [
-      3.2,
-      [
-       0,
-       0
-      ]
-     ]
-    ]
-   }
-  },
-  {
-   "name": "Row5",
-   "file": "assets/Row5.png",
-   "anchor": [
-    863.75,
-    865.03
-   ],
-   "keys": {
-    "o": [
-     [
-      3.05,
-      0
-     ],
-     [
-      3.35,
-      100
-     ]
-    ],
-    "p": [
-     [
-      3.05,
-      [
-       0,
-       14
-      ]
-     ],
      [
       3.35,
       [
        0,
+       407.1
+      ],
+      [
+       15,
+       15
+      ]
+     ],
+     [
+      4.45,
+      [
+       0,
        0
+      ],
+      [
+       85,
+       15
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "Clean_title",
+   "file": "assets/Clean_title.png",
+   "group": "CleanBody",
+   "anchor": [
+    540.0,
+    540.0
+   ],
+   "keys": {
+    "p": [
+     [
+      3.5,
+      [
+       0,
+       407.1
+      ],
+      [
+       15,
+       15
+      ]
+     ],
+     [
+      4.65,
+      [
+       0,
+       0
+      ],
+      [
+       85,
+       15
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "Clean_tab",
+   "file": "assets/Clean_tab.png",
+   "group": "CleanBody",
+   "anchor": [
+    540.0,
+    540.0
+   ],
+   "keys": {
+    "p": [
+     [
+      3.6,
+      [
+       0,
+       407.1
+      ],
+      [
+       15,
+       15
+      ]
+     ],
+     [
+      4.75,
+      [
+       0,
+       0
+      ],
+      [
+       85,
+       15
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "Clean_no",
+   "file": "assets/Clean_no.png",
+   "group": "CleanBody",
+   "anchor": [
+    540.0,
+    540.0
+   ],
+   "keys": {
+    "p": [
+     [
+      3.7,
+      [
+       0,
+       407.1
+      ],
+      [
+       15,
+       15
+      ]
+     ],
+     [
+      4.85,
+      [
+       0,
+       0
+      ],
+      [
+       85,
+       15
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "Clean_desc",
+   "file": "assets/Clean_desc.png",
+   "group": "CleanBody",
+   "anchor": [
+    540.0,
+    540.0
+   ],
+   "keys": {
+    "p": [
+     [
+      3.8,
+      [
+       0,
+       407.1
+      ],
+      [
+       15,
+       15
+      ]
+     ],
+     [
+      4.95,
+      [
+       0,
+       0
+      ],
+      [
+       85,
+       15
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "Clean_cat",
+   "file": "assets/Clean_cat.png",
+   "group": "CleanBody",
+   "anchor": [
+    540.0,
+    540.0
+   ],
+   "keys": {
+    "p": [
+     [
+      3.9,
+      [
+       0,
+       407.1
+      ],
+      [
+       15,
+       15
+      ]
+     ],
+     [
+      5.05,
+      [
+       0,
+       0
+      ],
+      [
+       85,
+       15
       ]
      ]
     ]
@@ -486,6 +512,7 @@
   {
    "name": "Red_R1",
    "file": "assets/Red_R1.png",
+   "group": null,
    "anchor": [
     780.98,
     676.15
@@ -493,79 +520,83 @@
    "keys": {
     "s": [
      [
-      0.6,
+      0.8,
       [
        100,
        100
-      ]
-     ],
-     [
-      0.85,
+      ],
       [
-       104,
-       104
+       60,
+       60
       ]
      ],
      [
-      1.15,
-      [
-       100,
-       100
-      ]
-     ],
-     [
-      1.32,
-      [
-       100,
-       100
-      ]
-     ],
-     [
-      1.55,
+      1.2,
       [
        103,
        103
+      ],
+      [
+       60,
+       60
       ]
      ],
      [
-      1.75,
+      1.7,
       [
-       103,
-       103
+       100,
+       100
+      ],
+      [
+       60,
+       60
       ]
      ],
      [
-      2.5,
+      2.6,
       [
-       61.73,
-       81.63
+       100,
+       100
+      ],
+      [
+       60,
+       60
+      ]
+     ],
+     [
+      3.8,
+      [
+       58,
+       58
+      ],
+      [
+       60,
+       60
       ]
      ]
     ],
     "p": [
      [
-      1.75,
+      2.6,
       [
        0,
        0
-      ]
-     ],
-     [
-      2.5,
+      ],
       [
-       82.77,
-       -37.0
+       60,
+       60
       ]
-     ]
-    ],
-    "o": [
-     [
-      2.3,
-      100
      ],
      [
-      2.5,
-      0
+      3.8,
+      [
+       100.36,
+       76.09
+      ],
+      [
+       60,
+       60
+      ]
      ]
     ]
    }
@@ -573,6 +604,7 @@
   {
    "name": "Red_R2",
    "file": "assets/Red_R2.png",
+   "group": null,
    "anchor": [
     780.98,
     789.65
@@ -580,79 +612,335 @@
    "keys": {
     "s": [
      [
-      0.68,
+      0.92,
       [
        100,
        100
-      ]
-     ],
-     [
-      0.93,
+      ],
       [
-       104,
-       104
-      ]
-     ],
-     [
-      1.23,
-      [
-       100,
-       100
+       60,
+       60
       ]
      ],
      [
       1.32,
       [
+       103,
+       103
+      ],
+      [
+       60,
+       60
+      ]
+     ],
+     [
+      1.82,
+      [
        100,
        100
+      ],
+      [
+       60,
+       60
       ]
      ],
      [
-      1.55,
+      2.8,
       [
-       103,
-       103
+       100,
+       100
+      ],
+      [
+       60,
+       60
       ]
      ],
      [
-      1.95,
+      4.0,
       [
-       103,
-       103
-      ]
-     ],
-     [
-      2.7,
+       58,
+       58
+      ],
       [
-       61.73,
-       100.02
+       60,
+       60
       ]
      ]
     ],
     "p": [
      [
-      1.95,
+      2.8,
       [
        0,
        0
+      ],
+      [
+       60,
+       60
       ]
      ],
      [
-      2.7,
+      4.0,
       [
-       82.77,
-       -94.03
+       100.36,
+       19.06
+      ],
+      [
+       60,
+       60
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "PIM_popup",
+   "file": "assets/PIM_popup.png",
+   "group": null,
+   "anchor": [
+    863.75,
+    670.35
+   ],
+   "keys": {
+    "o": [
+     [
+      1.9,
+      0,
+      [
+       15,
+       15
+      ]
+     ],
+     [
+      2.25,
+      100,
+      [
+       85,
+       15
       ]
      ]
     ],
-    "o": [
+    "s": [
      [
-      2.5,
-      100
+      1.9,
+      [
+       96,
+       96
+      ],
+      [
+       15,
+       15
+      ]
      ],
      [
-      2.7,
-      0
+      2.85,
+      [
+       100,
+       100
+      ],
+      [
+       85,
+       15
+      ]
+     ]
+    ],
+    "p": [
+     [
+      1.9,
+      [
+       0,
+       16
+      ],
+      [
+       15,
+       15
+      ]
+     ],
+     [
+      2.85,
+      [
+       0,
+       0
+      ],
+      [
+       85,
+       15
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "Row1",
+   "file": "assets/Row1.png",
+   "group": "Assets",
+   "anchor": [
+    863.75,
+    639.15
+   ],
+   "keys": {
+    "p": [
+     [
+      3.55,
+      [
+       0,
+       288.7
+      ],
+      [
+       15,
+       15
+      ]
+     ],
+     [
+      4.55,
+      [
+       0,
+       0
+      ],
+      [
+       85,
+       15
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "Row2",
+   "file": "assets/Row2.png",
+   "group": "Assets",
+   "anchor": [
+    863.75,
+    695.62
+   ],
+   "keys": {
+    "p": [
+     [
+      3.72,
+      [
+       0,
+       232.23
+      ],
+      [
+       15,
+       15
+      ]
+     ],
+     [
+      4.72,
+      [
+       0,
+       0
+      ],
+      [
+       85,
+       15
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "Row3",
+   "file": "assets/Row3.png",
+   "group": "Assets",
+   "anchor": [
+    863.75,
+    752.09
+   ],
+   "keys": {
+    "p": [
+     [
+      3.89,
+      [
+       0,
+       175.76
+      ],
+      [
+       15,
+       15
+      ]
+     ],
+     [
+      4.89,
+      [
+       0,
+       0
+      ],
+      [
+       85,
+       15
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "Row4",
+   "file": "assets/Row4.png",
+   "group": "Assets",
+   "anchor": [
+    863.75,
+    808.56
+   ],
+   "keys": {
+    "p": [
+     [
+      4.06,
+      [
+       0,
+       119.29
+      ],
+      [
+       15,
+       15
+      ]
+     ],
+     [
+      5.06,
+      [
+       0,
+       0
+      ],
+      [
+       85,
+       15
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "Row5",
+   "file": "assets/Row5.png",
+   "group": "Assets",
+   "anchor": [
+    863.75,
+    865.03
+   ],
+   "keys": {
+    "p": [
+     [
+      4.23,
+      [
+       0,
+       62.82
+      ],
+      [
+       15,
+       15
+      ]
+     ],
+     [
+      5.23,
+      [
+       0,
+       0
+      ],
+      [
+       85,
+       15
+      ]
      ]
     ]
    }
@@ -662,42 +950,66 @@
   var root = new File($.fileName).parent;
   app.beginUndoGroup("Build Row52 Clean-up");
   var folder = app.project.items.addFolder("Row52 assets");
-  var comp = app.project.items.addComp(DATA.comp, DATA.w, DATA.h, 1, DATA.dur, DATA.fps);
-  comp.bgColor = [1, 1, 1];
-  function ease(prop) {
-    for (var k = 1; k <= prop.numKeys; k++) {
-      var dims = 1;
-      if (prop.propertyValueType == PropertyValueType.TwoD) dims = 2;
-      if (prop.propertyValueType == PropertyValueType.ThreeD) dims = 3;
-      if (prop.propertyValueType == PropertyValueType.TwoD_SPATIAL || prop.propertyValueType == PropertyValueType.ThreeD_SPATIAL) dims = 1;
-      var e = [];
-      for (var d = 0; d < dims; d++) e.push(new KeyframeEase(0, 60));
-      prop.setTemporalEaseAtKey(k, e, e);
+  var main = app.project.items.addComp(DATA.comp, DATA.w, DATA.h, 1, DATA.dur, DATA.fps);
+  main.bgColor = [1, 1, 1];
+  var pre = {};
+
+  function dimsOf(prop) {
+    var t = prop.propertyValueType;
+    if (t == PropertyValueType.TwoD_SPATIAL || t == PropertyValueType.ThreeD_SPATIAL || t == PropertyValueType.OneD) return 1;
+    if (t == PropertyValueType.TwoD) return 2;
+    if (t == PropertyValueType.ThreeD) return 3;
+    return 1;
+  }
+  function keyAll(prop, keys, toValue) {
+    var j, d, n = dimsOf(prop);
+    for (j = 0; j < keys.length; j++) prop.setValueAtTime(keys[j][0], toValue(keys[j][1]));
+    for (j = 0; j < keys.length; j++) {
+      var k = prop.nearestKeyIndex(keys[j][0]), ein = [], eout = [];
+      for (d = 0; d < n; d++) { ein.push(new KeyframeEase(0, keys[j][2][0])); eout.push(new KeyframeEase(0, keys[j][2][1])); }
+      prop.setTemporalEaseAtKey(k, ein, eout);
     }
   }
+  function maskLayer(layer, r) {
+    var m = layer.property("ADBE Mask Parade").addProperty("ADBE Mask Atom");
+    var s = new Shape();
+    s.vertices = [[r[0], r[1]], [r[0] + r[2], r[1]], [r[0] + r[2], r[1] + r[3]], [r[0], r[1] + r[3]]];
+    s.closed = true;
+    m.property("ADBE Mask Shape").setValue(s);
+  }
+  function target(L) {
+    if (!L.group) return main;
+    if (!pre[L.group]) {
+      var c = app.project.items.addComp("Row52_" + L.group, DATA.w, DATA.h, 1, DATA.dur, DATA.fps);
+      c.parentFolder = folder;
+      var holder = main.layers.add(c);
+      holder.name = L.group + " (masked)";
+      maskLayer(holder, DATA.masks[L.group]);
+      pre[L.group] = c;
+    }
+    return pre[L.group];
+  }
+
   for (var i = 0; i < DATA.layers.length; i++) {
     var L = DATA.layers[i];
     var item = app.project.importFile(new ImportOptions(new File(root.fsName + "/" + L.file)));
     item.parentFolder = folder;
-    var layer = comp.layers.add(item);
+    var layer = target(L).layers.add(item);
     layer.name = L.name;
     var tr = layer.property("ADBE Transform Group");
     var ap = tr.property("ADBE Anchor Point"), pos = tr.property("ADBE Position");
     var sc = tr.property("ADBE Scale"), op = tr.property("ADBE Opacity");
-    ap.setValue([L.anchor[0] * 2, L.anchor[1] * 2]);
-    pos.setValue([L.anchor[0], L.anchor[1]]);
+    var ax = L.anchor[0], ay = L.anchor[1];
+    ap.setValue([ax * 2, ay * 2]);
+    pos.setValue([ax, ay]);
     sc.setValue([50, 50]);
-    var keys = L.keys, j;
-    if (keys.o) { for (j = 0; j < keys.o.length; j++) op.setValueAtTime(keys.o[j][0], keys.o[j][1]); ease(op); }
-    if (keys.p) {
-      for (j = 0; j < keys.p.length; j++) pos.setValueAtTime(keys.p[j][0], [L.anchor[0] + keys.p[j][1][0], L.anchor[1] + keys.p[j][1][1]]);
-      ease(pos);
-    }
-    if (keys.s) {
-      for (j = 0; j < keys.s.length; j++) sc.setValueAtTime(keys.s[j][0], [keys.s[j][1][0] / 2, keys.s[j][1][1] / 2]);
-      ease(sc);
-    }
+    if (L.keys.o) keyAll(op, L.keys.o, function (v) { return v; });
+    if (L.keys.p) keyAll(pos, L.keys.p, function (v) { return [ax + v[0], ay + v[1]]; });
+    if (L.keys.s) keyAll(sc, L.keys.s, function (v) { return [v[0] / 2, v[1] / 2]; });
+    layer.motionBlur = !!(L.keys.p || L.keys.s);
   }
-  comp.openInViewer();
+  main.motionBlur = true;
+  for (var g in pre) pre[g].motionBlur = true;
+  main.openInViewer();
   app.endUndoGroup();
 })();
