@@ -48,9 +48,10 @@ body{font-family:'BVP',sans-serif;-webkit-font-smoothing:antialiased;color:var(-
 .lift .stack{gap:76px}
 
 /* ---------- Truvio callout ---------- */
-.callout{position:relative;height:132px;border-radius:18px;border:2px solid transparent;
-  background:linear-gradient(var(--violet),var(--violet)) padding-box,
-             linear-gradient(64.6deg,#33B4E8,var(--green) 55%,var(--gold)) border-box;
+/* The gradient outline is a 2px gradient box under a violet inner box, so it exports as two plain shapes. */
+.callout{position:relative;height:132px;border-radius:18px;padding:2px;
+  background:linear-gradient(64.6deg,#33B4E8,var(--green) 55%,var(--gold))}
+.callout-in{height:100%;border-radius:16px;background:var(--violet);
   display:flex;align-items:center;justify-content:space-between;padding:0 34px}
 .lockup{width:var(--lockupW);display:block}
 .cta{font-weight:800;font-size:26px;color:var(--offwhite);display:flex;align-items:center;gap:12px;white-space:nowrap}

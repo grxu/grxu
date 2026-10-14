@@ -112,7 +112,9 @@
   function inlineSvg(el, r) {
     const vb = (el.getAttribute('viewBox') || `0 0 ${r.width} ${r.height}`).split(/[\s,]+/).map(parseFloat);
     const sx = r.width / vb[2], sy = r.height / vb[3];
-    return `<g transform="translate(${f(r.left - B.left - vb[0] * sx)} ${f(r.top - B.top - vb[1] * sy)}) scale(${f(sx)} ${f(sy)})">${el.innerHTML}</g>`;
+    // Fill and stroke set on the <svg> tag itself would be lost with the tag, so carry them onto the group.
+    const keep = [...el.attributes].filter(a => /^(fill|stroke)/.test(a.name)).map(a => ` ${a.name}="${a.value}"`).join('');
+    return `<g transform="translate(${f(r.left - B.left - vb[0] * sx)} ${f(r.top - B.top - vb[1] * sy)}) scale(${f(sx)} ${f(sy)})"${keep}>${el.innerHTML}</g>`;
   }
 
   function walk(el) {

@@ -100,6 +100,12 @@ Nano Banana Pro has no negative prompt field, so the exclusions sit inside the p
 - `variants-thread-lift.png` and `variants-thread-flat.png`: the two layouts with the lockup and CTA in place, 1x. `@2x` versions at 2160x2160.
 - `variants-thread-lift-ref@2x.png` and `variants-thread-flat-ref@2x.png`: the Higgsfield references, with no lockup and no CTA.
 - `source/`: the HTML mocks and `thread.css`. Render with `.claude/skills/truvio-higgsfield-ad/scripts/render_mock.sh source/variants-thread-lift.html variants-thread-lift 1080x1080`.
+- `variants-thread-flat-1x1.svg`: the flat option as the editable Illustrator master. Named groups: Thread (with Thread_shadow under it), Post_title, Post_body, Top_answer, Truvio_callout, Truvio_lockup, CTA. Live text named BeVietnamPro-Regular and BeVietnamPro-ExtraBold. Icons, pills and the callout outline are vector. The lockup is vector from the official white SVG.
+- `variants-thread-flat-1x1.ai`: the same artwork as a PDF-based Illustrator file, 810x810pt (1080x1080px). Both Be Vietnam Pro weights are embedded as live text. The card shadow is the one raster.
+- The callout outline exports as a gradient box under a violet box, inset 2px. Swap it for a 2px gradient stroke if you prefer one shape.
+- Neither file carries Illustrator's private editing data. Open one, then Save As .ai once to get a native file.
+- Export again with `.claude/skills/truvio-higgsfield-ad/scripts/export_svg.py source/variants-thread-flat.html variants-thread-flat-1x1 1080x1080`.
+- Export QA: the SVG rendered back against the mock gives a mean difference of 1.65 per pixel. 0.53 percent of pixels differ by more than 60, all on text edges from sub-pixel tracking. Line ends match to the pixel.
 
 ## QA (mocks)
 - Viewport 1080x1080 for all four renders.
