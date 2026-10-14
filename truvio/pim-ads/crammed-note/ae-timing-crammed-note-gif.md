@@ -23,7 +23,7 @@ Top-level layers, one element each. These names are used in the table.
 - Background
 - Lockup
 - Headline_rest: the headline without "better"
-- Better_white: "better" in #FFFFFF, same position
+- Better_white: optional. The After Effects script makes a white copy of Better_gradient when this layer is missing
 - Better_gradient: "better" with the brand gradient, exactly over Better_white
 - Subline
 - Phone: frame, screen and note, without the status bar time
@@ -44,13 +44,13 @@ Top-level layers, one element each. These names are used in the table.
 5. Arrows and check: Create Shapes from Vector Layer, then add Trim Paths. If an arrow is two paths (shaft and head), set Trim Multiple Shapes to Individually, so the head draws after the shaft.
 6. Better_gradient: add Linear Wipe, Wipe Angle 244.6, Feather 20.
 
-## Script
-`ae/crammed-note-gif.jsx` builds everything in this file. In After Effects: File > Scripts > Run Script File, then pick the fixed .ai. It imports the file, sets the comp to 25 fps and 145 frames, turns the arrows and the check into shape layers with Trim Paths, builds the CARD precomp, sets every key in the table below and queues a PNG sequence next to the .ai, in `crammed-note-gif-png/`. Press Render when the frames check out.
+## Script kit
+`ae/crammed-note-gif-kit.zip` holds three scripts and a README with the steps. Sources sit in `ae/kit/`.
+1. `1-illustrator-layers.jsx`: saves a copy of the .ai as `<name>-AE-layers.ai` (PDF compatible) and sorts the artwork into the layers above. It splits a card line when the PIM word shares a text box, makes the 23:47 clock copy, and puts anything it can't place on `_Unsorted`.
+2. `2-after-effects-build.jsx`: imports that file, sets the comp to 25 fps and 145 frames, turns the arrows and the check into shape layers with Trim Paths, builds the CARD precomp, makes the white "better", sets every key in the table below and queues a PNG sequence into `crammed-note-gif-png/`. Missing optional layers are skipped and listed. Only Card_bg is required.
+3. `3-make-gif.command`: turns the PNG sequence into `crammed-note-linkedin.gif` with ffmpeg (and gifsicle if installed), then reports size and frame count against the 5 MB and 250 frame limits. A test run on frames faked from the Row 53 static came out at 0.40 MB and 145 frames.
 
-- Layer names must match the Illustrator list above. If any are missing, the script stops and lists the names it found.
-- An arrow or check without a live stroke (outlined) fades in instead of drawing. The closing alert names it.
-- Written and dry-run against a mock of the AE scripting API, not in After Effects itself. If a step fails in AE, the alert gives the line.
-- Edit > Undo "Crammed note GIF" takes back the setup and keys.
+All three were dry-run against mocks of the Illustrator and After Effects scripting APIs, not in the apps. The first real run may need a fix. Each script names the failing line.
 
 ## Timing table
 Frame numbers are main comp frames. Time = frame / 25. Easing, in After Effects terms (Keyframe Velocity, speed 0):
