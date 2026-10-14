@@ -20,7 +20,7 @@ AI = AD / "source" / "Truvio-PIM-for-BC-Row-52.ai"
 OUT = AD / "animation"
 ASSETS = OUT / "assets"
 W = H = 1080
-FPS, DUR, LOOP_TAIL = 30, 8.0, 0.6
+FPS, DUR, LOOP_TAIL = 30, 10.0, 0.6
 
 CHROME = os.environ.get("CHROME") or next(
     (c for c in ["/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
