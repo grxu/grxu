@@ -6,6 +6,7 @@ The copy line it turns into motion: "Move enrichment into Truvio PIM and sync ba
 
 ## Files
 - `row52-cleanup-loop-1080.mp4`: preview, H.264, 10.6 s. The 10 s ad, then a 0.6 s dissolve back to the first frame, so it loops.
+- `row52-cleanup-loop-1080.gif`: full-size GIF, 1080x1080, 30 fps, 10.6 s, loops. 2.4 MB. Rendered from the source frames with one 256-colour palette, so expect faint grain in the gradient headline at 100 percent zoom.
 - `row52-cleanup-preview-540.gif`: small preview for Teams or Slack, 15 fps, loops.
 - `assets/*.png`: 27 layers cut from the .ai, each a full-frame 2160x2160 transparent PNG. Every layer sits exactly where it sits in the .ai.
 - `build_row52_cleanup.jsx`: builds the comp in After Effects from those PNGs, with every keyframe below.

@@ -262,6 +262,11 @@ def render_preview():
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-framerate", str(FPS), "-i", f"{d}/%04d.png",
                         "-vf", "fps=15,scale=540:-1:flags=lanczos,split[a][b];[a]palettegen=max_colors=192[p];[b][p]paletteuse=dither=sierra2_4a",
                         "-loop", "0", str(gif)], check=True)
+        # Full-size GIF: 30 fps, one palette built from whole frames (so the static gradient headline keeps its colours), only changed regions written per frame.
+        gif_full = OUT / "row52-cleanup-loop-1080.gif"
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-framerate", str(FPS), "-i", f"{d}/%04d.png",
+                        "-vf", "split[a][b];[a]palettegen=max_colors=256:stats_mode=full[p];[b][p]paletteuse=dither=sierra2_4a:diff_mode=rectangle",
+                        "-loop", "0", str(gif_full)], check=True)
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(mp4), "-vf", "fps=4,scale=270:-1,tile=8x4",
                         "-frames:v", "1", str(review / "sheet.png")], check=True)
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", "1.2", "-t", "2.4", "-i", str(mp4), "-vf",
