@@ -42,30 +42,42 @@ Top-level layers, one element each. These names are used in the table.
 3. Use the precomp, not a parent null. Opacity doesn't pass from a parent to its children, and the card has to fade as one piece.
 4. CARD anchor point: the card's top centre, x 540, y 580. Position (540, 580).
 5. Arrows and check: Create Shapes from Vector Layer, then add Trim Paths. If an arrow is two paths (shaft and head), set Trim Multiple Shapes to Individually, so the head draws after the shaft.
-6. Better_gradient: add Linear Wipe, Feather 20.
+6. Better_gradient: add Linear Wipe, Wipe Angle 244.6, Feather 20.
+
+## Script
+`ae/crammed-note-gif.jsx` builds everything in this file. In After Effects: File > Scripts > Run Script File, then pick the fixed .ai. It imports the file, sets the comp to 25 fps and 145 frames, turns the arrows and the check into shape layers with Trim Paths, builds the CARD precomp, sets every key in the table below and queues a PNG sequence next to the .ai, in `crammed-note-gif-png/`. Press Render when the frames check out.
+
+- Layer names must match the Illustrator list above. If any are missing, the script stops and lists the names it found.
+- An arrow or check without a live stroke (outlined) fades in instead of drawing. The closing alert names it.
+- Written and dry-run against a mock of the AE scripting API, not in After Effects itself. If a step fails in AE, the alert gives the line.
+- Edit > Undo "Crammed note GIF" takes back the setup and keys.
 
 ## Timing table
-Frame numbers are main comp frames. Time = frame / 25. "Ease out" means Easy Ease Out on the first key.
+Frame numbers are main comp frames. Time = frame / 25. Easing, in After Effects terms (Keyframe Velocity, speed 0):
+- Decelerate: leaves fast, lands softly. First key outgoing influence 10 percent, last key incoming influence as listed. This is Easy Ease In on the last key.
+- Accelerate: starts slowly, leaves fast. First key outgoing influence as listed, last key incoming 10 percent. This is Easy Ease Out on the first key.
+- Easy Ease: 33 percent on both sides.
+- Position keys use a straight spatial path, so nothing curves sideways.
 
 | Frame | Time (s) | Layer | Property and keys | Easing |
 |---|---|---|---|---|
 | 0 to 19 | 0.00 to 0.76 | all | Hold. Full note readable. Clock_2347 on, Clock_2351 off. CARD opacity 0. Better_gradient wipe at 100 percent (hidden). This is frame 1 of the GIF. | |
 | 20 | 0.80 | Clock_2347, Clock_2351 | Hard cut: Clock_2347 off, Clock_2351 on | Hold keys |
-| 25, 32, 35 | 1.00 to 1.40 | CARD | Position (540, 520), (540, 585), (540, 580). Drops 60 px, overshoots 5 px, settles | Key 25 ease out at 85 percent influence, keys 32 and 35 Easy Ease |
-| 25 to 33 | 1.00 to 1.32 | CARD | Scale 96 to 100 percent | Ease out |
+| 25, 32, 35 | 1.00 to 1.40 | CARD | Position (540, 520), (540, 585), (540, 580). Drops 60 px, overshoots 5 px, settles | Key 25 out 10 percent. Key 32 in 70, out 33. Key 35 Easy Ease |
+| 25 to 33 | 1.00 to 1.32 | CARD | Scale 96 to 100 percent | Decelerate, 75 |
 | 25 to 29 | 1.00 to 1.16 | CARD | Opacity 0 to 100 percent | Linear |
-| 37 to 43 | 1.48 to 1.72 | Arrow_1 | Trim Paths End 0 to 100 percent | Ease out, 70 percent influence |
-| 41 to 46 | 1.64 to 1.84 | Word_1 | Opacity 0 to 100 percent. Position X from 12 px left to its final spot | Ease out |
-| 43 to 49 | 1.72 to 1.96 | Arrow_2 | Trim Paths End 0 to 100 percent | Ease out, 70 percent influence |
-| 47 to 52 | 1.88 to 2.08 | Word_2 | Opacity 0 to 100 percent. Position X from 12 px left | Ease out |
-| 49 to 55 | 1.96 to 2.20 | Arrow_3 | Trim Paths End 0 to 100 percent | Ease out, 70 percent influence |
-| 53 to 58 | 2.12 to 2.32 | Word_3 | Opacity 0 to 100 percent. Position X from 12 px left | Ease out |
-| 58 to 65 | 2.32 to 2.60 | Check_circle | Trim Paths End 0 to 100 percent. Set Offset so it starts at the top and runs clockwise | Ease out |
-| 62 to 66 | 2.48 to 2.64 | Check_tick | Trim Paths End 0 to 100 percent | Ease out |
-| 62 to 68 | 2.48 to 2.72 | Sorted_text | Opacity 0 to 100 percent. Position X from 10 px left | Ease out |
-| 70 to 82 | 2.80 to 3.28 | Better_gradient | Linear Wipe Transition Completion 100 to 0 percent. The reveal runs left to right along the gradient's own angle | Easy Ease |
+| 37 to 43 | 1.48 to 1.72 | Arrow_1 | Trim Paths End 0 to 100 percent | Decelerate, 70 |
+| 41 to 46 | 1.64 to 1.84 | Word_1 | Opacity 0 to 100 percent. Position X from 12 px left to its final spot | Decelerate, 75 |
+| 43 to 49 | 1.72 to 1.96 | Arrow_2 | Trim Paths End 0 to 100 percent | Decelerate, 70 |
+| 47 to 52 | 1.88 to 2.08 | Word_2 | Opacity 0 to 100 percent. Position X from 12 px left | Decelerate, 75 |
+| 49 to 55 | 1.96 to 2.20 | Arrow_3 | Trim Paths End 0 to 100 percent | Decelerate, 70 |
+| 53 to 58 | 2.12 to 2.32 | Word_3 | Opacity 0 to 100 percent. Position X from 12 px left | Decelerate, 75 |
+| 58 to 65 | 2.32 to 2.60 | Check_circle | Trim Paths End 0 to 100 percent. Set Offset so it starts at the top and runs clockwise | Decelerate, 70 |
+| 62 to 66 | 2.48 to 2.64 | Check_tick | Trim Paths End 0 to 100 percent | Decelerate, 70 |
+| 62 to 68 | 2.48 to 2.72 | Sorted_text | Opacity 0 to 100 percent. Position X from 10 px left | Decelerate, 75 |
+| 70 to 82 | 2.80 to 3.28 | Better_gradient | Linear Wipe Transition Completion 100 to 0 percent. Wipe Angle 244.6, Feather 20. The reveal runs left to right along the 25.4 degree gradient. If it runs backwards, add 180 to the angle | Easy Ease |
 | 82 to 132 | 3.28 to 5.28 | all | Hold, 2 s. Matches the static ad | |
-| 133 to 140 | 5.32 to 5.60 | CARD | Position (540, 580) to (540, 540). Opacity 100 to 0 percent | Ease in, 75 percent influence |
+| 133 to 140 | 5.32 to 5.60 | CARD | Position (540, 580) to (540, 540). Opacity 100 to 0 percent | Position: accelerate, 75. Opacity: linear |
 | 133 to 140 | 5.32 to 5.60 | Better_gradient | Opacity 100 to 0 percent, so "better" is white again for the loop | Linear |
 | 141 | 5.64 | Clock_2347, Clock_2351 | Hard cut back: Clock_2351 off, Clock_2347 on | Hold keys |
 | 141 to 144 | 5.64 to 5.76 | all | Matches frame 0, so the loop doesn't pop | |
