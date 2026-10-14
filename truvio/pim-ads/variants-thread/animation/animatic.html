@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Variants thread animatic</title>
+<!-- The flat mock, split into the same layers as the AE build, driven by vt-data.js. Call renderAt(seconds). -->
+<link rel="stylesheet" href="../source/thread.css">
+<style>
+.anim .card{background:none;filter:none;z-index:3}
+.anim .answer{background:none}
+.anim .callout{background:none}
+.anim .callout-in{background:none}
+.abs{position:absolute;left:0;top:0}
+#cardbg{left:65px;top:114.72px;width:950px;border-radius:18px;background:#fff;z-index:1;
+  filter:drop-shadow(1px 2px 2px rgba(14,0,40,.35)) drop-shadow(10px 18px 26px rgba(14,0,40,.45))}
+#ansbg{left:107px;top:525.75px;width:866px;border-radius:14px;background:var(--offwhite);z-index:2}
+.body span{display:block}
+#upnull{position:relative;width:24px;height:24px;display:block}
+#upnull svg{position:absolute;left:0;top:0}
+#tag{transform-origin:0 50%}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--darkgray);z-index:4}
+#tiles{z-index:5;width:1080px;height:1080px;pointer-events:none}
+.tile{position:absolute;left:0;top:0;overflow:hidden}
+.tile.split::after{content:"";position:absolute;inset:0;background:#400685;opacity:.35;clip-path:polygon(0 0,100% 0,0 100%)}
+#under,#burst,#outline,#cursor{z-index:6;overflow:visible}
+#cursor{z-index:8}
+</style>
+</head>
+<body class="anim">
+<div class="board" id="board">
+  <div class="abs" id="cardbg"></div>
+  <div class="abs" id="ansbg"></div>
+  <div class="stack" id="stack">
+    <div class="card">
+      <div class="meta">
+        <div class="icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="#fff"><rect x="1" y="1" width="8" height="8" rx="2"/><rect x="11" y="1" width="8" height="8" rx="2"/><rect x="1" y="11" width="8" height="8" rx="2"/><rect x="11" y="11" width="8" height="8" rx="2" fill="#FFB310"/></svg></div>
+        <span class="comm">c/ERPadmins</span><span class="dot-sep" style="color:var(--darkgray)">·</span><span class="user">variant_wrangler</span>
+      </div>
+      <h1 class="title">How are you handling complex variants in Business Central?</h1>
+      <p class="body"><span id="b1">One product, 12 sizes, 8 colors, 3 materials. Our item</span><span id="b2">setup is falling apart.</span></p>
+      <div class="acts">
+        <div class="pill"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6D757A" stroke-width="2" stroke-linejoin="round"><path d="M12 3.2 20.6 12.6H15.4V20.8H8.6V12.6H3.4Z"/></svg><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6D757A" stroke-width="2" stroke-linejoin="round"><path d="M12 20.8 3.4 11.4H8.6V3.2H15.4V11.4H20.6Z"/></svg></div>
+        <div class="pill"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6D757A" stroke-width="2" stroke-linejoin="round"><path d="M4.5 5.5h15a1.8 1.8 0 0 1 1.8 1.8v8.4a1.8 1.8 0 0 1-1.8 1.8H11l-4.6 3.6v-3.6H4.5a1.8 1.8 0 0 1-1.8-1.8V7.3a1.8 1.8 0 0 1 1.8-1.8Z"/></svg></div>
+        <div class="pill"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6D757A" stroke-width="2" stroke-linejoin="round"><path d="M13.5 4.5 20.5 11l-7 6.5v-3.9C8.6 13.6 5.6 15.3 3.5 19c.6-5.6 3.9-9.4 10-10.4Z"/></svg></div>
+      </div>
+      <div class="answer">
+        <div class="meta">
+          <div class="av" id="av" style="background:#FFB310"><svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><circle cx="12" cy="9" r="4.2"/><path d="M4.6 20.4c.9-4 3.8-6.2 7.4-6.2s6.5 2.2 7.4 6.2Z"/></svg></div>
+          <span class="comm" id="au">erp_ops_lead</span><span class="tag" id="tag">Top answer</span>
+        </div>
+        <p class="text"><span id="a1">We moved variants and enrichment into </span><b id="ab">Truvio&nbsp;PIM</b><span id="ap">.</span><br><span id="a2">It runs inside BC and syncs back only what BC needs.</span></p>
+        <div class="acts" id="apills" style="margin-top:16px">
+          <div class="pill"><span id="upnull"><svg id="upo" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6D757A" stroke-width="2" stroke-linejoin="round"><path d="M12 3.2 20.6 12.6H15.4V20.8H8.6V12.6H3.4Z"/></svg><svg id="upf" width="24" height="24" viewBox="0 0 24 24" fill="#F76336" stroke="#F76336" stroke-width="2" stroke-linejoin="round"><path d="M12 3.2 20.6 12.6H15.4V20.8H8.6V12.6H3.4Z"/></svg></span><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6D757A" stroke-width="2" stroke-linejoin="round"><path d="M12 20.8 3.4 11.4H8.6V3.2H15.4V11.4H20.6Z"/></svg></div>
+          <div class="pill"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6D757A" stroke-width="2" stroke-linejoin="round"><path d="M4.5 5.5h15a1.8 1.8 0 0 1 1.8 1.8v8.4a1.8 1.8 0 0 1-1.8 1.8H11l-4.6 3.6v-3.6H4.5a1.8 1.8 0 0 1-1.8-1.8V7.3a1.8 1.8 0 0 1 1.8-1.8Z"/></svg></div>
+        </div>
+      </div>
+    </div>
+    <div class="callout"><div class="callout-in">
+      <img class="lockup" id="lockup" src="../source/assets/truvio-lockup-reversed.png" alt="truvio">
+      <div class="cta" id="cta">Test your hardest variants in a demo<svg id="ctarrow" width="26" height="18" viewBox="0 0 24 16"><path d="M1.5 8h19M14 2l6.5 6-6.5 6" fill="none" stroke="#E6E8FC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div></div>
+  </div>
+  <div class="abs dot" id="d1" style="left:137px;top:615px"></div>
+  <div class="abs dot" id="d2" style="left:153px;top:615px"></div>
+  <div class="abs dot" id="d3" style="left:169px;top:615px"></div>
+  <svg class="abs" id="under" width="1080" height="1080"><path id="underp" d="M313.5 388.5H751" stroke="#F76336" stroke-width="4" stroke-linecap="round" fill="none"/></svg>
+  <svg class="abs" id="outline" width="1080" height="1080">
+    <defs><linearGradient id="og" gradientUnits="userSpaceOnUse" x1="126.82" y1="1095.47" x2="953.18" y2="703.09"><stop offset="0" stop-color="#33B4E8"/><stop offset=".55" stop-color="#2DB34A"/><stop offset="1" stop-color="#FFB310"/></linearGradient></defs>
+    <path id="ot" d="M66 899.28V851.28A17 17 0 0 1 83 834.28H997A17 17 0 0 1 1014 851.28V899.28" stroke="url(#og)" stroke-width="2" fill="none"/>
+    <path id="ob" d="M66 899.28V947.28A17 17 0 0 0 83 964.28H997A17 17 0 0 0 1014 947.28V899.28" stroke="url(#og)" stroke-width="2" fill="none"/>
+  </svg>
+  <div class="abs" id="tiles"></div>
+  <svg class="abs" id="burst" width="1080" height="1080"><g id="burstg" transform="translate(160 721.3)" stroke="#F76336" stroke-width="2.5" stroke-linecap="round"></g></svg>
+  <svg class="abs" id="cursor" width="1080" height="1080"><g id="cursorg"><path d="M0 0V23L5.6 17.6 9.6 26.4 13.4 24.8 9.5 16.2H16.8Z" transform="scale(1.2)" fill="#fff" stroke="#141414" stroke-width="1.4" stroke-linejoin="round"/></g></svg>
+</div>
+<script src="vt-data.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const E = {L: p => p, O: p => 1 - Math.pow(1 - p, 3), I: p => p * p * p,
+           IO: p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2};
+function at(keys, t, vi) {               // vi: index of the value in the key (1 for tracks)
+  const v = k => k[vi];
+  if (t <= keys[0][0]) return v(keys[0]);
+  for (let n = 1; n < keys.length; n++) {
+    const a = keys[n - 1], b = keys[n];
+    if (t < b[0]) {
+      const e = b[b.length - 1];
+      if (e === 'H') return v(a);
+      const p = E[e]((t - a[0]) / (b[0] - a[0]));
+      return Array.isArray(v(a)) ? v(a).map((x, i) => x + (v(b)[i] - x) * p) : v(a) + (v(b) - v(a)) * p;
+    }
+  }
+  return v(keys[keys.length - 1]);
+}
+const tr = (name, t) => at(VT.tracks[name], t, 1);
+
+// type-on: split text into character spans
+const typers = {};
+for (const [id, track] of [['a1', 'Answer_l1'], ['ab', 'Answer_bold'], ['ap', 'Answer_period'], ['a2', 'Answer_l2']]) {
+  const el = $(id), txt = el.textContent; el.textContent = '';
+  typers[track] = [...txt].map(ch => { const s = document.createElement('span'); s.textContent = ch; el.appendChild(s); return s; });
+}
+// burst rays
+for (let a = 0; a < 360; a += 60) {
+  const r = a * Math.PI / 180, l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+  l.setAttribute('x1', 16 * Math.cos(r)); l.setAttribute('y1', 16 * Math.sin(r));
+  l.setAttribute('x2', 24 * Math.cos(r)); l.setAttribute('y2', 24 * Math.sin(r)); $('burstg').appendChild(l);
+}
+// tiles
+const tiles = VT.tiles.map(t => {
+  const d = document.createElement('div'); d.className = 'tile ' + t.material;
+  const s = t.size; d.style.width = d.style.height = s + 'px'; d.style.borderRadius = (s * .18) + 'px';
+  if (t.material === 'outline') d.style.border = (s * .12) + 'px solid ' + t.colour; else d.style.background = t.colour;
+  d.style.boxSizing = 'border-box'; $('tiles').appendChild(d); return {t, d};
+});
+const len = el => el.getTotalLength();
+const UL = len($('underp')), OL = len($('ot'));
+$('underp').style.strokeDasharray = $('ot').style.strokeDasharray = $('ob').style.strokeDasharray = '';
+
+window.renderAt = function (t) {
+  const dx = tr('Card_null.dx', t);
+  for (const id of ['cardbg', 'ansbg']) $(id).style.translate = dx + 'px 0';
+  document.querySelector('.card').style.translate = dx + 'px 0';
+  $('under').style.translate = dx + 'px 0';
+  $('cardbg').style.height = tr('Card_bg.height', t) + 'px';
+  $('ansbg').style.height = tr('Answer_bg.height', t) + 'px';
+  $('ansbg').style.opacity = tr('Answer_bg.opacity', t) / 100;
+  for (const n of [1, 2]) { const el = $('b' + n);
+    el.style.opacity = tr(`Body_line${n}.opacity`, t) / 100; el.style.transform = `translateY(${tr(`Body_line${n}.dy`, t)}px)`; }
+  const ut = tr('Underline.trim', t) / 100;
+  $('underp').style.strokeDasharray = `${UL * ut} ${UL}`; $('under').style.opacity = ut > 0 ? tr('Underline.opacity', t) / 100 : 0;  // a round cap at zero length still draws a dot
+  const avs = tr('Answer_avatar.scale', t) / 100; $('av').style.transform = `scale(${avs})`;
+  $('au').style.opacity = tr('Answer_user.opacity', t) / 100; $('au').style.transform = `translateX(${tr('Answer_user.dx', t)}px)`;
+  $('apills').style.opacity = tr('Answer_pills.opacity', t) / 100;
+  for (const d of [1, 2, 3]) $('d' + d).style.opacity = tr(`Dot${d}.opacity`, t) / 100;
+  for (const [track, spans] of Object.entries(typers)) {
+    const n = Math.round(tr(track + '.type', t) / 100 * spans.length);
+    spans.forEach((s, i) => s.style.visibility = i < n ? 'visible' : 'hidden');
+  }
+  $('upo').style.opacity = tr('Upvote_outline.opacity', t) / 100; $('upf').style.opacity = tr('Upvote_fill.opacity', t) / 100;
+  $('upnull').style.transform = `scale(${tr('Upvote_null.scale', t) / 100})`;
+  $('burstg').setAttribute('transform', `translate(${160 + dx} 721.3) scale(${tr('Burst.scale', t) / 100})`);
+  $('burst').style.opacity = tr('Burst.opacity', t) / 100;
+  $('tag').style.opacity = tr('Tag.opacity', t) / 100; $('tag').style.transform = `scale(${tr('Tag.scale', t) / 100})`;
+  const cp = tr('Cursor.position', t);
+  $('cursorg').setAttribute('transform', `translate(${cp[0]} ${cp[1]}) scale(${tr('Cursor.scale', t) / 100})`);
+  $('cursor').style.opacity = tr('Cursor.opacity', t) / 100;
+  const ot = tr('Callout_outline.trim', t) / 100;
+  for (const id of ['ot', 'ob']) $(id).style.strokeDasharray = `${OL * ot} ${OL}`;
+  $('outline').style.opacity = ot > 0 ? 1 : 0;
+  $('lockup').style.opacity = tr('Lockup.opacity', t) / 100; $('lockup').style.transform = `translateX(${tr('Lockup.dx', t)}px)`;
+  $('cta').style.opacity = tr('CTA.opacity', t) / 100; $('cta').style.transform = `translateX(${tr('CTA.dx', t)}px)`;
+  $('ctarrow').style.transform = `translateX(${tr('CTA_arrow.dx', t)}px)`;
+  for (const {t: tl, d} of tiles) {
+    const K = tl.keys, x = at(K, t, 1), y = at(K, t, 2), r = at(K, t, 3), sc = at(K, t, 4) / 100, op = at(K, t, 5) / 100;
+    const vis = sc > 0.001 && op > 0.001 && t >= K[0][0];
+    d.style.display = vis ? 'block' : 'none';
+    if (vis) { d.style.transform = `translate(${x - tl.size / 2}px, ${y - tl.size / 2}px) rotate(${r}deg) scale(${sc})`; d.style.opacity = op; }
+  }
+};
+document.fonts.ready.then(() => { renderAt(+(location.hash.slice(1) || 0)); document.body.dataset.ready = 1; });
+</script>
+</body>
+</html>
