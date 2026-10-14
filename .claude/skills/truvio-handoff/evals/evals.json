@@ -1,0 +1,48 @@
+{
+  "skill_name": "truvio-handoff",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Compile all we have done here into .md file and any other assets into .zip. Just like a handoff. (Session: the three steps PIM ad in truvio/pim-ads/three-steps, with intake answers from Grady and several of Claude's own layout calls.)",
+      "expected_output": "handoff-three-steps.md in the task folder following the template, and three-steps-handoff.zip packed by the script, committed and pushed.",
+      "files": ["truvio/pim-ads/three-steps/"],
+      "assertions": [
+        "A handoff-*.md file exists in the task folder root",
+        "A <task>-handoff.zip exists and every file sits under one top-level folder",
+        "Every markdown link and image in the handoff resolves to a file inside the zip",
+        "Sections run in order: Where it stands, Next steps, Open items before the brief and decisions",
+        "Decisions are split into 'Grady chose' and 'Claude's calls (not reviewed yet)'",
+        "Open items is a table with a Who column, and no owner is invented",
+        "The brief copy is quoted unchanged",
+        "Every stand-in (fonts, badge, mapping UI, lockup) is named with what replaces it",
+        "No Museo Slab font file and no secret in the zip",
+        "Writing has no em dashes and no semicolons"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I'm off from Thursday for a week. Wrap up the booth 425 convergence work so someone on the team can pick up the Shot B edit without me.",
+      "expected_output": "A handoff for truvio/booth-425-convergence that reads its storyboard, prompt and git log, states which shots are approved and which are pending, and asks only for the gaps (who picks it up, the deadline).",
+      "files": ["truvio/booth-425-convergence/"],
+      "assertions": [
+        "Asks who picks the work up and any missing deadline in one question call, or writes 'unknown, ask Grady'",
+        "Session log uses dates and commit ids from git history",
+        "Next steps start with the Shot B work",
+        "Does not credit Grady with the trade show 3D shell or booth placement",
+        "Zip includes the plates, keyframes and logos the handoff links to"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Can you package the messy item card for Jess to review? She just needs to see where it is and what's still open.",
+      "expected_output": "Stakeholder variant: status, decisions, open items and visuals, without the files table, commands or QA. The zip holds the finals only.",
+      "files": ["truvio/pim-ads/messy-item-card/"],
+      "assertions": [
+        "Uses the stakeholder variant: no commands, no files table, no QA section",
+        "Keeps status, decisions, open items and the final image",
+        "Zip excludes the source folder and HTML mock",
+        "Mentions the open landing page as an open item"
+      ]
+    }
+  ]
+}
