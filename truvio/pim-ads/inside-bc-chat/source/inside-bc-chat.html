@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Inside BC chat</title>
+<style>
+  @font-face { font-family: "Be Vietnam Pro"; font-weight: 400; src: url(fonts/be-vietnam-pro-latin-400-normal.woff2) format("woff2"); }
+  @font-face { font-family: "Noto Color Emoji"; src: url(fonts/noto-color-emoji-8-400-normal.woff2) format("woff2"); unicode-range: U+1F629; }
+  @font-face { font-family: "Noto Color Emoji"; src: url(fonts/noto-color-emoji-9-400-normal.woff2) format("woff2"); unicode-range: U+1F680; }
+
+  :root {
+    --bg: #000000;
+    --them: #2C2C2E;          /* Sarah, left */
+    --me: #008FC4;            /* Tom, right: Celestial Blue */
+    --text: #FFFFFF;
+    --dots-them: #8E8E93;
+    --dots-me: rgba(255, 255, 255, 0.75);
+  }
+  html, body { margin: 0; background: var(--bg); }
+  #stage { position: relative; width: 1080px; height: 1080px; overflow: hidden; background: var(--bg);
+           font-family: "Be Vietnam Pro", "Noto Color Emoji", sans-serif; }
+
+  /* Older messages fade out under the top edge as the chat scrolls */
+  #chat { position: absolute; inset: 0; -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 70px); mask-image: linear-gradient(to bottom, transparent 0, #000 70px); }
+  #scroller { position: absolute; left: 0; top: 0; width: 1080px; }
+  .row { position: absolute; left: 89px; right: 89px; }   /* 65px safe margin + 24px tail */
+  .bubble { position: absolute; top: 0; box-sizing: border-box; max-width: 860px; isolation: isolate;
+            color: var(--text); font-size: 46px; line-height: 60px; letter-spacing: -0.2px;
+            padding: 38px 56px 40px; border-radius: 42px; white-space: pre; }
+  .them .bubble { left: 0; background: var(--them); transform-origin: 0 100%; }
+  .me .bubble { right: 0; background: var(--me); transform-origin: 100% 100%; }
+
+  /* iMessage tail: a coloured corner, then a background-coloured cut */
+  .bubble::before, .bubble::after { content: ""; position: absolute; bottom: 0; height: 70px; z-index: -1; }
+  .them .bubble::before { left: -24px; width: 66px; background: var(--them); border-bottom-right-radius: 52px 46px; }
+  .them .bubble::after  { left: -86px; width: 86px; background: var(--bg); border-bottom-right-radius: 32px; }
+  .me .bubble::before { right: -24px; width: 66px; background: var(--me); border-bottom-left-radius: 52px 46px; }
+  .me .bubble::after  { right: -86px; width: 86px; background: var(--bg); border-bottom-left-radius: 32px; }
+
+  .dots { padding: 0 44px; height: 104px; display: flex; align-items: center; gap: 14px; }
+  .dots i { display: block; width: 22px; height: 22px; border-radius: 50%; }
+  .them .dots i { background: var(--dots-them); }
+  .me .dots i { background: var(--dots-me); }
+
+  #logo { position: absolute; left: 50%; top: 50%; width: 440px; transform: translate(-50%, -50%); opacity: 0; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="chat"><div id="scroller"></div></div>
+  <img id="logo" src="assets/truvio-lockup-reversed.svg" alt="Truvio">
+</div>
+<script>
+// Copy, with line breaks set by hand (\n). "them" is Sarah (left, grey), "me" is Tom (right, blue).
+// typing = when the dots appear, send = when the bubble replaces them (seconds).
+const MESSAGES = [
+  { who: "them", text: "IT wants us to get a PIM 😩\nanother system to learn",    typing: 0.4,  send: 1.4 },
+  { who: "me",   text: "Ours runs inside\nBusiness Central",                     typing: 3.4,  send: 4.3 },
+  { who: "them", text: "Inside BC? Same screens,\nsame roles?",                  typing: 6.1,  send: 7.0 },
+  { who: "me",   text: "Same look, same permissions.\nIt’s Truvio PIM",          typing: 8.8,  send: 9.9 },
+  { who: "them", text: "Ok, booking a demo 🚀",                                  typing: 12.0, send: 12.8 },
+];
+const TOP = 110, VIEW_BOTTOM = 1080 - 110, GAP = 46;
+const CHAT_OUT = [15.3, 15.8], LOGO_IN = [15.9, 16.5], DURATION = 18.3;
+
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const easeOutBack = x => { const c = 1.6; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+const easeInOut = x => x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const easeOut = x => 1 - Math.pow(1 - x, 3);
+
+const scroller = document.getElementById("scroller");
+const rows = MESSAGES.map(m => {
+  const row = document.createElement("div");
+  row.className = "row " + m.who;
+  row.innerHTML = `<div class="bubble dots"><i></i><i></i><i></i></div><div class="bubble msg"></div>`;
+  row.querySelector(".msg").textContent = m.text;
+  scroller.appendChild(row);
+  return { m, row, dots: row.querySelector(".dots"), msg: row.querySelector(".msg"), dotEls: [...row.querySelectorAll(".dots i")] };
+});
+
+// Layout and scroll events, measured once fonts are in
+let scrollEvents = [];
+function layout() {
+  let y = TOP;
+  for (const r of rows) { r.top = y; r.row.style.top = y + "px"; r.h = r.msg.offsetHeight; r.dh = r.dots.offsetHeight; y += r.h + GAP; }
+  const ev = [];
+  for (const r of rows) { ev.push({ t: r.m.typing, bottom: r.top + r.dh }); ev.push({ t: r.m.send, bottom: r.top + r.h }); }
+  let prev = 0; scrollEvents = [];
+  for (const e of ev) { const target = Math.max(prev, e.bottom - VIEW_BOTTOM); if (target > prev) scrollEvents.push({ t: e.t, d: target - prev }); prev = target; }
+}
+function scrollAt(t) { return scrollEvents.reduce((s, e) => s + e.d * easeInOut(prog(t, e.t, e.t + 0.5)), 0); }
+
+function renderAt(t) {
+  scroller.style.transform = `translateY(${-scrollAt(t)}px)`;
+  for (const r of rows) {
+    const { typing, send } = r.m;
+    // Typing dots: pop in, pulse, shrink out as the message lands
+    const din = easeOutBack(prog(t, typing, typing + 0.3)), dout = prog(t, send, send + 0.12);
+    const dScale = t < typing ? 0 : (0.5 + 0.5 * din) * (1 - 0.4 * dout);
+    r.dots.style.opacity = t < typing ? 0 : clamp(prog(t, typing, typing + 0.12) - dout);
+    r.dots.style.transform = `scale(${dScale})`;
+    r.dotEls.forEach((d, i) => {
+      const w = Math.max(0, Math.sin(((t - typing) / 0.9 - i * 0.18) * Math.PI * 2));
+      d.style.opacity = 0.45 + 0.55 * w; d.style.transform = `translateY(${-5 * w}px)`;
+    });
+    // Message bubble: pop from the tail corner with a small bounce
+    const p = prog(t, send, send + 0.38);
+    r.msg.style.opacity = t < send ? 0 : prog(t, send, send + 0.1);
+    r.msg.style.transform = `scale(${t < send ? 0 : 0.5 + 0.5 * easeOutBack(p)})`;
+  }
+  const out = easeInOut(prog(t, CHAT_OUT[0], CHAT_OUT[1]));
+  const chat = document.getElementById("chat");
+  chat.style.opacity = 1 - out; chat.style.transform = `translateY(${-24 * out}px)`;
+  const li = easeOut(prog(t, LOGO_IN[0], LOGO_IN[1]));
+  const logo = document.getElementById("logo");
+  logo.style.opacity = li; logo.style.transform = `translate(-50%, -50%) scale(${0.94 + 0.06 * li})`;
+}
+
+window.DURATION = DURATION;
+window.renderAt = renderAt;
+window.ready = (async () => {
+  await Promise.all(["46px 'Be Vietnam Pro'", "46px 'Noto Color Emoji'"].map(f => document.fonts.load(f, "Aa😩🚀")));
+  await document.fonts.ready;
+  await new Promise(res => { const img = document.getElementById("logo"); img.complete ? res() : img.onload = res; });
+  layout(); renderAt(0);
+})();
+
+// Opened directly in a browser: play on a loop. The renderer adds ?render to drive frames itself.
+if (!location.search.includes("render")) {
+  window.ready.then(() => { const t0 = performance.now(); const tick = now => { renderAt(((now - t0) / 1000) % DURATION); requestAnimationFrame(tick); }; requestAnimationFrame(tick); });
+}
+</script>
+</body>
+</html>
