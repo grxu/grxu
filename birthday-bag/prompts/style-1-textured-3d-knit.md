@@ -1,6 +1,7 @@
 # Style 1 – Textured 3D (needle-felted / knitted)
 
 **Attach as style references:**
+- **1–3 photos of our daughter** (face reference, for P0 and every princess render; uploaded to Higgsfield only, never committed)
 - `style-references/1-textured-3d-knit/a76d0cdad0832187f49360afa27072cb.jpg` (boy and lamb: character proportions, pastel hills)
 - `style-references/1-textured-3d-knit/f63607a2919d29dce2ac62f18e66cf89.jpg` (felted forest: trees, grass; ignore the little figure on the bench)
 - `style-references/1-textured-3d-knit/cd38bb44f8e8697deff635fb170fdf8c.jpg` (knitted clothing texture, soft face)
@@ -14,8 +15,8 @@
 
 ### P0 · Princess character sheet (16:9)
 ```
-Character turnaround sheet of one original toddler princess made as a handmade needle-felted wool and knitted yarn doll: front view, three-quarter view, side view and back view, standing in a row, evenly spaced, full body, same size, on a plain warm-cream seamless backdrop.
-She is about 3 years old with chibi toddler proportions: big round head, chubby rosy cheeks, big warm brown eyes made of glossy beads, tiny button nose, sweet closed-mouth smile, warm medium skin tone. Extremely long golden-blonde yarn hair in one loose thick braid that trails down past her feet and curls on the ground, woven with tiny felted pink and white flowers. Small flower crown. Short lilac knitted dress with puffed short sleeves and a soft pink sash, barefoot.
+Character turnaround sheet of one toddler princess made as a handmade needle-felted wool and knitted yarn doll, based on the little girl in the attached face photo: keep her face shape, skin tone, eye colour and hair colour, translated into a felted doll. Front view, three-quarter view, side view and back view, standing in a row, evenly spaced, full body, same size, on a plain warm-cream seamless backdrop.
+She is about 3 years old with chibi toddler proportions: big round head, chubby rosy cheeks, glossy bead eyes in her eye colour, tiny button nose, sweet closed-mouth smile. Extremely long yarn hair in her natural hair colour, in one loose thick braid that trails down past her feet and curls on the ground, woven with tiny felted pink and white flowers. Small flower crown. Short lilac knitted dress with puffed short sleeves and a soft pink sash, barefoot.
 Soft fuzzy wool fibres visible on every surface, chunky knit stitches on the dress, tiny stitched details, soft diffused studio light, gentle shadows, warm and cosy. Consistent character in every view. No text, no labels.
 ```
 

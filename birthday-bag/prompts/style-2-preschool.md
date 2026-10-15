@@ -1,6 +1,7 @@
 # Style 2 – Modern preschool (bold flat)
 
 **Attach as style references:**
+- **1–3 photos of our daughter** (face reference, for P0 and every princess render; uploaded to Higgsfield only, never committed)
 - `style-references/2-preschool-montessori/7405d57a87ee8ce25218e4ebde781dee.jpg` (blob characters with doodle accents)
 - `style-references/2-preschool-montessori/60c68cfc5607161165b8e125d33bbb0c.jpg` (shape characters, palette)
 - `style-references/2-preschool-montessori/d152e81ca4d628dd766cd4c95f317777.jpg` (flat shapes, simple faces)
@@ -16,8 +17,8 @@
 
 ### P0 · Princess character sheet (16:9)
 ```
-Character turnaround sheet of one original toddler princess in a modern flat vector preschool illustration style: front view, three-quarter view, side view and back view, standing in a row, evenly spaced, full body, same size, on a plain white background.
-She is about 3 years old, built from simple rounded geometric shapes: a big round head, warm medium skin tone, tiny dot eyes, a small curved smile, rosy cheek dots. Extremely long golden-yellow hair in one thick braid shaped like a flowing ribbon that trails past her feet and curls on the ground, with tiny pink and white flower shapes along it. Small flower crown. Short violet A-line dress with round puffed sleeves and a bubblegum-pink sash, barefoot.
+Character turnaround sheet of one toddler princess in a modern flat vector preschool illustration style, based on the little girl in the attached face photo: keep her skin tone, hair colour and the feel of her face, simplified into flat shapes. Front view, three-quarter view, side view and back view, standing in a row, evenly spaced, full body, same size, on a plain white background.
+She is about 3 years old, built from simple rounded geometric shapes: a big round head, her skin tone, tiny dot eyes, a small curved smile, rosy cheek dots. Extremely long hair in her natural hair colour in one thick braid shaped like a flowing ribbon that trails past her feet and curls on the ground, with tiny pink and white flower shapes along it. Small flower crown. Short violet A-line dress with round puffed sleeves and a bubblegum-pink sash, barefoot.
 Flat saturated colour, no gradients, no texture, no outlines on the fills, a few thin black doodle sparkles and dots around her. Consistent character in every view. No text, no labels.
 ```
 
