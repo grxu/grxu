@@ -30,6 +30,7 @@ ROOT = os.path.dirname(HERE)
 ASSETS = os.path.join(HERE, "assets")
 OUT_AI = os.path.join(ROOT, "illustrator")
 OUT_PREVIEW = os.path.join(ROOT, "preview")
+OUT_CANVA = os.path.join(ROOT, "canva")
 
 # ---------------------------------------------------------------- SETTINGS
 TRIM_W, TRIM_H = 148.0, 105.0   # A6 landscape, mm
@@ -412,7 +413,15 @@ def render(svg, base):
         d.line((b + s, j, b + s, j + 12), fill=(0, 170, 255), width=2)
         d.line((im.width - b - s, j, im.width - b - s, j + 12), fill=(0, 170, 255), width=2)
     im.save(full, optimize=True)
-    print("wrote", os.path.relpath(base, ROOT) + ".ai/.svg + previews")
+    # trim-size PDF for Canva, which adds its own print bleed
+    trim_svg = svg.replace(f'width="{f(PAGE_W)}mm" height="{f(PAGE_H)}mm" viewBox="0 0 {f(PAGE_W)} {f(PAGE_H)}"',
+                           f'width="{f(TRIM_W)}mm" height="{f(TRIM_H)}mm" '
+                           f'viewBox="{f(BLEED)} {f(BLEED)} {f(TRIM_W)} {f(TRIM_H)}"')
+    assert trim_svg != svg
+    os.makedirs(OUT_CANVA, exist_ok=True)
+    cairosvg.svg2pdf(bytestring=trim_svg.encode(),
+                     write_to=os.path.join(OUT_CANVA, os.path.basename(base) + "_trim.pdf"))
+    print("wrote", os.path.relpath(base, ROOT) + ".ai/.svg + previews + canva pdf")
 
 
 def main():

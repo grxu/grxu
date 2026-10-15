@@ -22,6 +22,7 @@ A thank-you card for buyers of the Floral B tee (the Flower Road one: watercolou
 |---|---|
 | `illustrator/option-1_encore_A6.ai` / `.svg` | Option 1, editable |
 | `illustrator/option-2_flower-road_A6.ai` / `.svg` | Option 2, editable |
+| `canva/option-*_A6_trim.pdf` | Trim-size (148 × 105 mm) PDFs for Canva. Upload one to Canva and it opens as an editable design. Canva adds its own print bleed |
 | `preview/option-*_A6.png` | 300 dpi preview at trim size, i.e. what the printed card looks like |
 | `preview/option-*_A6_bleed.png` | Same with bleed, plus trim and safe-area guides |
 | `preview/options-side-by-side.png` | The two options together |
