@@ -1,5 +1,5 @@
-# Style 2 – Modern preschool / Montessori
+# Style 2 – Modern preschool (bold flat)
 
-Modern preschool look in the Montessori spirit: calm, muted, natural colours, simple shapes, wooden-toy feel.
+Based on the references here: bold, flat, saturated colour (orange, hot pink, sky blue, sunny yellow, grass green, violet) on white or cream. Simple geometric blob characters with tiny faces (dot eyes, curved smiles, rosy cheeks). Thin black doodle accents (sparkles, plus signs, dots, motion ticks). No gradients, no outlines on the fills, no texture.
 
-Drop references here: characters, animals, backgrounds, colour palettes, type. If one image is here for one specific thing, note it in the file name.
+These references set the style only; we're not copying any brand's characters.
