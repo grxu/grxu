@@ -116,3 +116,7 @@ Edit of v4-b (`43dbfbd2…`): make the three-quarter braid end at the chest like
 | Collar + stars | `9f8a08aa-ed4a-443e-8045-b06999f7e272` | White scalloped collar, flower vine along the hem, tiny gold star dots |
 
 Other decoration ideas offered and not yet rendered: a tiny parade of the four key animals embroidered on the hem; lace trim with ribbon bows and bodice lacing.
+
+### P0 v6 – braid length fix (2026-10-20, confirmed by Grady first)
+
+Edit of the collar + stars sheet (`9f8a08aa…`), 1 variant, about 2 credits: job `33917ea5-10cb-4f32-bd7e-9e712303cd4b`. The braid is shorter than before (it used to reach the hip). The tie now sits on the sash and the tip ends just below it, at the top of the skirt, so it's not fully above the sash as asked. Everything else is unchanged.
