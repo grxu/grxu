@@ -120,3 +120,16 @@ Other decoration ideas offered and not yet rendered: a tiny parade of the four k
 ### P0 v6 – braid length fix (2026-10-20, confirmed by Grady first)
 
 Edit of the collar + stars sheet (`9f8a08aa…`), 1 variant, about 2 credits: job `33917ea5-10cb-4f32-bd7e-9e712303cd4b`. The braid is shorter than before (it used to reach the hip). The tie now sits on the sash and the tip ends just below it, at the top of the skirt, so it's not fully above the sash as asked. Everything else is unchanged.
+
+### P0 v7 – side and back views, masked inpaint (2026-10-20, confirmed)
+
+What Grady actually meant by "braid not fixed": the braid shows in the front and three-quarter views but is missing in the side and back views. The three earlier passes wrongly shortened it.
+
+Inpaint on v6 (`33917ea5…`) with a mask over the right half only (side and back views; mask media `5a18b755-6df4-42b0-acbc-1453c741402b`), 2 variants, about 4 credits:
+
+| Variant | Job ID | Side view | Back view |
+|---|---|---|---|
+| a | `65d6b0ff-e9e5-4815-9208-386a1cf73b99` | Braid now visible over her shoulder, a clean single braid | Still no braid |
+| b | `222da559-f4f5-4724-ab2b-e558ba09f14b` | Braid visible, but it looks doubled and messy | Still no braid |
+
+She still faces left in the side view; the model ignored "turn her to face the right". The left half (front and three-quarter views) is not pixel-identical: about 3% RMSE difference, slightly crisper and more saturated, with the same design.
