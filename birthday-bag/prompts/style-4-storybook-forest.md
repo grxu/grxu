@@ -46,3 +46,14 @@ Outfit: short lilac dress with puffed sleeves and a rosy-pink sash tied in a bow
 Rendering: flat colour shapes with one soft shadow tone and a light rim along the edges, slightly uneven dark-brown outlines like a brush pen, and strong visible texture on every surface: coarse grain and noise, risograph print texture, halftone dots in the shadows. Not smooth, not clean vector, no detailed linework.
 Consistent character in every view. No text, no labels, no watermark.
 ```
+
+### P0 v2 results (2026-10-20)
+
+Nano Banana 2.1, 2K, 2 variants, about 4 credits. Renders are in `../private/style-4/`.
+
+| Variant | Job ID | Notes |
+|---|---|---|
+| a | `76f4406e-f527-425b-a856-b749721ead3a` | Open, cheeky grin (closest to Hanna's smile). Colourful mixed flower crown, toe lines on the feet. |
+| b | `81e0a9bf-d1e1-4ce2-89e4-a6f4a0d218df` | Calm closed smile. Lilac and white crown that matches the palette, flowered braid more visible, no toes. |
+
+Both have the right hair length and cartoon proportions. The texture is there (grain, halftone in the shadows) but softer than the reference, and the outlines are heavier than the reference's.
