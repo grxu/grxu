@@ -1,4 +1,6 @@
-# Birthday souvenir bag – "[Name] is turning 3"
+# Birthday souvenir bag – "Hanna is turning 3"
+
+**New session? Start with `HANDOFF.md`.**
 
 A souvenir bag for our daughter's 3rd birthday. It shows an original, Rapunzel-like toddler princess in the woods with animals. A giraffe, an elephant, a capybara and a horse are always in the scene; other animals are optional. The same design goes on both sides of the bag.
 
@@ -48,12 +50,14 @@ The art is rendered in three separate groups and assembled on the template. See 
 | Topic | Decision |
 |---|---|
 | Princess | Original, Rapunzel-like, based on our daughter's face, skin, eyes and real hair. Hair at her real length (just below the shoulder blades), loose, with a thin flowered side braid and a flower crown; no floor-length braid. Face photos stay in Higgsfield only. |
-| Styles to test | 1 knit 3D · 2 bold flat preschool (as the references show) · 3 pencil child with single-colour hatched animals (Tom Booth references attached; private souvenir, not sold) |
+| Style | **Style 4, storybook** (lineless, grainy, layered). Knit, preschool and drawing were tested in round 1 and dropped. |
+| Character sheet | Locked: Higgsfield job `65d6b0ff-e9e5-4815-9208-386a1cf73b99` (v7-a). See `HANDOFF.md`. |
+| Name | Hanna |
 | Layout | A, dynamic. A1 vs A2 picked after the style test. |
 | Text | "[Name] is turning 3", lettering matched to the chosen style, typeset last. |
 | Bag | Same design front and back, full-bleed art, plain-coloured side panels and bottom. |
 | Delivery | Layered PSD on the vendor's template, with their guide layer kept. |
 | Rendering | Claude runs it on Higgsfield, Nano Banana 2.1 (see `prompts/README.md`). |
-| Timeline | Party under 2 weeks away: one style test, one full set, one fix pass, then hand off. |
+| Timeline | Party around Nov 1–3. Send the vendor file by Oct 25–26 at the latest. |
 
 Open questions for the vendor: `vendor-questions.md`.
