@@ -69,3 +69,14 @@ Lesson: an attached reference passes on its line style. To change how something 
 ```
 Edit this character turnaround sheet. Remove every outline: all dark brown contour lines and line art around the face, hair, ears, arms, hands, legs, feet, dress, sleeves, sash, bow, braid and flowers must disappear completely. Where a line was, the shapes now meet directly colour against colour, separated only by a soft light rim or a slightly darker shadow tone. The facial features stay as small solid filled shapes (dark eyes with a white highlight, tiny nose, the open cheeky grin) with no outlines. Keep everything else exactly the same: the four views, proportions, the open cheeky grin, black hair ending just below the shoulder blades, the thin flowered side braid, the flower crown, the lilac dress with puffed sleeves, the rosy-pink sash and bow, all colours, the pale mint background, and the coarse grain, risograph texture and halftone dots. Lineless storybook illustration. No text, no labels, no watermark.
 ```
+
+### P0 v1 lineless (2026-10-20)
+
+Grady preferred the softer v1 look and asked for it without outlines and with more texture. I uploaded his v1 sheet (`3c6ff680-fe3a-44b8-b3fb-e5c61a754fb4`) and ran two edit passes:
+
+| Variant | Job ID | Change |
+|---|---|---|
+| 1 | `5140ec88-d333-4cab-b018-43bd26551a56` | No outlines, stronger texture; long floor-length braid kept |
+| 2 | `957398c0-997b-4af0-8cfe-4673e98d2f81` | The same, plus hair at Hanna's real length with a thin flowered side braid; adds soft ground shadows |
+
+Both came out without outlines and with clear grain and halftone dots. In variant 2 the side braid is longer in the three-quarter view (down to the dress hem) than in the other views.
