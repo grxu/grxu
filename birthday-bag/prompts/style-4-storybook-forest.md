@@ -105,3 +105,14 @@ Change:
 5. Rendering: flat shapes with gentle gradients, a soft light rim on the edges facing the light, and a fine grainy noise texture over everything, like a digital gouache print. Flowers as simple five-petal shapes.
 No text, no labels, no watermark.
 ```
+
+### P0 v5 – braid fix and dress decorations (2026-10-20)
+
+Edit of v4-b (`43dbfbd2…`): the three-quarter braid ends at the chest like the front view, plus dress decorations. Both variants fixed the braid.
+
+| Variant | Job ID | Decorations |
+|---|---|---|
+| Flowers | `c35e1824-1630-4486-9707-11e5c5833617` | Periwinkle and cream flowers scattered on the skirt, plus a tiny-flower border along the hem |
+| Collar + stars | `9f8a08aa-ed4a-443e-8045-b06999f7e272` | White scalloped collar, flower vine along the hem, tiny gold star dots |
+
+Other decoration ideas offered and not yet rendered: a tiny parade of the four key animals embroidered on the hem; lace trim with ribbon bows and bodice lacing.
