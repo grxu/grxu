@@ -133,3 +133,7 @@ Inpaint on v6 (`33917ea5…`) with a mask over the right half only (side and bac
 | b | `222da559-f4f5-4724-ab2b-e558ba09f14b` | Braid visible, but it looks doubled and messy | Still no braid |
 
 She still faces left in the side view; the model ignored "turn her to face the right". The left half (front and three-quarter views) is not pixel-identical: about 3% RMSE difference, slightly crisper and more saturated, with the same design.
+
+### P0 v8 – back view braid, masked inpaint (2026-10-20, confirmed)
+
+Inpaint on v7-a (`65d6b0ff…`) with a back-view-only mask (`f860cda6-18f5-497b-81af-7a60a83e6122`), 1 variant, about 2 credits: job `ee463c5a-fbde-4dc7-9805-37aaa37b0012`. The braid now shows in all four views. But in the back view it's on the viewer's **left**, which is her left side: mirrored compared with the front view, where it's on her right. Each edit pass also adds a bit of re-encoding wear: a faint light halo around the figures and slightly crunchier texture than v6.
