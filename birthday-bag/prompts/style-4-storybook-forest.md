@@ -28,3 +28,21 @@ One cute giraffe in a modern storybook illustration style, full body, standing, 
 ```
 A lush storybook forest in a modern illustration style, wide, seen straight on, filling the entire frame edge to edge. Tall pale-green tree trunks and rounded canopies in the background glow with soft lime and yellow light coming from behind; layered rounded bushes and big tropical leaves in emerald, teal and mint fill the middle distance; deep blue and indigo leaves, periwinkle five-petal flowers and small glowing white bulb flowers frame the bottom corners and both sides in the foreground. A pale mossy stone path winds from the bottom centre into a soft, open, sunlit clearing in the centre. The centre stays light and uncluttered: space for characters and a title. Little doodle sprouts and dots scattered in the foliage. Flat layered shapes with soft gradients, grainy risograph texture and fine halftone dots, atmospheric depth. No characters, no animals, no people, no text, no watermark.
 ```
+
+---
+
+## P0 v2 – after Grady's first pass (16:9)
+
+Feedback on v1: too soft and too detailed, close to a children's-book painting; it needs to be more cartoon, with visible texture like the reference. The braid was far too long: hair should match Hanna's real length, just below her shoulder blades.
+
+Changes: cartoon proportions (head about half her height, stubby limbs, mitten hands), a simpler face, hair at her real length (loose, with one thin flowered side braid as the Rapunzel nod), and the texture spelled out strongly. Attach the two photos of Hanna. If the E1 forest plate has already come out with the right grain, attach it too as a texture reference. Don't attach v1; it would pull the style back.
+
+```
+Use the two reference photos of a 3-year-old girl only for the princess's likeness: round face with full cheeks, dark brown eyes, light warm skin tone, big cheeky smile, and her hair: straight black hair with a side part and face-framing strands, falling loose to just below her shoulder blades.
+Character turnaround sheet of this toddler princess as a simplified 2D cartoon character, like a frame from a modern hand-made animated series: front view, three-quarter view, side view and back view, standing in a row, evenly spaced, full body, same size, on a plain pale mint background.
+Cartoon proportions: a very big round head about half her total height, a small rounded body, short stubby arms and legs, chunky mitten-like hands with simple fingers, simple rounded bare feet without toe detail. Small simple face: dark oval eyes with one white highlight, a tiny curved nose, a small cheeky smile, big round rosy-pink cheeks.
+Hair: one solid black shape with a single soft blue-grey highlight band, side part, face-framing strands, loose and straight, ending just below her shoulder blades and no longer, with one thin side braid woven with tiny periwinkle and white flowers. Small flower crown.
+Outfit: short lilac dress with puffed sleeves and a rosy-pink sash tied in a bow at the back.
+Rendering: flat colour shapes with one soft shadow tone and a light rim along the edges, slightly uneven dark-brown outlines like a brush pen, and strong visible texture on every surface: coarse grain and noise, risograph print texture, halftone dots in the shadows. Not smooth, not clean vector, no detailed linework.
+Consistent character in every view. No text, no labels, no watermark.
+```
