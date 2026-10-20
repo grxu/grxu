@@ -80,3 +80,28 @@ Grady preferred the softer v1 look and asked for it without outlines and with mo
 | 2 | `957398c0-997b-4af0-8cfe-4673e98d2f81` | The same, plus hair at Hanna's real length with a thin flowered side braid; adds soft ground shadows |
 
 Both came out without outlines and with clear grain and halftone dots. In variant 2 the side braid is longer in the three-quarter view (down to the dress hem) than in the other views.
+
+### P0 v4 – stylised further (2026-10-20)
+
+Grady picked the softer v1 look, at Hanna's real hair length and without outlines, then shared two more images in the same style (an indoor window scene and a greenhouse, both watermarked "All rights reserved"). They aren't attached or stored; the prompt describes the character style instead: big round head, stubby tube limbs, wide-set dark oval eyes, tiny nose and smile, chunky hair and dress shapes with one highlight swoosh, soft light rim, fine grain.
+
+Edit of `957398c0…` (v1 lineless, real hair length), 2 variants:
+
+| Variant | Job ID | Notes |
+|---|---|---|
+| a | `5d4b23b2-0a41-4ab3-a94e-ad2ac4cdf7c8` | Flattest and simplest: solid dark oval eyes with no highlight; closest to the reference |
+| b | `43dbfbd2-44e7-4135-811d-75c45343bac6` | Same, with a white highlight in each eye, so a bit more expressive |
+
+Still open: in the three-quarter view the side braid hangs to the dress hem, longer than in the front view.
+
+```
+Edit this character turnaround sheet into a more stylised, chunkier storybook look, keeping her clearly the same girl.
+Keep: no outlines anywhere (lineless); the four views (front, three-quarter, side, back); her black hair ending just below her shoulder blades with the side part and face-framing strands; the thin side braid with tiny flowers; the flower crown; the lilac puffed-sleeve dress with the rosy-pink sash and bow; the colours; the soft ground shadows; the pale mint background.
+Change:
+1. Proportions: an even bigger, rounder head, about half her total height; a smaller body; short rounded tube-like arms and legs; small mitten-like hands; simple rounded feet without toes.
+2. Face: simplify it. Two large dark oval eyes set wide apart and fairly low on the face, each with one small white highlight, no eyelashes; a tiny dot nose; a small simple smile; soft round blush on the cheeks. Fewer details, more charm.
+3. Hair and dress as big, chunky, simple shapes with one soft highlight swoosh each, fewer strands and fewer folds, with a slightly faceted, softly angular feel.
+4. The side braid is the same length in every view, ending at her chest.
+5. Rendering: flat shapes with gentle gradients, a soft light rim on the edges facing the light, and a fine grainy noise texture over everything, like a digital gouache print. Flowers as simple five-petal shapes.
+No text, no labels, no watermark.
+```
