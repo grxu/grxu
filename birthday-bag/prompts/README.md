@@ -15,6 +15,8 @@ Everything is rendered separately (see `../asset-list.md`) and assembled on the 
 
 **Settings:** 2K or 4K. Single assets at 1:1 or 3:4. The forest plate at 5:4 (or 4:3, then extend it to 5:4). Single assets go on a plain backdrop so the background can be removed cleanly in Higgsfield.
 
+**Always confirm before rendering:** show Grady the exact prompt, the attachments and the credit cost, and wait for a yes before submitting anything to Higgsfield.
+
 **Never in a prompt:** the name, the "3", or any text. Those are typeset at the end.
 
 ## Round 1 log (2026-10-15)

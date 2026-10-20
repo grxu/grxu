@@ -108,7 +108,7 @@ No text, no labels, no watermark.
 
 ### P0 v5 – braid fix and dress decorations (2026-10-20)
 
-Edit of v4-b (`43dbfbd2…`): the three-quarter braid ends at the chest like the front view, plus dress decorations. Both variants fixed the braid.
+Edit of v4-b (`43dbfbd2…`): make the three-quarter braid end at the chest like the front view, plus dress decorations. **The braid was not fixed:** in the front and three-quarter views it still hangs past the sash to the hip. Grady picked the collar + stars dress.
 
 | Variant | Job ID | Decorations |
 |---|---|---|
