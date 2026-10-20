@@ -57,3 +57,15 @@ Nano Banana 2.1, 2K, 2 variants, about 4 credits. Renders are in `../private/sty
 | b | `81e0a9bf-d1e1-4ce2-89e4-a6f4a0d218df` | Calm closed smile. Lilac and white crown that matches the palette, flowered braid more visible, no toes. |
 
 Both have the right hair length and cartoon proportions. The texture is there (grain, halftone in the shadows) but softer than the reference, and the outlines are heavier than the reference's.
+
+### P0 v3 – mix, no outlines (2026-10-20)
+
+Pass 1: v2-b attached as the character reference, plus the two photos of Hanna, asking for a's open grin, no outlines and stronger grain. The grin and the texture came through, but the outlines did not go away: the attached v2-b sheet carried its line art along. Jobs `3d57c301-7c5b-4c60-9826-eb9df67d1b8c`, `4e620506-21d9-4301-aa2e-4d271144dc0f`.
+
+Pass 2 (edit): `4e620506…` attached alone, with a "remove every outline, keep everything else" edit prompt. This worked: lineless, with the open grin, coarse grain and halftone dots. Jobs `ce32acab-fceb-4094-b882-b736b9fd5093` (a), `639a2891-2f77-447b-85ad-522af903e2c2` (b).
+
+Lesson: an attached reference passes on its line style. To change how something is drawn, edit the image itself instead of re-describing it next to a reference.
+
+```
+Edit this character turnaround sheet. Remove every outline: all dark brown contour lines and line art around the face, hair, ears, arms, hands, legs, feet, dress, sleeves, sash, bow, braid and flowers must disappear completely. Where a line was, the shapes now meet directly colour against colour, separated only by a soft light rim or a slightly darker shadow tone. The facial features stay as small solid filled shapes (dark eyes with a white highlight, tiny nose, the open cheeky grin) with no outlines. Keep everything else exactly the same: the four views, proportions, the open cheeky grin, black hair ending just below the shoulder blades, the thin flowered side braid, the flower crown, the lilac dress with puffed sleeves, the rosy-pink sash and bow, all colours, the pale mint background, and the coarse grain, risograph texture and halftone dots. Lineless storybook illustration. No text, no labels, no watermark.
+```
