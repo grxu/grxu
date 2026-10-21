@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
-"""White-shirt version of the final artwork, edited directly in the vector files.
+"""White-tee and black-tee versions of the final artwork, edited directly in the
+vector files.
 
-Reads the raw Illustrator files in ../final-raw/ and writes ../final/:
+Reads the raw Illustrator files in ../final-raw/ and writes ../final/white-tee/
+and ../final/black-tee/. Both get the background rectangles removed and the
+full-res flowers; the white tee additionally recolours as follows:
   - FRONT: black background removed, B filled black, its outline stroke made
     white (a thin gap against the flowers), and the two flower images replaced
     by the full-resolution originals at exactly the same placement.
@@ -129,7 +132,7 @@ def check_match(old_xobj, new_im):
 
 
 # ------------------------------------------------------------------ front
-def invert_front(dst):
+def invert_front(dst, white_tee=True):
     pdf = pikepdf.open(FRONT_IN)
     fm = pdf.pages[0].Resources.XObject["/Fm0"]
     ops = list(pikepdf.parse_content_stream(fm))
@@ -137,8 +140,8 @@ def invert_front(dst):
     # 1. the full-artboard black rectangle: stop painting it
     i_bg = next(i for i, fill, bb in painted if fill == (0.0, 0.0, 0.0) and mm(bb[2] - bb[0]) > 99)
     ops[i_bg] = pikepdf.ContentStreamInstruction([], pikepdf.Operator("n"))
-    # 2. the B: white fill -> black, black outline stroke -> white
-    for k, (operands, op) in enumerate(ops):
+    # 2. white tee only - the B: white fill -> black, black outline stroke -> white
+    for k, (operands, op) in enumerate(ops if white_tee else []):
         if str(op) == "rg" and [float(v) for v in operands] == [1, 1, 1]:
             ops[k] = pikepdf.ContentStreamInstruction([0, 0, 0], pikepdf.Operator("rg"))
         elif str(op) == "RG" and [float(v) for v in operands] == [0, 0, 0]:
@@ -160,7 +163,7 @@ def invert_front(dst):
 
 
 # ------------------------------------------------------------------ back
-def invert_back(dst):
+def invert_back(dst, white_tee=True):
     pdf = pikepdf.open(BACK_IN)
     pg = pdf.pages[0]
     # Illustrator's private copy of the artwork would override our PDF edits
@@ -178,7 +181,7 @@ def invert_back(dst):
         elif fill == (1.0, 1.0, 1.0) and (mm(y1 - y0) > 100 or mm(x1 - x0) > 200):
             targets.append(i)                         # wordmark + piano keys
     assert bg is not None and len(targets) == 4, (bg, targets)
-    for i in sorted(targets, reverse=True):
+    for i in sorted(targets, reverse=True) if white_tee else []:
         set_fill_before(ops, i, (0, 0, 0))
     assert all(i > bg for i in targets)  # inserts land after the background, so its index holds
     ops[bg] = pikepdf.ContentStreamInstruction([], pikepdf.Operator("n"))
@@ -215,14 +218,17 @@ NOTES = {
 }
 
 
-def light_mockup(front, back, back_w_mm, annotate):
+def tee_mockup(front, back, back_w_mm, annotate, white_tee=True):
     orig_label, orig_w = build.label, build.BACK_W_MM
     build.BACK_W_MM = back_w_mm
 
     def label(text, *a, **k):
-        text = NOTES.get(text, text)
+        if white_tee:
+            text = NOTES.get(text, text)
+        elif text == "FRONT / BACK as .pdf + .svg, .png 300 dpi + 2048 px":
+            text = NOTES[text]
         if text.startswith("Centred,") and "white ink only" in text:
-            text = text.replace("white ink only", "black + full-colour characters")
+            text = text.replace("white ink only", ("black" if white_tee else "white") + " + full-colour characters")
         return orig_label(text, *a, **k)
 
     build.label = label
@@ -230,17 +236,19 @@ def light_mockup(front, back, back_w_mm, annotate):
         svg = build.mockup_svg(front, back, annotate=annotate)
     finally:
         build.label, build.BACK_W_MM = orig_label, orig_w
-    for dark, light in LIGHT.items():
+    for dark, light in LIGHT.items() if white_tee else ():
         svg = svg.replace(f'"{dark}"', f'"{light}"')
     return svg
 
 
-def main():
-    os.makedirs(OUT, exist_ok=True)
-    front_pdf = os.path.join(OUT, "FRONT_left-chest_100x100mm_white-tee.pdf")
-    back_pdf = os.path.join(OUT, "BACK_277.5x317.4mm_white-tee.pdf")
-    report = invert_front(front_pdf)
-    n = invert_back(back_pdf)
+def build_colourway(white_tee):
+    tag = "white-tee" if white_tee else "black-tee"
+    out = os.path.join(OUT, tag)
+    os.makedirs(out, exist_ok=True)
+    front_pdf = os.path.join(out, f"FRONT_left-chest_100x100mm_{tag}.pdf")
+    back_pdf = os.path.join(out, f"BACK_277.5x317.4mm_{tag}.pdf")
+    report = invert_front(front_pdf, white_tee)
+    n = invert_back(back_pdf, white_tee)
     for p in (front_pdf, back_pdf):  # PDF-compatible .ai twins for Illustrator
         with open(p, "rb") as src, open(p[:-4] + ".ai", "wb") as dst:
             dst.write(src.read())
@@ -249,16 +257,21 @@ def main():
     render_png(back_pdf, back_pdf[:-4] + "_300dpi.png", 300)
 
     front = art_tuple(front_pdf[:-4] + "_hires.png", 1000, 1000)
-    back_png = os.path.join(tempfile.gettempdir(), "back_mock.png")
+    back_png = os.path.join(tempfile.gettempdir(), f"back_mock_{tag}.png")
     render_png(back_pdf, back_png, 200)
     back = art_tuple(back_png, 2775, 3174)
-    mock = light_mockup(front, back, 277.5, annotate=False)
-    cairosvg.svg2png(bytestring=mock.encode(), write_to=os.path.join(OUT, "mockup_white-tee.png"), output_width=3400)
-    spec = light_mockup(front, back, 277.5, annotate=True)
-    cairosvg.svg2pdf(bytestring=spec.encode(), write_to=os.path.join(OUT, "spec-sheet_white-tee.pdf"))
-    cairosvg.svg2png(bytestring=spec.encode(), write_to=os.path.join(OUT, "spec-sheet_white-tee.png"), output_width=3400)
-    print("front images swapped:", report)
-    print("back shapes recoloured:", n)
+    mock = tee_mockup(front, back, 277.5, False, white_tee)
+    cairosvg.svg2png(bytestring=mock.encode(), write_to=os.path.join(out, f"mockup_{tag}.png"), output_width=3400)
+    # the spec sheet is a reference document, so it embeds the 300 dpi art to stay light
+    spec = tee_mockup(art_tuple(front_pdf[:-4] + "_300dpi.png", 1000, 1000), back, 277.5, True, white_tee)
+    cairosvg.svg2pdf(bytestring=spec.encode(), write_to=os.path.join(out, f"spec-sheet_{tag}.pdf"))
+    cairosvg.svg2png(bytestring=spec.encode(), write_to=os.path.join(out, f"spec-sheet_{tag}.png"), output_width=3400)
+    print(tag, "front images swapped:", report, "| back shapes recoloured:", n if white_tee else 0)
+
+
+def main():
+    for white_tee in (True, False):
+        build_colourway(white_tee)
 
 
 if __name__ == "__main__":
