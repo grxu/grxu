@@ -1,5 +1,2 @@
 __pycache__/
 *.pyc
-
-# face photos for the birthday bag stay out of git
-birthday-bag/private/
