@@ -26,6 +26,9 @@ FRONT_IN_CM = float(os.environ.get("FRONT_IN_CM", "8"))     # centre line -> lef
 BACK_W_CM = float(os.environ.get("BACK_W_CM", "32"))        # back width
 BACK_TOP_CM = float(os.environ.get("BACK_TOP_CM", "15"))    # top below collar
 BLACK_INK = "#0D0D09"
+BLUE, RED, YELLOW = "#0756C6", "#E73A07", "#FDBB05"  # the front's three inks
+# White-tee back: "tricolour" (blue / red / yellow, left to right) or "mono" (black).
+WHITE_BACK = os.environ.get("WHITE_BACK", "tricolour")
 FABRIC = os.environ.get("FABRIC", "Combed 24s / Bamboo")
 KICKER = "BIIIG TEE"
 
@@ -45,8 +48,35 @@ def font(weight, size):
     return ImageFont.truetype(f"{FONT_DIR}/Inter-{weight}.otf", size)
 
 
-def render_svg(path, width_px, recolour=None):
+def tricolour_back(path):
+    """back-iii.svg in the front's three inks: blue, red, yellow, left to right.
+
+    The art is one path: three equal circles (r ~254.5, centres x 564.5 / 960 /
+    1355.3, y 335.5) over the III (slot centres x 759.07 / 1161.24). It is drawn
+    blue, then red clipped to the middle circle plus the III right of the first
+    slot, then yellow clipped to the right circle plus the III right of the
+    second slot. Each circle stays whole, layered left to right (so the flames
+    sit in red and yellow), and the colours butt together with no gap.
+    """
     svg = open(path).read()
+    d = re.search(r' d="([^"]*)"', svg).group(1)
+    split_y = 657  # between the circles (bottom ~590) and the III (top 704.3)
+    r = 256  # a hair over the art's radius so the clip edge never shows
+
+    def clip(i, cx, slot_x):
+        return (f'<clipPath id="c{i}"><circle cx="{cx}" cy="335.5" r="{r}"/>'
+                f'<rect x="{slot_x}" y="{split_y}" width="1e4" height="1e4"/></clipPath>')
+
+    head = svg[: svg.index("<path")]
+    return (head + f'<defs>{clip(0, 960, 759.07)}{clip(1, 1355.3, 1161.24)}</defs>'
+            f'<path fill="{BLUE}" d="{d}"/>'
+            f'<path fill="{RED}" clip-path="url(#c0)" d="{d}"/>'
+            f'<path fill="{YELLOW}" clip-path="url(#c1)" d="{d}"/>'
+            "</svg>")
+
+
+def render_svg(path, width_px, recolour=None, svg=None):
+    svg = svg or open(path).read()
     if recolour:
         for old, new in recolour.items():
             svg = re.sub(old, new, svg, flags=re.I)
@@ -150,8 +180,14 @@ for out_name, blank_name, view, colour, dark in jobs:
         x = int(round(cx + FRONT_IN_CM * ppcm))
         y = int(round(collar + FRONT_TOP_CM * ppcm))
     else:
-        recolour = None if dark else {"#FFFFFF": BLACK_INK}
-        art = render_svg(back_svg, BACK_W_CM * ppcm, recolour)
+        recolour, svg = None, None
+        if not dark and WHITE_BACK == "mono":
+            recolour = {"#FFFFFF": BLACK_INK}
+        elif not dark:
+            svg = tricolour_back(back_svg)
+            with open(f"{OUT}/back-iii_white-tee.svg", "w") as f:  # print file
+                f.write(svg)
+        art = render_svg(back_svg, BACK_W_CM * ppcm, recolour, svg)
         x = int(round(cx - art.width / 2))
         y = int(round(collar + BACK_TOP_CM * ppcm))
     box = shade_print(blank, art, x, y, dark)

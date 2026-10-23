@@ -14,9 +14,14 @@ and in the same layout as the BIGBANG SG set (black and white, front and back).
   12.5 cm below the collar seam, left edge 8 cm from the centre line. Three
   inks (blue, red, yellow) on both shirt colours.
 - **Back:** III, 32 × 38.9 cm, centred, top edge 15 cm below the collar seam.
-  White ink on the black tee and black ink (`#0D0D09`) on the white tee.
   The back is 2.3 cm taller than the BIGBANG back (32 × 36.6 cm), so check
   that the vendor's print area fits it.
+  - **Black tee:** white ink (`print/back-iii.svg`).
+  - **White tee:** the front's three inks, left to right: blue `#0756C6`,
+    red `#E73A07` and yellow `#FDBB05` (`print/back-iii_white-tee.svg`).
+    Each circle is one colour, overlapping left over right, so the flames
+    sit in red and yellow. The III is cut through its two slots into
+    blue, red and yellow columns. The colours butt together with no gap.
 - On the white tee, the flame cut-outs and slots show the white shirt.
 
 ## How they're made
@@ -27,9 +32,11 @@ uses no AI, so the artwork in the mockups is exactly the print file.
 
 - `blanks/`: the Higgsfield ghost mannequin blanks (GPT Image 2.5, Oct 21),
   the same ones the BIGBANG set used.
-- `print/`: `front-biiig.svg` and `back-iii.svg` from the BIIIG tee pack.
+- `print/`: `front-biiig.svg` and `back-iii.svg` from the BIIIG tee pack, plus
+  `back-iii_white-tee.svg`, the three-colour back that the script writes.
 
 To rebuild, run `pip install cairosvg pillow numpy`, then
 `python3 build_mockups.py blanks print <out_dir>`. To change the sizes or
 placement, set any of `FRONT_W_CM`, `FRONT_TOP_CM`, `FRONT_IN_CM`,
-`BACK_W_CM` or `BACK_TOP_CM` as environment variables.
+`BACK_W_CM` or `BACK_TOP_CM` as environment variables. Set
+`WHITE_BACK=mono` for a plain black back on the white tee.
