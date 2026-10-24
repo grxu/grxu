@@ -21,8 +21,8 @@ os.makedirs(OUT, exist_ok=True)
 
 # ---- settings -------------------------------------------------------------
 FRONT_W_CM = float(os.environ.get("FRONT_W_CM", "10"))      # emblem width
-FRONT_TOP_CM = float(os.environ.get("FRONT_TOP_CM", "12.5"))  # top below collar
-FRONT_IN_CM = float(os.environ.get("FRONT_IN_CM", "8"))     # centre line -> left edge
+FRONT_TOP_CM = float(os.environ.get("FRONT_TOP_CM", "18"))  # top below collar
+FRONT_IN_CM = float(os.environ.get("FRONT_IN_CM", "10"))   # centre line -> left edge
 BACK_W_CM = float(os.environ.get("BACK_W_CM", "32"))        # back width
 BACK_TOP_CM = float(os.environ.get("BACK_TOP_CM", "15"))    # top below collar
 BLACK_INK = "#0D0D09"
@@ -51,8 +51,9 @@ def font(weight, size):
 def tricolour_back(path):
     """back-iii.svg in the front's three inks: blue, red, yellow, left to right.
 
-    The art is one path: three equal circles (r ~254.5, centres x 564.5 / 960 /
-    1355.3, y 335.5) over the III (slot centres x 759.07 / 1161.24). It is drawn
+    The art is one path: three equal circles (r 255.15, centres x 565 / 960 /
+    1355, y 335.55) over the III (slot centres x 759 / 1161), as built by
+    ../vector-rebuild/rebuild.py. It is drawn
     blue, then red clipped to the middle circle plus the III right of the first
     slot, then yellow clipped to the right circle plus the III right of the
     second slot. Each circle stays whole, layered left to right (so the flames
@@ -64,11 +65,11 @@ def tricolour_back(path):
     r = 256  # a hair over the art's radius so the clip edge never shows
 
     def clip(i, cx, slot_x):
-        return (f'<clipPath id="c{i}"><circle cx="{cx}" cy="335.5" r="{r}"/>'
+        return (f'<clipPath id="c{i}"><circle cx="{cx}" cy="335.55" r="{r}"/>'
                 f'<rect x="{slot_x}" y="{split_y}" width="1e4" height="1e4"/></clipPath>')
 
     head = svg[: svg.index("<path")]
-    return (head + f'<defs>{clip(0, 960, 759.07)}{clip(1, 1355.3, 1161.24)}</defs>'
+    return (head + f'<defs>{clip(0, 960, 759)}{clip(1, 1355, 1161)}</defs>'
             f'<path fill="{BLUE}" d="{d}"/>'
             f'<path fill="{RED}" clip-path="url(#c0)" d="{d}"/>'
             f'<path fill="{YELLOW}" clip-path="url(#c1)" d="{d}"/>'

@@ -11,7 +11,7 @@ and in the same layout as the BIGBANG SG set (black and white, front and back).
 ## Sizes and placement
 
 - **Front:** BIIIG emblem, 10 × 3.4 cm, on the wearer's left chest. Top edge
-  12.5 cm below the collar seam, left edge 8 cm from the centre line. Three
+  18 cm below the collar seam, left edge 10 cm from the centre line. Three
   inks (blue, red, yellow) on both shirt colours.
 - **Back:** III, 32 × 38.9 cm, centred, top edge 15 cm below the collar seam.
   The back is 2.3 cm taller than the BIGBANG back (32 × 36.6 cm), so check
@@ -32,8 +32,10 @@ uses no AI, so the artwork in the mockups is exactly the print file.
 
 - `blanks/`: the Higgsfield ghost mannequin blanks (GPT Image 2.5, Oct 21),
   the same ones the BIGBANG set used.
-- `print/`: `front-biiig.svg` and `back-iii.svg` from the BIIIG tee pack, plus
-  `back-iii_white-tee.svg`, the three-colour back that the script writes.
+- `print/`: the print files. `front-biiig.svg` and `back-iii.svg` are the
+  clean rebuilds from `../vector-rebuild/` (the original traces had small
+  bumps). `back-iii_white-tee.svg` is the three-colour back that this
+  script writes.
 
 To rebuild, run `pip install cairosvg pillow numpy`, then
 `python3 build_mockups.py blanks print <out_dir>`. To change the sizes or
