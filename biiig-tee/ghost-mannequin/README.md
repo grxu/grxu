@@ -48,5 +48,6 @@ placement, set any of `FRONT_W_CM`, `FRONT_TOP_CM`, `FRONT_IN_CM`,
 `threads-watermarked/` has the same four mockups with a faint tiled
 "@dorotheaphils" watermark, for Threads. The clean mockups above stay
 unmarked for the vendor. To remake the copies, run
-`python3 watermark.py . threads-watermarked`. The script's settings cover the
+`python3 watermark.py . threads-watermarked`. The mark is stronger over the
+print itself, so it shows on the solid III. The script's settings cover the
 text, angle, spacing and opacity.

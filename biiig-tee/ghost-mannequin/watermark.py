@@ -3,9 +3,11 @@
 Tiles "@dorotheaphils" across each image at a 28° angle, faint. Each letter
 is light where the image under it is dark and dark where it is light, so the
 mark reads the same on the grey backdrop, the black or white shirt and the
-print. The label block at the top left is left clear.
+print. On the print itself (found by comparing each mockup with its blank tee
+in blanks/) the mark is stronger, so it still shows on the solid III. The
+label block at the top left is left clear.
 
-Usage: python3 watermark.py <mockups_dir> <out_dir>
+Usage: python3 watermark.py <mockups_dir> <out_dir> [blanks_dir]
 """
 import os
 import sys
@@ -14,6 +16,7 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 SRC, OUT = sys.argv[1:3]
+BLANKS = sys.argv[3] if len(sys.argv) > 3 else os.path.join(SRC, "blanks")
 os.makedirs(OUT, exist_ok=True)
 
 TEXT = "@dorotheaphils"
@@ -22,6 +25,7 @@ ANGLE = 28
 GAP_X, GAP_Y = 120, 150      # space between repeats (px at 1080 wide)
 ALPHA_ON_DARK = 0.17         # light text over dark areas
 ALPHA_ON_LIGHT = 0.13        # dark text over light areas
+ALPHA_ON_PRINT = 0.34        # either ink, over the printed artwork
 LABEL_BOX = (40, 40, 430, 200)  # top-left label block, kept clear
 
 
@@ -54,7 +58,18 @@ for name in sorted(os.listdir(SRC)):
     lum = np.asarray(im.convert("L").filter(ImageFilter.GaussianBlur(3)), np.float32)
     dark = lum < 128
     ink = np.where(dark[..., None], 255.0, 0.0)
-    a = (m * np.where(dark, ALPHA_ON_DARK, ALPHA_ON_LIGHT))[..., None]
+    alpha = np.where(dark, ALPHA_ON_DARK, ALPHA_ON_LIGHT)
+    # Where the mockup differs from its blank tee, that's the print (and the
+    # zoom circle): use the stronger mark there.
+    blank_name = name[3:].rsplit(".", 1)[0]  # "01_black_front.jpg" -> "black_front"
+    blank_path = os.path.join(BLANKS, blank_name + ".jpg")
+    if os.path.exists(blank_path):
+        blank = np.asarray(Image.open(blank_path).convert("RGB").resize(im.size, Image.LANCZOS), np.float32)
+        diff = np.abs(rgb - blank).sum(axis=2) > 90
+        printed = Image.fromarray((diff * 255).astype(np.uint8)).filter(ImageFilter.MinFilter(3))
+        printed = np.asarray(printed.filter(ImageFilter.GaussianBlur(1.5)), np.float32) / 255
+        alpha = alpha + (ALPHA_ON_PRINT - alpha) * printed
+    a = (m * alpha)[..., None]
     out = rgb * (1 - a) + ink * a
     base = os.path.splitext(name)[0]
     Image.fromarray(out.clip(0, 255).astype(np.uint8)).save(
