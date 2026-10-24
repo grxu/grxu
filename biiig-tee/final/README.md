@@ -12,6 +12,7 @@ ghost mannequin mockups.
 | `print-files/white-tee/` | The same for the white tee |
 | `spec-sheets/` | `spec-sheet_black-tee` and `spec-sheet_white-tee`, A3, as .pdf and .png |
 | `threads-mockups/` | The four 1080×1350 mockups: black and white tee, front and back |
+| `threads-mockups_watermarked/` | The same four with a faint tiled "@dorotheaphils" watermark, for posting |
 
 ## Print spec
 

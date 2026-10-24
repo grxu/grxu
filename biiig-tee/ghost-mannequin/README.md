@@ -42,3 +42,11 @@ To rebuild, run `pip install cairosvg pillow numpy`, then
 placement, set any of `FRONT_W_CM`, `FRONT_TOP_CM`, `FRONT_IN_CM`,
 `BACK_W_CM` or `BACK_TOP_CM` as environment variables. Set
 `WHITE_BACK=mono` for a plain black back on the white tee.
+
+## Watermarked copies for posting
+
+`threads-watermarked/` has the same four mockups with a faint tiled
+"@dorotheaphils" watermark, for Threads. The clean mockups above stay
+unmarked for the vendor. To remake the copies, run
+`python3 watermark.py . threads-watermarked`. The script's settings cover the
+text, angle, spacing and opacity.
