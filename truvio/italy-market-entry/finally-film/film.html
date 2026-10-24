@@ -32,7 +32,7 @@
     <text id="head" x="256" y="675" font-family="Arvo" font-weight="400" font-size="70" fill="#400685">FINALMENT</text>
     <g id="letters" font-family="Arvo" font-weight="400" text-anchor="middle"></g>
     <text id="italia" x="3640" y="985" text-anchor="end" font-family="Arvo" font-weight="400" font-size="70" fill="#400685">in Italia</text>
-    <image id="logo" href="../assets/truvio-logo-violet.svg" x="4055" y="1212" width="220" height="73"/>
+    <image id="logo" href="assets/truvio-logo-violet.svg" x="4035" y="1212" width="220" height="73"/>
     <use id="carUse" href="#car"/>
   </g>
 </svg>
@@ -137,6 +137,33 @@
     $('logo').setAttribute('opacity', ease((t - 11.1) / 0.5));
   };
   window.DUR = DUR;
+
+  // Geometry and motion for the After Effects build, read by export-ae.js. World units are px in the 4320x1350 panorama.
+  window.exportAE = function (fps = 25) {
+    const r1 = v => Math.round(v * 10) / 10;
+    const letters = [...$('letters').children].map(el => {
+      const m = el.getAttribute('transform').match(/translate\(([-\d.]+) ([-\d.]+)\) rotate\(([-\d.]+)\)/);
+      return { x: +m[1], y: +m[2], rot: +m[3], fill: el.getAttribute('fill') };
+    });
+    const frames = [];
+    for (let i = 0; i <= Math.round(DUR * fps); i++) {
+      const t = i / fps, c = carS(t), [x, y] = road.at(c), ang = road.tan(c, 30 * CAR), lift = SIZE * 0.69;
+      let cam = 0; CUTS.forEach(tc => { cam += W * ease((t - tc + 0.35) / 0.7); });
+      frames.push({ f: i, car: [r1(x + Math.sin(ang) * lift), r1(y - Math.cos(ang) * lift), r1(ang * 180 / Math.PI)], camX: r1(cam) });
+    }
+    return {
+      note: 'Measured with Arvo 400 as a stand-in for Museo Slab 500. headEndX moves with the real font, see the handoff.',
+      fps, duration: DUR, world: [4320, 1350], frame: [1080, 1350], cuts: CUTS, panDuration: 0.7,
+      headline: { siamo: { text: 'Siamo', x: 256, y: 600, size: 46 }, head: { text: 'FINALMENT', x: 256, y: 675, size: 70 }, headEndX: r1(K.sH + 256) },
+      letterSize: SIZE, letterCount: letters.length, gradientStops: STOPS,
+      roadLength: r1(road.L), roadPolyline: road.pts.filter((p, i) => i % 3 === 0 || i === road.pts.length - 1).map(p => [r1(p[0]), r1(p[1])]),
+      letters, car: { scale: CAR, lengthPx: r1(74 * CAR), liftAboveBaseline: r1(SIZE * 0.69) },
+      plate: { file: 'plates/duomo-plate.png', x: 3305, y: 120, w: 950, h: 595, blend: 'multiply' },
+      italia: { text: 'in Italia', rightX: 3640, y: 985, size: 70, fadeIn: [10.6, 11.1] },
+      logo: { file: 'assets/truvio-logo-violet.svg', x: 4035, y: 1212, w: 220, fadeIn: [11.1, 11.6] },
+      frames
+    };
+  };
 
   document.fonts.load('400 70px Arvo').then(() => document.fonts.load('500 34px "Be Vietnam Pro"')).then(() => {
     build();

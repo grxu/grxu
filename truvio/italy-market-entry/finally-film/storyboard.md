@@ -26,7 +26,7 @@ One LinkedIn organic post. One MP4, 1080x1350 (4:5), 12.7s, one continuous take.
 - Road height by panel: the tail leaves the word at y 675 and reaches y 783 at the panel edge. The wave bottoms out at y 945. The loop top sits at y 95. Panel 4 runs flat at y 864 and ends at x 400.
 - Duomo plate: x 65 to 1015 and y 120 to 715 in panel 4 (950 x 595). The file is `plates/duomo-plate.png`, Higgsfield take A2, set to Multiply so its white ground drops onto the page.
 - "in Italia": 70px, right-aligned to the road end at x 400, baseline y 985.
-- Logo: 220px wide, bottom right of panel 4 on the 65px margin.
+- Logo: 220px wide, top left at x 4035, y 1212, so it sits inside the 65px margin at the bottom right of panel 4.
 - Car: about 190px long, riding on top of the E's.
 
 ## Colour
@@ -50,5 +50,7 @@ One LinkedIn organic post. One MP4, 1080x1350 (4:5), 12.7s, one continuous take.
 - `render.js`: renders the key frames and the animatic sequence with Playwright. See the usage note at the top of the file.
 - `plates/`: the raw Higgsfield render (`duomo-a2.png`) and the cleaned 1900 x 1190 plate (`duomo-plate.png`).
 - `higgsfield-prompt-duomo-plate.md`: the prompt and the notes on the take.
+- `export-ae.js` and `ae/`: the build data for After Effects. See `handoff-finally-film.md`.
+- `assets/`: the logo used in the animatic.
 - `storyboard/`: the eight key frames and the contact sheet.
 - `animatic.mp4`: the 12.7s animatic at 25fps.

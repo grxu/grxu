@@ -8,7 +8,7 @@
   - Format: one MP4, 4:5 1080x1350, one continuous take, reference pacing 2.5s, 2.5s, 4.2s, 3.5s (about 12.7s). No swipe or wipe effect.
     (LinkedIn organic can't swipe between videos, and GIFs don't fix it: PDF pages are static, multi-image posts are a grid, GIF banding.)
   - Follow the reference closely. No Italy map (the first storyboard drew one, and Grady rejected it).
-    Beats: headline "Siamo / FINALMENTEEEE" in caps, a wavy E-road, a row of loop-de-loops with the car flipping, then the reference's final layout.
+    Beats: headline "Siamo / FINALMENTEEEE" in caps, a wavy E-road, one coaster loop with the car upside down at the top (as in the reference), then the reference's final layout.
     Final layout: the headline tail dips to a second row of E's that leads to the destination, "in Italia" below.
   - Destination (top right, replacing the Flipkart storefront): Duomo di Milano plate, 950 x 595, made in Higgsfield. Brand-only end, no URL.
   - v2 animatic (reference layout) is LOCKED.

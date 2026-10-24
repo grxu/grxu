@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="40" viewBox="-38 -36 80 40">
+  <!-- Flat generic hatchback, 74 x 34, origin on the ground line between the wheels. Not modelled on any real car. -->
+      <path d="M-35 -9 Q-37 -20 -28 -22 L-17 -23 Q-9 -33 4 -33 L13 -33 Q22 -32 29 -22 L33 -20 Q38 -18 37 -10 L36 -6 L-34 -6 Z" fill="#FFB310"></path>
+      <path d="M-13 -23 Q-7 -30 3 -30 L5 -30 L5 -23 Z M9 -30 L12 -30 Q19 -29 24 -23 L9 -23 Z" fill="#FFFFFF"></path>
+      <rect x="-34" y="-14" width="70" height="2.2" fill="#400685" opacity=".9"></rect>
+      <circle cx="-21" cy="-6" r="7.5" fill="#400685"></circle><circle cx="-21" cy="-6" r="3.2" fill="#CFD2D4"></circle>
+      <circle cx="22" cy="-6" r="7.5" fill="#400685"></circle><circle cx="22" cy="-6" r="3.2" fill="#CFD2D4"></circle>
+      <rect x="33" y="-19" width="4" height="3" rx="1" fill="#FFFFFF"></rect>
+</svg>
