@@ -1,53 +1,52 @@
-# Siamo finalmente in Italia: storyboard
+# Siamo finalmente in Italia: storyboard v2
 
-One LinkedIn organic post. One MP4, 1080x1350 (4:5), 12.7s, one continuous take. It's a remake of the "We are finallyyyy on Flipkart" letter-road format. The trailing e's of "finalmente" become a road that draws the whole of Italy.
+One LinkedIn organic post. One MP4, 1080x1350 (4:5), 12.7s, one continuous take. It's a close remake of the "We are finallyyyy on Flipkart" letter-road format. v1 drew a map of Italy, and Grady dropped it. v2 follows the reference layout.
 
 - Watch the timing: `animatic.mp4`. It's a rough render for pacing and layout only. Rebuild it in After Effects.
-- All seven key frames side by side: `storyboard/contact-sheet.png`.
+- All eight key frames: `storyboard/contact-sheet.png`.
 
-## Decisions so far
-- Direction A, the boot. The letter road traces Italy, Sicily and Sardinia included.
-- Italian headline: "Siamo finalmenteeee ... in Italia" (We are finally in Italy).
-- Brand-only end card: the logo and "in Italia". No URL and no product line.
-- The vehicle is a small flat car in brand colours. It is generic and not modelled on any real car.
-- One take with no cuts and no swipe effect. The beats follow the reference pacing: 2.5s, 2.5s, 4.2s, 3.5s.
+## How the reference is built
+- The four reference clips are one panorama cut into four panels. The road runs unbroken from panel to panel.
+- Panel 1 holds the headline and tail, panel 2 a wave, panel 3 one coaster loop, and panel 4 the destination.
+- Each panel holds still while the car drives across it.
+- In our single MP4 the camera holds each panel the same way and pans 0.7s to the next one as the car crosses the edge.
 
 ## Frames
 
 | Time | Frame | What happens |
 |---|---|---|
-| 0.0 to 1.0s | ![](storyboard/frame-00.8s.png) | "Siamo" fades in. "finalmente" types on in Deep Violet. The camera sits tight on the headline. |
-| 1.0 to 2.5s | ![](storyboard/frame-01.8s.png) | The car drops onto the word and rolls right. The e's spill out ahead of it and shrink as they run. |
-| 2.5 to 4.6s | ![](storyboard/frame-03.6s.png) | The tail swings down into the Tarvisio corner. The road runs past Venezia and down the Adriatic. The camera follows the car. |
-| 4.6 to 5.8s | ![](storyboard/frame-05.6s.png) | The road rounds the heel and the Gulf of Taranto, then runs down Calabria to the toe. |
-| 5.8 to 8.4s | ![](storyboard/frame-07.4s.png) | The loop. The road jumps the strait and laps Sicily once. The car hangs upside down on the south coast, like the reference loop. |
-| 8.4 to 10.6s | ![](storyboard/frame-09.6s.png) | The car runs up the west coast and across the Alps. The camera pulls back. Sardinia draws itself in as a closed ring. |
-| 10.6 to 12.7s | ![](storyboard/frame-12.7s.png) | The car parks on the Alps. "in Italia" rises in. The logo fades in at 11.2s. It holds for about 1.5s. |
+| 0.0 to 2.5s | ![](storyboard/frame-00.0s.png) ![](storyboard/frame-01.5s.png) | Panel 1. "Siamo / FINALMENTEEEE" is on screen from frame one. The car sits on the caps right of "Siamo", then rolls down the tail. |
+| 2.5 to 5.0s | ![](storyboard/frame-03.8s.png) | Panel 2. The road dips into a wave and climbs out. |
+| 5.0 to 9.2s | ![](storyboard/frame-06.0s.png) ![](storyboard/frame-07.4s.png) ![](storyboard/frame-08.4s.png) | Panel 3. The coaster loop. The car rides the inside of the loop and goes upside down at the top, like the reference. |
+| 9.2 to 12.7s | ![](storyboard/frame-10.0s.png) ![](storyboard/frame-12.7s.png) | Panel 4. The road runs under the landmark plate and the car parks at the road end. "in Italia" fades in at 10.6s, right-aligned to the road end. The logo follows at 11.1s. |
 
-## How the road works
-- The road is one path: the headline baseline, the tail, then the mainland clockwise from Tarvisio. At the toe it loops round Sicily and comes back, then closes at Tarvisio.
-- Running clockwise keeps every e standing on the sea side of the coast, and the car rides on top of the letters.
-- Colour runs along the road in the primary gradient: Deep Violet at the headline, then Celestial Blue, Electric Green and Yellow Gold at the close. Sardinia sits in the green to gold end.
-- Letter size: 92px in the headline, tapering to 26px by the Alps. It stays 26px round the coast.
-- The outline comes from Natural Earth 1:50m (public domain), smoothed so no bend is tighter than a letter. To rebuild it, run `source/make_road.py`.
+## Layout, measured off the reference
+- Headline: "Siamo" 46px, baseline y 600. "FINALMENT" 70px caps, baseline y 675, x 256. Both are Deep Violet.
+- Road: caps E's at 70px, spaced a little looser than the font, rotated along the path.
+- Road height by panel: the tail leaves the word at y 675 and reaches y 783 at the panel edge. The wave bottoms out at y 945. The loop top sits at y 95. Panel 4 runs flat at y 864 and ends at x 400.
+- Landmark plate: x 65 to 1015 and y 120 to 715 in panel 4 (950 x 595). It's a placeholder for the Higgsfield image.
+- "in Italia": 70px, right-aligned to the road end at x 400, baseline y 985.
+- Logo: 220px wide, bottom right of panel 4 on the 65px margin.
+- Car: about 190px long, riding on top of the E's.
+
+## Colour
+- The darker road: Deep Violet for the first 40%, easing to Celestial Blue through the loop.
+- Electric Green and Yellow Gold come in only over the last stretch under the landmark.
 
 ## After Effects build notes
-- Build the road as one mask path on a shape layer. Paste the points from `road.js`, or trace them in Illustrator.
-- Use a text layer on the path for the e's, with a text animator for reveal, size taper and fill colour by index.
-- The car follows the same path with Auto-Orient on, offset above the letters.
-- The camera is a 2D null for position and scale. It starts at 200%, holds near 180% while it follows the car, and eases out to 100% from 8.5s to 10.6s.
-- Set the end card by hand: "in Italia" in Museo Slab 500 and the official logo lockup.
+- Build the road as one mask path across a 4320x1350 comp. Nest it in a 1080x1350 comp and keyframe the position: hold each panel, then pan 0.7s with easy ease at 2.5s, 5.0s and 9.2s.
+- Use a text layer on the path for the E's, with a fill colour animator by index for the gradient.
+- The car follows the same path with Auto-Orient on, offset about 48px above the baseline.
+- Set "in Italia" and the logo by hand: Museo Slab 500 and the official lockup.
 
 ## Check before it goes out
-- Fonts: the mocks use Arvo as a stand-in for Museo Slab. "finalmente" is set in Museo Slab 700, and "Siamo" and "in Italia" in 500.
-- Yellow Gold e's on white are light at 26px. Check them on a phone. If they wash out, end the gradient at Electric Green or set the Alps stretch a size larger.
+- Fonts: the mocks use Arvo as a stand-in for Museo Slab. Set "Siamo", "FINALMENTE", the E's and "in Italia" in Museo Slab 500, to match the reference's regular weight.
 - Italian copy: "Siamo finalmente in Italia" needs a native check.
-- Logo: the mock uses `assets/truvio-logo-violet.svg`. Swap in the official colour lockup if one exists.
-- Sound: nothing is planned yet. A short engine or tyre sound under the loop would land the joke on autoplay with sound on. LinkedIn autoplays muted, so the film has to work silent.
+- Landmark plate: generate it in Higgsfield on a clean white or near-white ground, so it sits on the page like the reference storefront. Keep text and logos out of the generated image. Set the logo by hand.
+- Sound: LinkedIn autoplays muted, so the film has to work silent.
 
 ## Files
 - `film.html`: the animatic. Open it to play the loop, or add `?t=3.6` to hold one frame.
 - `render.js`: renders the key frames and the animatic sequence with Playwright. See the usage note at the top of the file.
-- `road.js`: the road points, built from `../source/road.json`.
-- `storyboard/`: the seven key frames and the contact sheet.
+- `storyboard/`: the eight key frames and the contact sheet.
 - `animatic.mp4`: the 12.7s animatic at 25fps.
