@@ -10,6 +10,9 @@
   - Follow the reference closely. No Italy map (the first storyboard drew one, and Grady rejected it).
     Beats: headline "Siamo / FINALMENTEEEE" in caps, a wavy E-road, a row of loop-de-loops with the car flipping, then the reference's final layout.
     Final layout: the headline tail dips to a second row of E's that leads to the destination, "in Italia" below.
-  - Destination (top right, replacing the Flipkart storefront): an Italian landmark image Grady makes in Higgsfield. Brand-only end, no URL.
+  - Destination (top right, replacing the Flipkart storefront): Duomo di Milano plate, 950 x 595, made in Higgsfield. Brand-only end, no URL.
+  - v2 animatic (reference layout) is LOCKED.
+  - Duomo plate: soft 3D miniature in pale marble, straight-on facade, pure white ground, gilded Madonnina as the one warm accent.
+    Prompt file: `finally-film/higgsfield-prompt-duomo-plate.md`. Next: Grady runs it in Higgsfield, I review the render, then the AE build.
   - Road colour: darker overall (Deep Violet and Celestial Blue, green and gold as short accents).
   - Vehicle: small flat car, Yellow Gold body with Deep Violet wheels and trim. Never a recognisable model. Grady approved it as is.
