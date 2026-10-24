@@ -56,3 +56,11 @@ Nano Banana has no negative prompt field. The exclusions are inside the prompt. 
 - The statue comes out brassy, or missing: add "a small gilded statue in bright, warm polished gold on the very tip of the tallest central spire".
 - Cropped at the edges: add "the whole cathedral sits inside the frame with wide white margins".
 - Looks plasticky: add "real carved marble with soft satin sheen and subtle stone grain".
+
+## First run (24 Oct 2026)
+- Prompt A, Nano Banana Pro, 3:2, 2K, batch of 2. Higgsfield's job record lists the model as nano_banana_2.
+- A1: rejected. The ground went grey at the corners (#D7D7D7, with a vignette), and the marble reads waxy and soft.
+- A2: picked. The facade is accurate (five doors, stepped Gothic profile), the detail is crisp, and the gilded statue sits on the main spire. The ground came out near white (#F8F8F8).
+- The model fills about 52 percent of the frame width, not the 80 percent the prompt asked for. That didn't matter, since the crop is cut around the model.
+- Clean-up on A2: lifted the ground to pure white with Levels, cropped to 950:595 around the model, and feathered everything outside the model to white. Only the contact shadow at the base was kept. Output: `plates/duomo-plate.png`, 1900 x 1190.
+- In the animatic the plate uses Multiply, so its white ground drops onto the page with no visible edge.

@@ -18,13 +18,13 @@ One LinkedIn organic post. One MP4, 1080x1350 (4:5), 12.7s, one continuous take.
 | 0.0 to 2.5s | ![](storyboard/frame-00.0s.png) ![](storyboard/frame-01.5s.png) | Panel 1. "Siamo / FINALMENTEEEE" is on screen from frame one. The car sits on the caps right of "Siamo", then rolls down the tail. |
 | 2.5 to 5.0s | ![](storyboard/frame-03.8s.png) | Panel 2. The road dips into a wave and climbs out. |
 | 5.0 to 9.2s | ![](storyboard/frame-06.0s.png) ![](storyboard/frame-07.4s.png) ![](storyboard/frame-08.4s.png) | Panel 3. The coaster loop. The car rides the inside of the loop and goes upside down at the top, like the reference. |
-| 9.2 to 12.7s | ![](storyboard/frame-10.0s.png) ![](storyboard/frame-12.7s.png) | Panel 4. The road runs under the landmark plate and the car parks at the road end. "in Italia" fades in at 10.6s, right-aligned to the road end. The logo follows at 11.1s. |
+| 9.2 to 12.7s | ![](storyboard/frame-10.0s.png) ![](storyboard/frame-12.7s.png) | Panel 4. The road runs under the Duomo and the car parks at the road end. "in Italia" fades in at 10.6s, right-aligned to the road end. The logo follows at 11.1s. |
 
 ## Layout, measured off the reference
 - Headline: "Siamo" 46px, baseline y 600. "FINALMENT" 70px caps, baseline y 675, x 256. Both are Deep Violet.
 - Road: caps E's at 70px, spaced a little looser than the font, rotated along the path.
 - Road height by panel: the tail leaves the word at y 675 and reaches y 783 at the panel edge. The wave bottoms out at y 945. The loop top sits at y 95. Panel 4 runs flat at y 864 and ends at x 400.
-- Landmark plate: x 65 to 1015 and y 120 to 715 in panel 4 (950 x 595). It's a placeholder for the Higgsfield image.
+- Duomo plate: x 65 to 1015 and y 120 to 715 in panel 4 (950 x 595). The file is `plates/duomo-plate.png`, Higgsfield take A2, set to Multiply so its white ground drops onto the page.
 - "in Italia": 70px, right-aligned to the road end at x 400, baseline y 985.
 - Logo: 220px wide, bottom right of panel 4 on the 65px margin.
 - Car: about 190px long, riding on top of the E's.
@@ -42,11 +42,13 @@ One LinkedIn organic post. One MP4, 1080x1350 (4:5), 12.7s, one continuous take.
 ## Check before it goes out
 - Fonts: the mocks use Arvo as a stand-in for Museo Slab. Set "Siamo", "FINALMENTE", the E's and "in Italia" in Museo Slab 500, to match the reference's regular weight.
 - Italian copy: "Siamo finalmente in Italia" needs a native check.
-- Landmark plate: generate it in Higgsfield on a clean white or near-white ground, so it sits on the page like the reference storefront. Keep text and logos out of the generated image. Set the logo by hand.
+- Duomo plate: in AE, set the layer to Multiply, or cut it out from `plates/duomo-a2.png` (the raw render) for a transparent version. The plate's ground was lifted to pure white and feathered outside the model.
 - Sound: LinkedIn autoplays muted, so the film has to work silent.
 
 ## Files
 - `film.html`: the animatic. Open it to play the loop, or add `?t=3.6` to hold one frame.
 - `render.js`: renders the key frames and the animatic sequence with Playwright. See the usage note at the top of the file.
+- `plates/`: the raw Higgsfield render (`duomo-a2.png`) and the cleaned 1900 x 1190 plate (`duomo-plate.png`).
+- `higgsfield-prompt-duomo-plate.md`: the prompt and the notes on the take.
 - `storyboard/`: the eight key frames and the contact sheet.
 - `animatic.mp4`: the 12.7s animatic at 25fps.

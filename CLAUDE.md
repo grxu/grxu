@@ -13,6 +13,6 @@
   - Destination (top right, replacing the Flipkart storefront): Duomo di Milano plate, 950 x 595, made in Higgsfield. Brand-only end, no URL.
   - v2 animatic (reference layout) is LOCKED.
   - Duomo plate: soft 3D miniature in pale marble, straight-on facade, pure white ground, gilded Madonnina as the one warm accent.
-    Prompt file: `finally-film/higgsfield-prompt-duomo-plate.md`. Next: Grady runs it in Higgsfield, I review the render, then the AE build.
+    Prompt file: `finally-film/higgsfield-prompt-duomo-plate.md`. Take A2 picked and cleaned to `finally-film/plates/duomo-plate.png`, now in the animatic. Next: the AE build.
   - Road colour: darker overall (Deep Violet and Celestial Blue, green and gold as short accents).
   - Vehicle: small flat car, Yellow Gold body with Deep Violet wheels and trim. Never a recognisable model. Grady approved it as is.
