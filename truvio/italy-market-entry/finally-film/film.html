@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>Finalmente in Italia</title>
+<!-- Animatic for the Italy launch film. Arvo stands in for Museo Slab. Timing and layout reference only, rebuild in After Effects.
+     Open film.html to play it, film.html?t=3.6 to hold one frame. render.js drives it with window.render(t). -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&display=block">
+<style>
+  html, body { margin: 0; background: #FFFFFF; }
+  svg { display: block; width: 1080px; height: 1350px; }
+</style>
+</head>
+<body>
+<svg id="stage" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <g id="car">
+      <!-- Flat generic hatchback, 74 x 34, origin on the ground line between the wheels. Not modelled on any real car. -->
+      <path d="M-35 -9 Q-37 -20 -28 -22 L-17 -23 Q-9 -33 4 -33 L13 -33 Q22 -32 29 -22 L33 -20 Q38 -18 37 -10 L36 -6 L-34 -6 Z" fill="#FFB310"/>
+      <path d="M-13 -23 Q-7 -30 3 -30 L5 -30 L5 -23 Z M9 -30 L12 -30 Q19 -29 24 -23 L9 -23 Z" fill="#FFFFFF"/>
+      <rect x="-34" y="-14" width="70" height="2.2" fill="#400685" opacity=".9"/>
+      <circle cx="-21" cy="-6" r="7.5" fill="#400685"/><circle cx="-21" cy="-6" r="3.2" fill="#CFD2D4"/>
+      <circle cx="22" cy="-6" r="7.5" fill="#400685"/><circle cx="22" cy="-6" r="3.2" fill="#CFD2D4"/>
+      <rect x="33" y="-19" width="4" height="3" rx="1" fill="#FFFFFF"/>
+    </g>
+  </defs>
+  <g id="cam">
+    <text id="siamo" x="65" y="150" font-family="Arvo" font-weight="400" font-size="46" fill="#400685">Siamo</text>
+    <text id="head" x="65" y="246" font-family="Arvo" font-weight="700" font-size="92" fill="#400685"></text>
+    <g id="letters" font-family="Arvo" font-weight="700" text-anchor="middle"></g>
+    <g id="sardinia" font-family="Arvo" font-weight="700" text-anchor="middle"></g>
+    <use id="carUse" href="#car"/>
+  </g>
+  <text id="italia" x="65" y="1186" font-family="Arvo" font-weight="400" font-size="78" fill="#400685">in Italia</text>
+  <image id="logo" href="../assets/truvio-logo-violet.svg" x="65" y="1215" width="210" height="70"/>
+</svg>
+<script src="road.js"></script>
+<script>
+(() => {
+  const NS = 'http://www.w3.org/2000/svg';
+  const W = 1080, H = 1350, M = 65;
+  const MAP = { x: W - M - ROAD.W, y: H - M - ROAD.H - 8 };
+  const HEAD = 'finalment', HEAD_SIZE = 92, ROAD_SIZE = 26, GAP = 1.06;
+  const STOPS = [[0, '#400685'], [0.34, '#008FC4'], [0.68, '#2DB34A'], [1, '#FFB310']];
+  const $ = id => document.getElementById(id);
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const lerp = (a, b, u) => a + (b - a) * u;
+  const ease = u => { u = clamp(u, 0, 1); return u * u * (3 - 2 * u); };
+  const hex = h => [1, 3, 5].map(i => parseInt(h.substr(i, 2), 16));
+  function grad(u) {
+    u = clamp(u, 0, 1);
+    let i = 1; while (i < STOPS.length - 1 && u > STOPS[i][0]) i++;
+    const [u0, c0] = STOPS[i - 1], [u1, c1] = STOPS[i];
+    const a = hex(c0), b = hex(c1), f = (u - u0) / (u1 - u0);
+    return `rgb(${a.map((v, k) => Math.round(lerp(v, b[k], f))).join(',')})`;
+  }
+
+  // Polyline with arc length lookup.
+  function line(pts) {
+    const s = [0];
+    for (let i = 1; i < pts.length; i++) s.push(s[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
+    const at = d => {
+      d = clamp(d, 0, s[s.length - 1]);
+      let lo = 0, hi = s.length - 1;
+      while (hi - lo > 1) { const m = (lo + hi) >> 1; if (s[m] <= d) lo = m; else hi = m; }
+      const f = (d - s[lo]) / ((s[hi] - s[lo]) || 1), p = pts[lo], q = pts[hi];
+      return [lerp(p[0], q[0], f), lerp(p[1], q[1], f)];
+    };
+    const tan = (d, w = 6) => { const a = at(d - w), b = at(d + w); return Math.atan2(b[1] - a[1], b[0] - a[0]); };
+    return { pts, s, L: s[s.length - 1], at, tan };
+  }
+
+  let road, sar, letters, sarLetters, K, ready = false;
+
+  function build() {
+    const head = $('head');
+    head.textContent = HEAD;
+    const headEnd = 65 + head.getComputedTextLength() + 4;
+    const probe = document.createElementNS(NS, 'text');
+    probe.setAttribute('font-family', 'Arvo'); probe.setAttribute('font-weight', '700'); probe.setAttribute('font-size', '100');
+    probe.textContent = 'eeeeeeeeee'; $('stage').appendChild(probe);
+    const ADV = probe.getComputedTextLength() / 1000; probe.remove();
+
+    const map = ROAD.road.map(([x, y]) => [x + MAP.x, y + MAP.y]);
+    // Tail: the stretched e's leave the word, run right, then swing down into the Tarvisio corner.
+    const y0 = 246, S = map[0], T = Math.atan2(map[6][1] - S[1], map[6][0] - S[0]);
+    const P = [[headEnd, y0], [headEnd + 330, y0], [S[0] - Math.cos(T) * 260, S[1] - Math.sin(T) * 260], S];
+    const tail = [];
+    for (let i = 0; i <= 80; i++) {
+      const u = i / 80, v = 1 - u;
+      tail.push([0, 1].map(k => v * v * v * P[0][k] + 3 * v * v * u * P[1][k] + 3 * v * u * u * P[2][k] + u * u * u * P[3][k]));
+    }
+    const pts = [[65, y0], ...tail, ...map.slice(1)];
+    road = line(pts);
+    const sH = headEnd - 65, sT = sH + line(tail).L;
+    const sAt = i => sT + line(map.slice(0, i + 1)).L;
+    const heel = map.reduce((b, p, i) => Math.hypot(p[0] - (ROAD.cities.Lecce[0] + MAP.x), p[1] - (ROAD.cities.Lecce[1] + MAP.y)) < Math.hypot(map[b][0] - (ROAD.cities.Lecce[0] + MAP.x), map[b][1] - (ROAD.cities.Lecce[1] + MAP.y)) ? i : b, 0);
+    K = { sH, sT, heel: sAt(heel), toe: sAt(ROAD.marks.toe), sic: sAt(ROAD.marks.sicilyEnd), L: road.L };
+
+    const size = s => s < sT ? lerp(HEAD_SIZE, ROAD_SIZE, ease((s - sH) / (sT - sH) * 1.15)) : ROAD_SIZE;
+    K.size = size;
+    letters = [];
+    for (let s = sH; s < road.L - ROAD_SIZE * ADV * 0.5;) {
+      const z = size(s), a = z * ADV * (s < K.sT ? 1 : GAP), c = s + a / 2, [x, y] = road.at(c), ang = road.tan(c, a / 2) * 180 / Math.PI;
+      const el = document.createElementNS(NS, 'text');
+      el.setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${ang.toFixed(1)})`);
+      el.setAttribute('font-size', z.toFixed(1)); el.setAttribute('fill', grad((c - sH) / (road.L - sH)));
+      el.textContent = 'e'; $('letters').appendChild(el);
+      letters.push({ s: c, el });
+      s += a;
+    }
+    sar = line(ROAD.sardinia.map(([x, y]) => [x + MAP.x, y + MAP.y]));
+    sarLetters = [];
+    const sn = Math.round(sar.L / (ROAD_SIZE * ADV * GAP)), sa = sar.L / sn;  // even spacing so the ring closes without a gap
+    for (let i = 0; i < sn; i++) {
+      const c = (i + 0.5) * sa, [x, y] = sar.at(c), ang = sar.tan(c) * 180 / Math.PI;
+      const el = document.createElementNS(NS, 'text');
+      el.setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${ang.toFixed(1)})`);
+      el.setAttribute('font-size', ROAD_SIZE); el.setAttribute('fill', grad(0.7 + 0.3 * c / sar.L));
+      el.textContent = 'e'; $('sardinia').appendChild(el);
+      sarLetters.push({ s: c, el });
+    }
+    ready = true;
+  }
+
+  // Beats follow the reference: 0-2.5 headline, 2.5-5 north and Adriatic, 5-9.2 heel, toe and the Sicily loop, 9.2-12.7 close, pull back and end card.
+  const DUR = 12.7;
+  function carS(t) {
+    const k = [[1.3, 0.5 * K.sH], [2.5, K.sT], [4.6, K.heel], [5.8, K.toe], [8.4, K.sic], [10.6, K.L - 75]];  // parks on the Alps, just short of where the tail joins
+    if (t <= k[0][0]) return k[0][1];
+    for (let i = 1; i < k.length; i++) if (t <= k[i][0]) {
+      let u = (t - k[i - 1][0]) / (k[i][0] - k[i - 1][0]);
+      if (i === 1) u = u * u; if (i === k.length - 1) u = 1 - (1 - u) * (1 - u);
+      return lerp(k[i - 1][1], k[i][1], u);
+    }
+    return k[k.length - 1][1];
+  }
+  function carPose(t) {
+    const c = carS(t), [x, y] = road.at(c), a = road.tan(c, 22);
+    const lift = c < K.sH - 20 ? HEAD_SIZE * 0.74 : c < K.sH + 30 ? lerp(HEAD_SIZE * 0.74, K.size(c) * 0.54, (c - K.sH + 20) / 50) : K.size(c) * 0.54 + 1;
+    return { x: x + Math.sin(a) * lift, y: y - Math.cos(a) * lift, a };
+  }
+
+  window.render = function (t) {
+    if (!ready) return;
+    const typed = clamp(Math.floor((t - 0.35) / 0.07), 0, HEAD.length);
+    $('head').textContent = HEAD.slice(0, typed);
+    $('siamo').setAttribute('opacity', ease(t / 0.4));
+    const c = carS(t);
+    const reveal = Math.max(lerp(K.sH, K.sT + 60, ease((t - 1.0) / 1.2)), t > 1.3 ? c + 320 : 0);
+    for (const l of letters) l.el.setAttribute('opacity', l.s <= reveal ? 1 : 0);
+    const sr = ease((t - 9.3) / 1.1) * sar.L;
+    for (const l of sarLetters) l.el.setAttribute('opacity', l.s <= sr ? 1 : 0);
+
+    const p = carPose(t), drop = 1 - ease((t - 1.0) / 0.35);
+    const car = $('carUse');
+    car.setAttribute('transform', `translate(${p.x.toFixed(1)} ${(p.y - drop * 40).toFixed(1)}) rotate(${(p.a * 180 / Math.PI).toFixed(1)})`);
+    car.setAttribute('opacity', t < 1.0 ? 0 : ease((t - 1.0) / 0.2));
+
+    // Camera: tight on the car, then pull back to the full frame for the end card.
+    let cx = 0, cy = 0, n = 0;
+    for (let d = 0; d <= 0.5; d += 0.05) { const q = carPose(Math.max(1.3, t - d)); cx += q.x; cy += q.y; n++; }
+    cx /= n; cy /= n;
+    if (t < 2.0) { const u = ease((t - 0.2) / 2.0); cx = lerp(300, cx, u); cy = lerp(215, cy, u); }
+    const pull = ease((t - 8.5) / 2.1);
+    const z = lerp(t < 2.5 ? lerp(2.0, 1.8, ease((t - 1.5) / 1.0)) : 1.8, 1, pull);
+    cx = lerp(cx, W / 2, pull); cy = lerp(cy, H / 2, pull);
+    cx = clamp(cx, W / 2 / z, W - W / 2 / z); cy = clamp(cy, H / 2 / z, H - H / 2 / z);
+    $('cam').setAttribute('transform', `translate(${W / 2} ${H / 2}) scale(${z.toFixed(4)}) translate(${-cx.toFixed(1)} ${-cy.toFixed(1)})`);
+
+    const it = ease((t - 10.7) / 0.5);
+    $('italia').setAttribute('opacity', it); $('italia').setAttribute('transform', `translate(0 ${(1 - it) * 24})`);
+    const lg = ease((t - 11.2) / 0.5);
+    $('logo').setAttribute('opacity', lg);
+  };
+  window.DUR = DUR;
+
+  document.fonts.load('700 92px Arvo').then(() => document.fonts.load('400 46px Arvo')).then(() => {
+    build();
+    window.filmReady = true;
+    const q = new URLSearchParams(location.search);
+    if (q.has('t')) render(parseFloat(q.get('t')));
+    else { const t0 = performance.now(); const loop = now => { render(((now - t0) / 1000) % (DUR + 1)); requestAnimationFrame(loop); }; requestAnimationFrame(loop); }
+  });
+})();
+</script>
+</body>
+</html>
