@@ -110,3 +110,27 @@ What missed
 Fix options
 - Photoshop, about 10 minutes: Select Color Range on the sky in the top 400 px, then fill with a gradient from about #0A0672 at the top to #161179 at the join, then add noise to match the grain.
 - Or rerun the outpaint with a stronger sky instruction (4.4 credits, random result).
+
+## London v3: true landmark colours, 4:5 (26 Oct 2026)
+
+Grady's calls: a fresh 4:5 render; landmarks in their true real-world colours, even off-palette; soft golden-hour light; the indigo-to-pink sky from the square v2; headline space at the top, laid out like YHA.
+
+```text
+Portrait editorial travel-poster illustration of Tower Bridge in London at golden hour, a modern hand-made digital painting: flat shapes with soft gradients, fine grain and subtle dry-brush texture, crisp simplified architecture, no outlines, nothing photographic. Seen at eye level from the riverside walk on the south bank, looking at Tower Bridge, which stands centred as the hero: exactly two Gothic towers with pointed roofs and small corner turrets, the high walkway between them, the bascule road deck and suspension chains sweeping down to both banks. The landmarks keep their true real-world colours: the towers in pale warm grey Portland stone and granite with dark slate roofs and small gold-tipped finials, all the bridge steelwork (the walkway lattice, the suspension chains, the deck girders) painted its real light blue and white. Behind the bridge, The Shard rises on the right in pale grey-blue glass, the silver glass dome of the old City Hall sits low on the right bank, and the City towers stand soft and hazy on the left in grey-blue glass. Soft golden-hour light: a low warm sun from the left adds a gentle peach glow on the sunlit faces, the shadow sides fall in cool soft violet, and the true colours stay clearly readable. The sky is deep indigo (Stellar Midnight, hex #070089) at the very top, through Deep Violet (hex #400685) and soft lavender, to a gentle pink and peach glow at the horizon, with two or three long soft brushed clouds catching warm light, all of them low in the sky just above the skyline. The Thames is calm and deep violet, with long reflections of the bridge in its true stone, blue and white. Framing: a large plane tree with dark green leaves leans in from the left edge and its leafy branches reach up into the top left corner, and the corner of a warm-lit brick building with glowing windows stands at the right edge. A pale stone riverside railing runs along the bottom. No people, no text, no letters, no numbers, no signs, no logos, no flags, no border. Full-bleed scene. The top 34 percent of the frame is open, even indigo sky with no clouds, kept clear for a headline, framed only by the tree branches at the top left. The tops of the bridge towers reach 44 percent from the top. The tip of The Shard reaches no higher than 38 percent from the top.
+```
+
+Result: https://d8j0ntlcm91z4.cloudfront.net/user_3F9g5MvyxWEcBzuFjPmI97hrMM7/hf_20261026_152419_8141711a-9fa6-4334-930d-d694f7f580b5.png
+File: `plates/london-v3-4x5-true-colour-1856x2304.png`. Preview: `london-v3-4x5-preview.jpg`. Cost 2 credits.
+
+What worked
+- True colours read at a glance: stone towers, slate roofs, gold finials, light blue and white steelwork. Both walkways show.
+- The Shard, the Gherkin, the City towers and the old City Hall are all in place, in grey-blue and silver glass.
+- The sky is indigo at the top (#1A1F6C at the top right), through lavender to a pink and peach glow. Clouds stay low, from 38% down.
+- Soft golden hour: a peach glow on the lit faces, violet shade, colours still true.
+- Same framing as v2: the tree from the left, the lit brick building at right, the stone railing at the bottom.
+- No text and no people, checked at full size.
+
+What to watch
+- The tree canopy is heavier than in YHA. It covers about three quarters of the width in the top 15%. The clear sky for type sits from about 15% to 34% down, centred or right of centre. Trim branches in Photoshop if the headline needs the full top band.
+- The tower tops sit at 43% and the Shard at 44%. Both are below the headline zone.
+- The steel blue (about #6FA8DC) and the brick are off-palette by Grady's choice. The sky stays brand indigo.
