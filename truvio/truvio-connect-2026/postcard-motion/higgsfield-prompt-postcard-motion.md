@@ -90,3 +90,23 @@ What to watch
 - One high walkway band. The real bridge has two side by side, which look like one from here.
 - Tower tops at 30% from the top, the Shard at 29%. The top quarter is clear sky with two clouds, so the city name fits.
 - The 2K plate is raster. For Illustrator and animation, split it into sky, skyline, bridge, foreground frame (tree, building, railing) and water by hand or with Image Trace. AI layer extraction failed on the earlier plate.
+
+### London v2, extended to 4:5 for a headline (26 Oct 2026)
+
+Grady liked v2 and asked for room at the top for type, laid out like the YHA "Experience the City" poster.
+- FLUX.2 Pro Outpaint, top only, +400 px on a 1600 px copy (its canvas cap is 4 MP, so the 2048 plate couldn't go in). Result 1600x2000, 4:5. Cost 4.4 credits.
+- Output: https://d8j0ntlcm91z4.cloudfront.net/user_3F9g5MvyxWEcBzuFjPmI97hrMM7/hf_20261026_142409_e1db8770-511a-427e-8f62-da8b460b68b4.png
+- File: `plates/london-v2-4x5-outpaint-1600x2000.png`. Preview: `london-v2-4x5-preview.jpg`.
+
+What worked
+- The original image is untouched, with no visible seam at the join (row 400 matches: #161179).
+- The plane tree grows naturally up into the top left corner, framing the sky the way the YHA trees do.
+
+What missed
+- The new sky runs the wrong way: pink at the very top (#D56D98), then violet, then indigo at the join. It should deepen to indigo at the top.
+- It added a cloud in the new area despite "no clouds".
+- Both sit in the headline zone, so white type there has weaker contrast.
+
+Fix options
+- Photoshop, about 10 minutes: Select Color Range on the sky in the top 400 px, then fill with a gradient from about #0A0672 at the top to #161179 at the join, then add noise to match the grain.
+- Or rerun the outpaint with a stronger sky instruction (4.4 credits, random result).
