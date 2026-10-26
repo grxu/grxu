@@ -52,3 +52,41 @@ Each opens with: "Edit the reference image. Keep exactly the same drawing style,
 - Too photographic or 3D: "flat vector shapes only, no realistic lighting, no 3D rendering".
 - Tower Bridge gets extra towers: "exactly two towers, the Victorian bascule bridge with one high walkway between them".
 - A layer plate redraws the scene instead of isolating it: add "Do not redraw, cut out" and rerun once.
+
+## Style v2: editorial golden hour (26 Oct 2026)
+
+Grady shared four new style references (Segesta, Melbourne, YHA "Experience the City", St Paul's). Decisions:
+- Blend of what they share. No single piece copied.
+- No people.
+- Reference palette snapped to brand: Stellar Midnight #070089, Deep Violet #400685, Twilight #9C9DEC, Celestial Bloom #E19CEC, Yellow Gold #FFB310, Prometheus Red #F76336, Teal Meridian #006D5B, Silver #CFD2D4, White. The same palette for every city, replacing the per-city lead colour.
+- References described in text only, never uploaded. They look like real illustrators' commissioned work.
+
+What the four share
+- Flat editorial illustration with soft gradients and fine grain or dry-brush texture.
+- A warm and cool light split: lit faces in peach and gold, shadows in blue and violet.
+- An eye-level view, one landmark centred, framed by buildings or trees at the sides, with open sky for a headline.
+- Indigo and violet dominate, with warm light as the accent.
+
+### London v2 (1:1)
+
+```text
+Editorial travel illustration of Tower Bridge in London at golden hour, a modern hand-made digital painting: flat shapes with soft gradients, fine grain and subtle dry-brush texture, crisp simplified architecture, no outlines, nothing photographic. Seen at eye level from the riverside walk on the south bank, looking straight at Tower Bridge, which stands centred as the hero: exactly two Gothic stone towers with pointed roofs and small corner turrets, the high walkway between them, the bascule road deck and suspension chains sweeping down to both banks. Low warm sun from the left lights the stone faces in peach and Yellow Gold (hex #FFB310) with Prometheus Red (hex #F76336) on the brightest edges, and every shadow side falls in cool Deep Violet (hex #400685) and Twilight (hex #9C9DEC). Behind the bridge, The Shard rises on the right and the City towers sit soft and hazy on the left in pale Twilight. The sky runs from Stellar Midnight (hex #070089) at the very top through Deep Violet and Twilight to a soft Celestial Bloom (hex #E19CEC) and peach glow at the horizon, with two or three long soft brushed clouds catching warm light. The Thames is calm, deep violet, with long gold and peach reflections of the lit towers. Framing: a large plane tree in dark Teal Meridian (hex #006D5B) and Deep Violet leans in from the left edge, and the corner of a warm-lit brick building with glowing windows stands at the right edge. A stone riverside railing runs along the bottom. Use only these colours plus Silver (hex #CFD2D4) and white: Stellar Midnight, Deep Violet, Twilight, Celestial Bloom, Yellow Gold, Prometheus Red, Teal Meridian. No people, no text, no letters, no numbers, no signs, no logos, no flags, no border. Full-bleed scene. The tops of the bridge towers reach 38 percent from the top. The tip of The Shard reaches no higher than 28 percent from the top. The top 26 percent of the frame is open sky, kept clear for a headline.
+```
+
+### London v2 result (26 Oct 2026)
+
+Output: https://d8j0ntlcm91z4.cloudfront.net/user_3F9g5MvyxWEcBzuFjPmI97hrMM7/hf_20261026_141735_62ae0671-dfd7-4e93-9db9-be264bfe1c59.png
+Full size: `plates/london-v2-golden-hour-2048.png`. Preview: `london-v2-golden-hour-preview.jpg`. Cost 2 credits.
+
+What worked
+- Hits the shared traits: golden-hour warm and cool light, an indigo-to-pink sky, fine grain, soft brushed clouds, flat simplified shapes.
+- Framing as in the references: a plane tree from the left, a warm-lit brick building at the right edge, a stone railing along the bottom.
+- Tower Bridge is right: two towers, turrets, the walkway, the bascule deck, red-lit chains, the shore tower at the left. The Shard and the old City Hall "egg" sit where they really are.
+- Palette holds: violet, Twilight and Celestial Bloom in shade, gold and Prometheus Red on lit edges, Teal Meridian only in the tree.
+- No text anywhere, checked at full size. No people.
+
+What to watch
+- The view is three-quarter, not straight-on. Closer to YHA and Melbourne, and it reads better.
+- One high walkway band. The real bridge has two side by side, which look like one from here.
+- Tower tops at 30% from the top, the Shard at 29%. The top quarter is clear sky with two clouds, so the city name fits.
+- The 2K plate is raster. For Illustrator and animation, split it into sky, skyline, bridge, foreground frame (tree, building, railing) and water by hand or with Image Trace. AI layer extraction failed on the earlier plate.
