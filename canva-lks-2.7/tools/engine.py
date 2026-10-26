@@ -242,7 +242,7 @@ def build_page(roles,spec,deletes_extra=(),fs=12):
     for r in rows:
         if len(r)==2: rowh.append(max(cell_h(r[0],"L"),cell_h(r[1],"R")))
         else: rowh.append(cell_h(r[0],"F"))
-    gap=30; top0=201.22
+    gap=30; top0=spec.get("top0",201.22)
     total=sum(rowh)+gap*(len(rows)-1)
     avail=bottom-top0
     info=dict(total=round(total),avail=round(avail),rowh=[round(h) for h in rowh],fs=fs)
