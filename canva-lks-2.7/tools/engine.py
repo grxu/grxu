@@ -327,6 +327,10 @@ def build_page(roles,spec,deletes_extra=(),fs=12):
         pg.force_front=True
         render(pg,refl["items"],st+12,245.3,245.3+rW)
         pg.force_front=False
+    else:
+        for e in roles.get("refl",{}).get("els",[]):
+            if e["type"]=="text": pg.pool.append(e["loc"])
+            else: dels.append(e["loc"])
     ops=pg.finish(dels)
     info.update(texts_used=len(pg.used),added=pg.added,pool_left=len(pg.pool),ops=len(ops),notes=pg.notes)
     return ops,info

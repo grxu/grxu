@@ -21,7 +21,7 @@ def analyze(pg):
         else: els.append(dict(e,_loc=pg["id"]+"-"+e["id"]))
     R={"pid":pg["id"],"boxes":[],"header":{},"refl":{},"pool":[],"dele":[],"spares":[]}
     used=set()
-    st=[e for e in els if e["type"]=="shape" and fill(e)=="#d9f0fb" and e["width"]>600 and 900<e["top"]<1060]
+    st=[e for e in els if e["type"]=="shape" and fill(e)=="#d9f0fb" and e["width"]>600 and 820<e["top"]<1060]
     RT=min([e["top"] for e in st]+[984])-3
     content=[e for e in els if 170<e["top"]<RT]
     boxes=[e for e in content if e["type"]=="shape" and strk(e)=="#aae0fa" and e["height"]>80 and e["width"]>250 and fill(e) is None]
