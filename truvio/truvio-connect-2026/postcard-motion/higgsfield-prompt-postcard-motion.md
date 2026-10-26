@@ -134,3 +134,24 @@ What to watch
 - The tree canopy is heavier than in YHA. It covers about three quarters of the width in the top 15%. The clear sky for type sits from about 15% to 34% down, centred or right of centre. Trim branches in Photoshop if the headline needs the full top band.
 - The tower tops sit at 43% and the Shard at 44%. Both are below the headline zone.
 - The steel blue (about #6FA8DC) and the brick are off-palette by Grady's choice. The sky stays brand indigo.
+
+## London v4: St Paul's style reference, new composition (26 Oct 2026)
+
+Grady's calls: attach his St Paul's illustration as a style reference for the polished painting look; keep the agreed colours (true landmarks, soft golden hour, indigo-to-pink sky); new composition; still no people.
+- Reference uploaded to Higgsfield (media c9b2fdf2-3951-4b81-9776-9dc94946d203). Not stored in the repo, since it's a third-party artwork.
+- The prompt is the v3 prompt with this opening: "Use the reference image for its painting style only: bold flat colour planes, crisp simplified shapes, confident gouache-like dry-brush strokes, fine speckled grain, sharp graphic shapes of light and shadow, polished editorial illustration. Do not copy its building, its people, its rooftop terrace, its plants, its layout or its blue daylight colours. Paint a new scene." The framing line is loosened to "a few framing elements at the edges, kept light", and "no figures" is added.
+
+Result: https://d8j0ntlcm91z4.cloudfront.net/user_3F9g5MvyxWEcBzuFjPmI97hrMM7/hf_20261026_152852_b96a689e-38f9-4d0a-aee3-41fd1d63d311.png
+File: `plates/london-v4-4x5-styleref-1856x2304.png`. Preview: `london-v4-4x5-preview.jpg`. Cost 2 credits.
+
+What worked
+- More polished than v3: flatter colour planes, crisper edges, dry-brush grain on the piers and leaves, closer to the reference's finish.
+- Nothing copied from the reference: no dome, no terrace, no people, no blue daylight.
+- Agreed colours hold: stone towers, slate roofs, gold finials, light blue and white steel, the Shard, the City Hall dome, an indigo sky through lavender to a pink horizon (#15207A at the top).
+- Lighter framing: only a few leafy branches in the top left corner and a stone railing at the bottom right. More open sky than v3.
+- No text, checked at full size.
+
+What to watch
+- The bridge sits bigger and closer. The right tower's finial reaches 28% from the top, inside the planned 34% headline zone. Clear sky runs from 0 to about 27%, the same depth as the YHA headline. Keep the headline to two lines.
+- A dark brush smudge on the right pier's water face. Paint it out.
+- The brushwork is softer than the reference's bold strokes. For more texture, add "visible broad brush strokes in the sky and water".
