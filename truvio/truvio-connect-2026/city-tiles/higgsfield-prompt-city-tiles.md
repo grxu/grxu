@@ -79,7 +79,7 @@ Same as London, with "the crowns on the City Hall tower" in place of "the tip of
 ## Test 1: London 1:1 (26 Oct 2026)
 
 Output: https://d8j0ntlcm91z4.cloudfront.net/user_3F9g5MvyxWEcBzuFjPmI97hrMM7/hf_20261026_133028_990ce639-ff21-4c48-9937-0319031d327a.png
-Preview: `test1-london-1x1-preview.jpg`. Cost 2 credits.
+Preview: `contact-sheet-city-tiles-1x1.jpg`. Cost 2 credits.
 
 What worked
 - All five landmarks are right and sit where they really are. Tower Bridge has two towers, two walkways and blue chains. The White Tower, Gherkin, Walkie-Talkie and Shard all read at a glance.
@@ -98,6 +98,29 @@ Changes to try in v2 (not yet run)
 - Base: "The tile is a thick, clean, pale stone-grey plinth with smooth sides, like a museum model base. No soil, no cutaway layers." Grady can tint the plinth to a brand colour later.
 - Flags: add "no flagpoles" to the exclusions.
 - Attendees: drop them, or keep them knowing they only show at full size.
+
+Grady's calls: keep this London render and shrink the tile in Photoshop. Use the clean plinth for the other cities. Keep the attendees.
+
+## Test 2: Copenhagen, Eindhoven, Stockholm 1:1 (26 Oct 2026)
+
+Each city prompt got four changes from London:
+- The plinth sentence: "The tile is a thick, clean, pale stone-grey plinth with smooth sides, like a museum model base. No soil, no earth, no cutaway layers. The water is cut cleanly at the plinth edge."
+- "no flagpoles" added to the exclusions.
+- The 74 percent layout lines.
+- London as a style reference, with the opening line "Use the reference image for style, camera angle, lighting and finish only. Do not copy its buildings, river or bridge. Build a different city."
+
+Cost 6 credits. Balance after: 1,167.
+
+| City | Output | Keep | What worked | Open issue |
+|---|---|---|---|---|
+| Copenhagen | [link](https://d8j0ntlcm91z4.cloudfront.net/user_3F9g5MvyxWEcBzuFjPmI97hrMM7/hf_20261026_133743_1b9d7e1e-b178-445a-ac97-d606e552003e.png) | Yes | Marble Church dome over Amalienborg's square and statue, the coloured Nyhavn row with sailing ships, the Playhouse on its boardwalk and the Opera House roof. Clean plinth | The dome, not Nyhavn, reads as the hero. Nyhavn is a wide basin, not a narrow canal. Small gold gibberish signs on two Nyhavn facades. Shadow falls up and to the left, not down and right. Dome top at 20% from the top |
+| Eindhoven | [link](https://d8j0ntlcm91z4.cloudfront.net/user_3F9g5MvyxWEcBzuFjPmI97hrMM7/hf_20261026_133745_39ba890a-3df7-42e0-98d0-d0afa46c30f3.png) | Yes | The best surprise. Evoluon at the front on V columns with reflecting pools, Catharinakerk twin spires, Witte Dame, Lichttoren and the Blob all recognisable. Red Dutch bike paths. Attendees clearly walk toward the Evoluon | Background darker grey (#BEB9B6) than the others (#D4CFCC). Spires at 17% from the top |
+| Stockholm | [link](https://d8j0ntlcm91z4.cloudfront.net/user_3F9g5MvyxWEcBzuFjPmI97hrMM7/hf_20261026_133743_1f33ef30-e986-4301-b5bd-c9cd0a2920dd.png) | Yes | City Hall at the front with its courtyard, arcade and three gold crowns. Riddarholmen's lattice spire, the Gamla Stan row and the Royal Palace all right | Riddarholmen's spire is taller than the City Hall tower, so the hero reads second. Spire at 14% from the top |
+
+Across all three
+- No city copied London. The plinth change worked everywhere.
+- The model ignored the 74 percent width again. Every tile spans about 90 percent and the tallest building lands 14 to 20 percent from the top. Layout percentages don't hold for this format, so the headline space comes from shrinking the tile in Photoshop. The flat backgrounds make that a clean job.
+- No flags this time. No city names, dates or weather.
 
 ## Brand check before you comp
 - Replace the grey background with the brand background. Keep the tile shadow on a Multiply layer.
