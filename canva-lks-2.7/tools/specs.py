@@ -170,6 +170,6 @@ SPECS[9]=dict(rows=[(1,2),(3,4),(5,7),(6,)],secs=[
       items=[("COLS",[[("T","Gunung yang Megah",{"after":3}),
                         ("T","Gunung tinggi menjulang\nUdara sejuk terasa\nPohon-pohon hijau rimbun",{"after":5}),
                         ("T","Awan putih di puncaknya\nBurung terbang bebas\nAlam yang indah\nMengajak kita menjaganya",{"after":0})],
-                       [("FILL",[("1. Puisi ini memiliki","bait."),("2. Bait pertama terdiri atas",""),("","baris."),("3. Bait kedua terdiri atas",""),("","baris.")],{"lh":1.6,"minblank":30})]],{"frac":[0.45,0.55],"gap":10})]),
+                       [("FILL",[("1. Puisi ini memiliki","bait."),("2. Bait pertama terdiri atas","baris."),("3. Bait kedua terdiri atas","baris.")],{"lh":1.6,"minblank":30})]],{"frac":[0.45,0.55],"gap":10})]),
 ],refl=dict(instr="Lengkapi kalimat berikut.",items=[("COLS",[[("FILL",[("Baris adalah","dalam puisi."),("Bait adalah","dalam puisi.")],{"lh":1.3,"minblank":40,"after":0})],
                                                               [("T","Saat membaca puisi, saya sudah bisa ....",{"after":1}),("OPTS",["membaca dengan lancar.","mengucapkan kata dengan jelas.","menyampaikan puisi dengan ekspresi."],{"lh":1.1,"after":0})]],{"frac":[0.47,0.53],"gap":8})]))

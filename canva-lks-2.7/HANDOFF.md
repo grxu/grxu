@@ -23,8 +23,8 @@ Fill the Canva design with the text from `source/LKS_Literasi_2.7_-_Teks.md` and
 - Use AskUserQuestion for flags and questions.
 
 ## Status
-- **Saved:** pages 1–5.
-- **Next:** pages 6–9, then 10–13, then 14–17.
+- **Saved:** pages 1–9 (6–9 at fs 11). Known small blemishes: page 8 section 1 title touches its pill edge; page 9 section 7 answer lines are slightly uneven.
+- **Next:** pages 10–13, then 14–17.
   - Text for 6–9 is in the .md. Pertemuan 6 is at line ~353, 7 at ~437, 8 at ~515, 9 at ~595.
   - **SPECS[6]–[9] are written** (`tools/specs.py`) and fit at fs 11 (`python3 fit.py 6 7 8 9` checks the fit offline without Canva). They have not been built in Canva yet, because the Canva connector exposed no tools in the session that wrote them.
   - Page 8's REFLEKSI content needs about 100 px, but its locked strip is 79 px. Ask the owner to unlock it, or try fix (b).
