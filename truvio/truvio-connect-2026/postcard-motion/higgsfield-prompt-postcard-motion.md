@@ -155,3 +155,11 @@ What to watch
 - The bridge sits bigger and closer. The right tower's finial reaches 28% from the top, inside the planned 34% headline zone. Clear sky runs from 0 to about 27%, the same depth as the YHA headline. Keep the headline to two lines.
 - A dark brush smudge on the right pier's water face. Paint it out.
 - The brushwork is softer than the reference's bold strokes. For more texture, add "visible broad brush strokes in the sky and water".
+
+## Copenhagen, Eindhoven, Stockholm in the v4 style (27 Oct 2026)
+
+Same style reference and v4 prompt structure, one image each, 6 credits. Sheet: `contact-sheet-v4-four-cities.jpg`.
+- Copenhagen: https://d8j0ntlcm91z4.cloudfront.net/user_3F9g5MvyxWEcBzuFjPmI97hrMM7/hf_20261027_121541_54d319dd-ce10-4ba2-a1de-f45b90487df1.png. Nyhavn row in true colours, sailing ships, cobbled quay and bollard. The mast tips reach about 34% down, so the headline space is clear.
+- Eindhoven: https://d8j0ntlcm91z4.cloudfront.net/user_3F9g5MvyxWEcBzuFjPmI97hrMM7/hf_20261027_121541_7e7f3bd7-d1a1-4c5b-829e-f54b28415a14.png. The Evoluon on V columns with a mirror reflection in the pool. The dome sits at about 38%, so the headline space is clear. The dome reads more cream than concrete grey.
+- Stockholm: https://d8j0ntlcm91z4.cloudfront.net/user_3F9g5MvyxWEcBzuFjPmI97hrMM7/hf_20261027_121541_18320458-b587-4afd-a4a7-860eb4ca9f91.png. Brick tower, copper lantern, three gold crowns. The crowns reach about 17% from the top, into the headline zone. Set the headline to the left of the tower, or shrink the scene.
+- No people or text in any of them at preview size. Check full size before comping.
